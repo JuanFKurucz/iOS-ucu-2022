@@ -9,14 +9,11 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         collectionView.delegate = self;
         collectionView.dataSource = self;
-        
         collectionView.register(UINib(nibName: CollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.identifier)
     }
 
@@ -31,9 +28,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as! CollectionViewCell;
-        
-//        cell.delegate = self;
-        
         cell.backgroundColor=UIColor(
             red:   CGFloat(Float.random(in: 0..<1)),
             green: CGFloat(Float.random(in: 0..<1)),
