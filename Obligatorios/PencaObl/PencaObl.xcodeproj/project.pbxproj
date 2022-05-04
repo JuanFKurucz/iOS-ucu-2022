@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56740E9F28232B89000FD76D /* NumberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56740E9D28232B89000FD76D /* NumberTableViewCell.swift */; };
+		56740EA028232B89000FD76D /* NumberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56740E9E28232B89000FD76D /* NumberTableViewCell.xib */; };
 		5682F177281B575A00ACD35B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5682F176281B575A00ACD35B /* NavigationController.swift */; };
 		5682F179281B598100ACD35B /* navbar-mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5682F178281B598100ACD35B /* navbar-mobile.png */; };
 		5682F17E281B5D3500ACD35B /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5682F17D281B5D3500ACD35B /* Team.swift */; };
 		5682F180281B5E3600ACD35B /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5682F17F281B5E3600ACD35B /* Match.swift */; };
-		5682F185281B67A500ACD35B /* MatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5682F183281B67A500ACD35B /* MatchTableViewCell.swift */; };
-		5682F186281B67A500ACD35B /* MatchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5682F184281B67A500ACD35B /* MatchTableViewCell.xib */; };
 		568FD241281A252100DE3E55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FD240281A252100DE3E55 /* AppDelegate.swift */; };
 		568FD243281A252100DE3E55 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FD242281A252100DE3E55 /* SceneDelegate.swift */; };
 		568FD245281A252100DE3E55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FD244281A252100DE3E55 /* ViewController.swift */; };
@@ -22,12 +22,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		56740E9D28232B89000FD76D /* NumberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumberTableViewCell.swift; path = "../../../Ejercicios en clase/TableExcerise/TableExcerise/NumberTableViewCell.swift"; sourceTree = "<group>"; };
+		56740E9E28232B89000FD76D /* NumberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NumberTableViewCell.xib; path = "../../../Ejercicios en clase/TableExcerise/TableExcerise/NumberTableViewCell.xib"; sourceTree = "<group>"; };
 		5682F176281B575A00ACD35B /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		5682F178281B598100ACD35B /* navbar-mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-mobile.png"; sourceTree = "<group>"; };
 		5682F17D281B5D3500ACD35B /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		5682F17F281B5E3600ACD35B /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
-		5682F183281B67A500ACD35B /* MatchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTableViewCell.swift; sourceTree = "<group>"; };
-		5682F184281B67A500ACD35B /* MatchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatchTableViewCell.xib; sourceTree = "<group>"; };
 		568FD23D281A252100DE3E55 /* PencaObl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PencaObl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		568FD240281A252100DE3E55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		568FD242281A252100DE3E55 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,8 +90,8 @@
 				568FD242281A252100DE3E55 /* SceneDelegate.swift */,
 				568FD244281A252100DE3E55 /* ViewController.swift */,
 				568FD246281A252100DE3E55 /* Main.storyboard */,
-				5682F183281B67A500ACD35B /* MatchTableViewCell.swift */,
-				5682F184281B67A500ACD35B /* MatchTableViewCell.xib */,
+				56740E9D28232B89000FD76D /* NumberTableViewCell.swift */,
+				56740E9E28232B89000FD76D /* NumberTableViewCell.xib */,
 				5682F176281B575A00ACD35B /* NavigationController.swift */,
 				5682F178281B598100ACD35B /* navbar-mobile.png */,
 				568FD249281A252300DE3E55 /* Assets.xcassets */,
@@ -159,11 +159,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5682F186281B67A500ACD35B /* MatchTableViewCell.xib in Resources */,
 				568FD24D281A252300DE3E55 /* LaunchScreen.storyboard in Resources */,
 				568FD24A281A252300DE3E55 /* Assets.xcassets in Resources */,
 				568FD248281A252100DE3E55 /* Main.storyboard in Resources */,
 				5682F179281B598100ACD35B /* navbar-mobile.png in Resources */,
+				56740EA028232B89000FD76D /* NumberTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,13 +174,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5682F185281B67A500ACD35B /* MatchTableViewCell.swift in Sources */,
 				568FD245281A252100DE3E55 /* ViewController.swift in Sources */,
 				5682F17E281B5D3500ACD35B /* Team.swift in Sources */,
 				568FD241281A252100DE3E55 /* AppDelegate.swift in Sources */,
 				5682F177281B575A00ACD35B /* NavigationController.swift in Sources */,
 				568FD243281A252100DE3E55 /* SceneDelegate.swift in Sources */,
 				5682F180281B5E3600ACD35B /* Match.swift in Sources */,
+				56740E9F28232B89000FD76D /* NumberTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
