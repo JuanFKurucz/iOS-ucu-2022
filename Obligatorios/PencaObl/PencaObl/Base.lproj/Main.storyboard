@@ -33,10 +33,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NJE-gi-igp">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NJE-gi-igp">
                                 <rect key="frame" x="42" y="70" width="330" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="UYZ-KE-uk3"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dUC-Ef-u8k">
                                     <size key="itemSize" width="171" height="95"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -55,44 +57,50 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Partidos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZkD-WB-5dP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Partidos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZkD-WB-5dP">
                                 <rect key="frame" x="42" y="230" width="63" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="opaqueSeparatorColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="h4X-6L-Ueq">
-                                <rect key="frame" x="20" y="311" width="374" height="567"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BEv-Ql-jX9">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="l0h-7w-qOT">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YkH-Aj-3EU">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eBa-lC-y2T">
-                                <rect key="frame" x="20" y="251" width="305" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="eBa-lC-y2T">
+                                <rect key="frame" x="10" y="251" width="394" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="cYT-c1-M5s"/>
+                                </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="i3W-ih-ZIc">
+                                <rect key="frame" x="10" y="310" width="394" height="547"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.12941176469999999" green="0.12549019610000001" blue="0.27058823529999998" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="eBa-lC-y2T" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.951691" id="06Y-Bf-9V5"/>
+                            <constraint firstItem="i3W-ih-ZIc" firstAttribute="leading" secondItem="eBa-lC-y2T" secondAttribute="leading" id="9Uc-5m-2mb"/>
+                            <constraint firstItem="i3W-ih-ZIc" firstAttribute="top" secondItem="eBa-lC-y2T" secondAttribute="bottom" constant="15" id="FSN-x8-WHw"/>
+                            <constraint firstItem="NJE-gi-igp" firstAttribute="centerX" secondItem="i3W-ih-ZIc" secondAttribute="centerX" id="ZDJ-cG-zwG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZkD-WB-5dP" secondAttribute="trailing" symbolic="YES" id="ayg-xw-KDy"/>
+                            <constraint firstItem="ZkD-WB-5dP" firstAttribute="top" secondItem="NJE-gi-igp" secondAttribute="bottom" constant="32" id="dFO-Kc-cbm"/>
+                            <constraint firstItem="i3W-ih-ZIc" firstAttribute="width" secondItem="eBa-lC-y2T" secondAttribute="width" id="fFJ-ce-aL1"/>
+                            <constraint firstItem="i3W-ih-ZIc" firstAttribute="trailing" secondItem="eBa-lC-y2T" secondAttribute="trailing" id="fJC-NZ-GBk"/>
+                            <constraint firstItem="NJE-gi-igp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jgv-nH-TNx"/>
+                            <constraint firstItem="NJE-gi-igp" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-18" id="k5n-ym-P05"/>
+                            <constraint firstItem="eBa-lC-y2T" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.0568475" id="ltf-mR-feW"/>
+                            <constraint firstItem="eBa-lC-y2T" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="n0s-gN-CDw"/>
+                            <constraint firstItem="i3W-ih-ZIc" firstAttribute="centerX" secondItem="eBa-lC-y2T" secondAttribute="centerX" id="qJF-qB-55s"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eBa-lC-y2T" secondAttribute="trailing" constant="10" id="sPP-Z0-4Nl"/>
+                            <constraint firstItem="NJE-gi-igp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="42" id="tP5-7F-nck"/>
+                            <constraint firstItem="NJE-gi-igp" firstAttribute="leading" secondItem="ZkD-WB-5dP" secondAttribute="leading" id="wKg-Fm-Kxn"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LmX-ZH-wmT"/>
+                    <connections>
+                        <outlet property="tableView" destination="i3W-ih-ZIc" id="jQf-s1-X9N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -7,18 +7,29 @@
 
 import Foundation
 
+struct Score: Equatable {
+    var leftScore = 0
+    var rightScore = 0
+}
+
+enum MatchStatus {
+  case Pendiente, Acertado, Errado
+}
+
 class Match {
     private let teamLeft: Team
     private let teamRight: Team
     private var matchPlayed: Bool
-    private var guessWinTeam: Team?
+    private var score: Score?
+    private var guess: Score?
     private var date: Date
     
-    init(teamLeft: Team, teamRight: Team, date: Date, matchPlayed: Bool = false, guessWinTeam: Team? = nil){
+    init(teamLeft: Team, teamRight: Team, date: Date, matchPlayed: Bool = false, score: Score? = nil, guess: Score? = nil){
         self.teamLeft = teamLeft
         self.teamRight = teamRight
         self.matchPlayed = matchPlayed
-        self.guessWinTeam = guessWinTeam
+        self.score = score
+        self.guess = guess
         self.date = date
     }
     
@@ -34,19 +45,31 @@ class Match {
         return self.matchPlayed
     }
     
-    public func getGuessWinTeam() -> Team? {
-        return self.guessWinTeam
+    public func getMatchStatus() -> MatchStatus {
+        if (self.getMatchPlayed()){
+            if(self.getScore() == self.getGuess()){
+                return MatchStatus.Acertado
+            }
+            return MatchStatus.Errado
+        }
+        return MatchStatus.Pendiente
+    }
+    
+    public func getScore() -> Score? {
+        return self.score
+    }
+    
+    public func getGuess() -> Score? {
+        return self.guess
     }
     
     public func getDate() -> Date {
         return self.date
     }
     
-    public func changeGuess(guessedTeam: Team){
+    public func changeGuess(guessScore: Score){
         if self.matchPlayed == false {
-            if [self.teamLeft, self.teamRight].contains(guessedTeam) {
-                self.guessWinTeam = guessedTeam
-            }
+            self.guess = guessScore
         }
     }
     
