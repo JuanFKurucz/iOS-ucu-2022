@@ -11,7 +11,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    
     var matchesList: [[Match]] = [];
     var dates: [Date] = [];
     
@@ -21,17 +20,17 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        var matches: [Match] = Database.loadData(jsonPath: "data")
-        matches = matches.sorted(by: {$0.getDate() > $1.getDate()})
+        Database.loadData(jsonPath: "data")
+        let matches = Database.matches
         
         var currentDate: Date? = nil
+        
         for match in matches {
             if(currentDate == nil || currentDate! != match.getDate()){
                 self.matchesList.append([])
                 currentDate = match.getDate()
                 self.dates.append(match.getDate())
             }
-            
             self.matchesList[self.matchesList.endIndex-1].append(match)
         }
         
