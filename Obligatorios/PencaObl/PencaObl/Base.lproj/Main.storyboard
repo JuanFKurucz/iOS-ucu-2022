@@ -64,7 +64,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="eBa-lC-y2T">
-                                <rect key="frame" x="10" y="251" width="394" height="44"/>
+                                <rect key="frame" x="10" y="244" width="394" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="cYT-c1-M5s"/>
                                 </constraints>
