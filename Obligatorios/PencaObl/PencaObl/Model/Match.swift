@@ -47,6 +47,10 @@ class Match {
     
     public func getMatchStatus() -> MatchStatus {
         if (self.getMatchPlayed()){
+            if(self.getGuess()==nil){
+                return MatchStatus.JugadoSinResultado
+            }
+            
             if(self.getScore() == self.getGuess()){
                 return MatchStatus.Acertado
             }
