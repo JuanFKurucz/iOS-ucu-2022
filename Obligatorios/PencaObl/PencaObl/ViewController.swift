@@ -12,7 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     
-    var matches: [Match] = [];
+    var matchesList: [[Match]] = [];
+    var dates: [Date] = [];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,27 +27,48 @@ class ViewController: UIViewController {
         let teamDanubio : Team = Team(name: "Danubio", image: "danubio.png")
         
         
-        matches.append(Match(teamLeft: teamNacional, teamRight: teamPeñarol, date: Date()))
-        matches.append(Match(teamLeft: teamNacional, teamRight: teamDanubio, date: Date(), guess:Score(leftScore: 1, rightScore: 3)))
-        matches.append(Match(teamLeft: teamNacional, teamRight: teamDefensor, date: Date(), matchPlayed: true, score: Score(leftScore: 0, rightScore: 0)))
-        matches.append(Match(teamLeft: teamDanubio, teamRight: teamDefensor, date: Date(), matchPlayed: true, score: Score(leftScore: 2, rightScore: 2), guess: Score(leftScore: 1, rightScore: 1)))
-        matches.append(Match(teamLeft: teamDanubio, teamRight: teamPeñarol, date: Date(), matchPlayed: true, score: Score(leftScore: 3, rightScore: 1), guess: Score(leftScore: 3, rightScore: 1)))
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        var matches : [Match] = [];
+        
+        matches.append(Match(teamLeft: teamDanubio, teamRight: teamPeñarol, date: dateFormatterGet.date(from: "2022-05-03 00:00:00")!, matchPlayed: true, score: Score(leftScore: 3, rightScore: 1), guess: Score(leftScore: 3, rightScore: 1)))
+        matches.append(Match(teamLeft: teamNacional, teamRight: teamPeñarol, date: dateFormatterGet.date(from: "2022-05-05 00:00:00")!))
+        matches.append(Match(teamLeft: teamNacional, teamRight: teamDanubio, date: dateFormatterGet.date(from: "2022-05-05 00:00:00")!, guess:Score(leftScore: 1, rightScore: 3)))
+        matches.append(Match(teamLeft: teamNacional, teamRight: teamDefensor, date: dateFormatterGet.date(from: "2022-05-04 00:00:00")!, matchPlayed: true, score: Score(leftScore: 0, rightScore: 0)))
+        matches.append(Match(teamLeft: teamDanubio, teamRight: teamDefensor, date: dateFormatterGet.date(from: "2022-05-04 00:00:00")!, matchPlayed: true, score: Score(leftScore: 2, rightScore: 2), guess: Score(leftScore: 1, rightScore: 1)))
+        
+        
+        
+        matches = matches.sorted(by: {$0.getDate() > $1.getDate()})
+        var currentDate: Date? = nil
+        for match in matches {
+            if(currentDate == nil || currentDate! != match.getDate()){
+                self.matchesList.append([])
+                currentDate = match.getDate()
+                self.dates.append(match.getDate())
+            }
+            
+            self.matchesList[self.matchesList.endIndex-1].append(match)
+        }
         
         tableView.register(UINib(nibName: MatchTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: MatchTableViewCell.identifier)
     }
-
-
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.matchesList.count
+    }
 }
-
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.matches.count
+        self.matchesList[section].count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MatchTableViewCell.identifier) as! MatchTableViewCell
-        let match = self.matches[indexPath.row]
+        let match = self.matchesList[indexPath.section][indexPath.row]
         cell.delegate = self
         cell.indexPath = indexPath
         cell.matchStatusLabel.text = "\(match.getMatchStatus())"
@@ -84,7 +106,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Viernes 26/4"
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "EEEE dd/MM"
+        return "\(dateFormatterGet.string(from:self.dates[section]))"
     }
 }
 
@@ -92,7 +116,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 extension ViewController: MatchTableViewCellDelegate {
     
     func didTapSaveButton(index: IndexPath?, scoreLeft: Int, scoreRight: Int) {
-        let match = self.matches[index!.row]
+        let match = self.matchesList[index!.section][index!.row]
         match.changeGuess(guessScore: Score(leftScore: scoreLeft, rightScore: scoreRight))
         self.view.endEditing(true)
     }
