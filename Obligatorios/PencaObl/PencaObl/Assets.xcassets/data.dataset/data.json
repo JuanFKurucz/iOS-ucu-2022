@@ -1,0 +1,79 @@
+{
+    "teams": [
+        {
+            "name": "Nacional",
+            "image": "nacional.png"
+        },
+        {
+            "name": "Peñarol",
+            "image": "peñarol.png"
+        },
+        {
+            "name": "Defensor",
+            "image": "defensor.png"
+        },
+        {
+            "name": "Danubio",
+            "image": "danubio.png"
+        }
+    ],
+    "matches": [
+        {
+            "teamLeft": "Danubio",
+            "teamRight": "Peñarol",
+            "date": "2022-05-03 00:00:00",
+            "matchPlayed": true,
+            "score": {
+                "leftScore": 3,
+                "rightScore": 1
+            },
+            "guess": {
+                "leftGuess": 3,
+                "rightGuess": 1
+            }
+        },
+        {
+            "teamLeft": "Nacional",
+            "teamRight": "Peñarol",
+            "date": "2022-05-05 00:00:00",
+            "matchPlayed": false,
+            "score": null,
+            "guess": null
+        },
+        {
+            "teamLeft": "Nacional",
+            "teamRight": "Danubio",
+            "date": "2022-05-05 00:00:00",
+            "matchPlayed": false,
+            "score": null,
+            "guess": {
+                "leftGuess": 1,
+                "rightGuess": 3
+            }
+        },
+        {
+            "teamLeft": "Nacional",
+            "teamRight": "Defensor",
+            "date": "2022-05-04 00:00:00",
+            "matchPlayed": true,
+            "score": {
+                "leftScore": 0,
+                "rightScore": 0
+            }
+        },
+        {
+            "teamLeft": "Danubio",
+            "teamRight": "Defensor",
+            "date": "2022-05-04 00:00:00",
+            "matchPlayed": true,
+            "score": {
+                "leftScore": 2,
+                "rightScore": 2
+            },
+            "guess": {
+                "leftGuess": 1,
+                "rightGuess": 1
+            }
+        }
+    ]
+}
