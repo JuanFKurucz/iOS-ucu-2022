@@ -2,25 +2,25 @@
     "teams": [
         {
             "name": "Nacional",
-            "image": "nacional.png"
+            "image": "nacional"
         },
         {
-            "name": "Peñarol",
-            "image": "peñarol.png"
+            "name": "Maldonado",
+            "image": "maldonado"
         },
         {
-            "name": "Defensor",
-            "image": "defensor.png"
+            "name": "Fenix",
+            "image": "fenix"
         },
         {
-            "name": "Danubio",
-            "image": "danubio.png"
+            "name": "Boston river",
+            "image": "bostonriver"
         }
     ],
     "matches": [
         {
-            "teamLeft": "Danubio",
-            "teamRight": "Peñarol",
+            "teamLeft": "Boston river",
+            "teamRight": "Maldonado",
             "date": "2022-05-03 00:00:00",
             "matchPlayed": true,
             "score": {
@@ -34,7 +34,7 @@
         },
         {
             "teamLeft": "Nacional",
-            "teamRight": "Peñarol",
+            "teamRight": "Maldonado",
             "date": "2022-05-05 00:00:00",
             "matchPlayed": false,
             "score": {
@@ -48,7 +48,7 @@
         },
         {
             "teamLeft": "Nacional",
-            "teamRight": "Danubio",
+            "teamRight": "Boston river",
             "date": "2022-05-05 00:00:00",
             "matchPlayed": false,
             "score": {
@@ -62,7 +62,7 @@
         },
         {
             "teamLeft": "Nacional",
-            "teamRight": "Defensor",
+            "teamRight": "Fenix",
             "date": "2022-05-04 00:00:00",
             "matchPlayed": true,
             "score": {
@@ -75,8 +75,8 @@
             }
         },
         {
-            "teamLeft": "Danubio",
-            "teamRight": "Defensor",
+            "teamLeft": "Boston river",
+            "teamRight": "Fenix",
             "date": "2022-05-04 00:00:00",
             "matchPlayed": true,
             "score": {
