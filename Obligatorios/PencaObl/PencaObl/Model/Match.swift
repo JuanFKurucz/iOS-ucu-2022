@@ -13,7 +13,7 @@ struct Score: Equatable {
 }
 
 enum MatchStatus {
-  case Pendiente, Acertado, Errado
+  case Pendiente, Acertado, Errado, JugadoSinResultado
 }
 
 class Match {
