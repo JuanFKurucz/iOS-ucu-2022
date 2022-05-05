@@ -13,19 +13,12 @@ class Team : Equatable {
         lhs.name == rhs.name
     }
     
-    private let name: String
-    private let image: String
+    let name: String
+    let image: String
     
     init(name: String, image: String){
         self.name = name
         self.image = image
     }
     
-    public func getName() -> String {
-        return self.name
-    }
-    
-    public func getImage() -> String {
-        return self.image
-    }
 }

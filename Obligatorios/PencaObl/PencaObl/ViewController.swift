@@ -29,10 +29,10 @@ class ViewController: UIViewController {
         var currentDate: Date? = nil
         
         for match in matches {
-            if(currentDate == nil || currentDate! != match.getDate()){
+            if(currentDate == nil || currentDate! != match.date){
                 self.matchesList.append([])
-                currentDate = match.getDate()
-                self.dates.append(match.getDate())
+                currentDate = match.date
+                self.dates.append(match.date)
             }
             self.matchesList[self.matchesList.endIndex-1].append(match)
         }
@@ -56,14 +56,14 @@ extension ViewController: UISearchBarDelegate, UISearchDisplayDelegate {
             self.filteredMatchesList = []
             for matches in self.matchesList {
                 for match in matches {
-                    if(match.getTeamLeft().getName().contains(searchText) || match.getTeamRight().getName().contains(searchText)){
-                        if(currentDate == nil || currentDate! != match.getDate()){
+                    if(match.teamLeft.name.lowercased().contains(searchText.lowercased()) || match.teamRight.name.lowercased().contains(searchText.lowercased())){
+                        if(currentDate == nil || currentDate! != match.date){
                             self.filteredMatchesList.append([])
-                            currentDate = match.getDate()
+                            currentDate = match.date
                         }
                         self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
                     }
-                }   
+                }
             }
         }
         self.tableView.reloadData()
@@ -81,14 +81,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let match = self.filteredMatchesList[indexPath.section][indexPath.row]
         cell.delegate = self
         cell.indexPath = indexPath
-        cell.matchStatusLabel.text = "\(match.getMatchStatus())"
+        cell.matchStatusLabel.text = "\(match.getMatchStatus().text)"
         
-        cell.teamLeftLabel.text = match.getTeamLeft().getName()
-        cell.teamLeftLogo.image = UIImage.init(named:match.getTeamLeft().getImage())
-        cell.teamRightLabel.text = match.getTeamRight().getName()
-        cell.teamRightLogo.image = UIImage.init(named:match.getTeamRight().getImage())
+        cell.teamLeftLabel.text = match.teamLeft.name
+        cell.teamLeftLogo.image = UIImage.init(named:match.teamLeft.image)
+        cell.teamRightLabel.text = match.teamRight.name
+        cell.teamRightLogo.image = UIImage.init(named:match.teamRight.image)
         
-        if match.getMatchStatus() == MatchStatus.Pendiente {
+        if match.getMatchStatus() == MatchStatus.pending {
             cell.detailsButton.isHidden=true
             cell.scoreLeftField.isUserInteractionEnabled=true
             cell.scoreRightField.isUserInteractionEnabled=true
@@ -99,10 +99,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         var score : Score? = nil
-        if match.getScore() != nil {
-            score = match.getScore()!
-        } else if match.getGuess() != nil {
-            score = match.getGuess()!
+        if match.score != nil {
+            score = match.score!
+        } else if match.guess != nil {
+            score = match.guess!
         }
         
         if score != nil {

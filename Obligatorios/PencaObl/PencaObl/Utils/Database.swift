@@ -22,7 +22,6 @@ struct MatchData : Decodable {
     var teamLeft: String
     var teamRight: String
     var date: String
-    var matchPlayed: Bool
     var score: ScoreData
     var guess: ScoreData
 }
@@ -52,8 +51,8 @@ class Database {
                 dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 
                 for element in jsonData.matches {
-                    let teamLeft : [Team] = Database.teams.filter({$0.getName() == element.teamLeft})
-                    let teamRight : [Team] = Database.teams.filter({$0.getName() == element.teamRight})
+                    let teamLeft : [Team] = Database.teams.filter({$0.name == element.teamLeft})
+                    let teamRight : [Team] = Database.teams.filter({$0.name == element.teamRight})
                     
                     var score: Score? = nil
                     if element.score.leftScore != -1 && element.score.rightScore != -1 {
@@ -63,9 +62,9 @@ class Database {
                     if element.guess.leftScore != -1 && element.guess.rightScore != -1 {
                         guess = Score(leftScore: element.guess.leftScore, rightScore: element.guess.rightScore)
                     }
-                    Database.matches.append(Match(teamLeft: teamLeft[teamLeft.startIndex], teamRight: teamRight[teamRight.startIndex], date: dateFormatterGet.date(from:element.date)!, matchPlayed: element.matchPlayed, score: score, guess: guess))
+                    Database.matches.append(Match(teamLeft: teamLeft[teamLeft.startIndex], teamRight: teamRight[teamRight.startIndex], date: dateFormatterGet.date(from:element.date)!, score: score, guess: guess))
                 }
-                Database.matches = Database.matches.sorted(by: {$0.getDate() > $1.getDate()})
+                Database.matches = Database.matches.sorted(by: {$0.date > $1.date})
             } catch {
                 print("error:\(error)")
             }

@@ -8,71 +8,58 @@
 import Foundation
 
 struct Score: Equatable {
-    var leftScore = 0
-    var rightScore = 0
+    var leftScore : Int = 0
+    var rightScore : Int = 0
 }
 
 enum MatchStatus {
-  case Pendiente, Acertado, Errado, JugadoSinResultado
+    case pending, correct, missed, noResult
+
+    var text : String {
+      switch self {
+      case .pending: return "Pendiente"
+      case .correct: return "Acertado"
+      case .missed: return "Errado"
+      case .noResult: return "No jugado"
+      }
+    }
 }
 
 class Match {
-    private let teamLeft: Team
-    private let teamRight: Team
-    private var matchPlayed: Bool
-    private var score: Score?
-    private var guess: Score?
-    private var date: Date
+    let teamLeft: Team
+    let teamRight: Team
+    private(set) var score: Score?
+    private(set) var guess: Score?
+    private(set) var date: Date
     
-    init(teamLeft: Team, teamRight: Team, date: Date, matchPlayed: Bool = false, score: Score? = nil, guess: Score? = nil){
+    init(teamLeft: Team, teamRight: Team, date: Date, score: Score? = nil, guess: Score? = nil){
         self.teamLeft = teamLeft
         self.teamRight = teamRight
-        self.matchPlayed = matchPlayed
         self.score = score
         self.guess = guess
         self.date = date
     }
     
-    public func getTeamLeft() -> Team {
-        return self.teamLeft
-    }
-    
-    public func getTeamRight() -> Team {
-        return self.teamRight
-    }
-    
     public func getMatchPlayed() -> Bool {
-        return self.matchPlayed
+        return self.date >= Date() || self.score != nil
     }
     
     public func getMatchStatus() -> MatchStatus {
         if (self.getMatchPlayed()){
-            if(self.getGuess()==nil){
-                return MatchStatus.JugadoSinResultado
+            if(self.guess==nil){
+                return MatchStatus.noResult
             }
             
-            if(self.getScore() == self.getGuess()){
-                return MatchStatus.Acertado
+            if(self.score == self.guess){
+                return MatchStatus.correct
             }
-            return MatchStatus.Errado
+            return MatchStatus.missed
         }
-        return MatchStatus.Pendiente
-    }
-    
-    public func getScore() -> Score? {
-        return self.score
-    }
-    
-    public func getGuess() -> Score? {
-        return self.guess
-    }
-    
-    public func getDate() -> Date {
-        return self.date
+        return MatchStatus.pending
     }
     
     public func changeGuess(guessScore: Score){
-        if self.matchPlayed == false {
+        if !self.getMatchPlayed() {
             self.guess = guessScore
         }
     }
