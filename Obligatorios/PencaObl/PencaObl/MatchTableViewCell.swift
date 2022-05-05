@@ -10,7 +10,9 @@ class MatchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var matchStatusLabel: UILabel!
     @IBOutlet weak var teamLeftLabel: UILabel!
+    @IBOutlet weak var teamLeftLogo: UIImageView!
     @IBOutlet weak var teamRightLabel: UILabel!
+    @IBOutlet weak var teamRightLogo: UIImageView!
     @IBOutlet weak var scoreLeftField: UITextField!
     @IBOutlet weak var scoreRightField: UITextField!
     @IBOutlet weak var detailsButton: UIButton!

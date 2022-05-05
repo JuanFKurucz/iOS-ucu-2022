@@ -56,7 +56,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.matchStatusLabel.text = "\(match.getMatchStatus())"
         
         cell.teamLeftLabel.text = match.getTeamLeft().getName()
+        cell.teamLeftLogo.image = UIImage.init(named:match.getTeamLeft().getImage())
         cell.teamRightLabel.text = match.getTeamRight().getName()
+        cell.teamRightLogo.image = UIImage.init(named:match.getTeamRight().getImage())
         
         if match.getMatchStatus() == MatchStatus.Pendiente {
             cell.detailsButton.isHidden=true
