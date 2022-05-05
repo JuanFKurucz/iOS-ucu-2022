@@ -33,10 +33,11 @@ struct ScoreData : Decodable{
 }
 
 class Database {
-    static public func loadData(jsonPath: String) -> [Match] {
+    static public var teams : [Team] = [];
+    static public var matches : [Match] = [];
+    
+    static public func loadData(jsonPath: String) {
         
-        var matches : [Match] = []
-        var teams : [Team] = []
         if let url = Bundle.main.url(forResource: jsonPath, withExtension: "json") {
             do {
                 let data = try Data(contentsOf: url)
@@ -44,15 +45,15 @@ class Database {
                 let jsonData = try decoder.decode(ResponseData.self, from: data)
                 
                 for element in jsonData.teams {
-                    teams.append(Team(name: element.name, image: element.image))
+                    Database.teams.append(Team(name: element.name, image: element.image))
                 }
                 
                 let dateFormatterGet = DateFormatter()
                 dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 
                 for element in jsonData.matches {
-                    let teamLeft : [Team] = teams.filter({$0.getName() == element.teamLeft})
-                    let teamRight : [Team] = teams.filter({$0.getName() == element.teamRight})
+                    let teamLeft : [Team] = Database.teams.filter({$0.getName() == element.teamLeft})
+                    let teamRight : [Team] = Database.teams.filter({$0.getName() == element.teamRight})
                     
                     var score: Score? = nil
                     if element.score.leftScore != -1 && element.score.rightScore != -1 {
@@ -62,12 +63,12 @@ class Database {
                     if element.guess.leftScore != -1 && element.guess.rightScore != -1 {
                         guess = Score(leftScore: element.guess.leftScore, rightScore: element.guess.rightScore)
                     }
-                    matches.append(Match(teamLeft: teamLeft[teamLeft.startIndex], teamRight: teamRight[teamRight.startIndex], date: dateFormatterGet.date(from:element.date)!, matchPlayed: element.matchPlayed, score: score, guess: guess))
+                    Database.matches.append(Match(teamLeft: teamLeft[teamLeft.startIndex], teamRight: teamRight[teamRight.startIndex], date: dateFormatterGet.date(from:element.date)!, matchPlayed: element.matchPlayed, score: score, guess: guess))
                 }
+                Database.matches = Database.matches.sorted(by: {$0.getDate() > $1.getDate()})
             } catch {
                 print("error:\(error)")
             }
         }
-        return matches
     }
 }
