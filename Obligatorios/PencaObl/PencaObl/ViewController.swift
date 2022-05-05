@@ -21,26 +21,9 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        let teamNacional : Team = Team(name: "Nacional", image: "nacional.png")
-        let teamPeñarol : Team = Team(name: "Peñarol", image: "peñarol.png")
-        let teamDefensor : Team = Team(name: "Defensor", image: "defensor.png")
-        let teamDanubio : Team = Team(name: "Danubio", image: "danubio.png")
-        
-        
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        var matches : [Match] = [];
-        
-        matches.append(Match(teamLeft: teamDanubio, teamRight: teamPeñarol, date: dateFormatterGet.date(from: "2022-05-03 00:00:00")!, matchPlayed: true, score: Score(leftScore: 3, rightScore: 1), guess: Score(leftScore: 3, rightScore: 1)))
-        matches.append(Match(teamLeft: teamNacional, teamRight: teamPeñarol, date: dateFormatterGet.date(from: "2022-05-05 00:00:00")!))
-        matches.append(Match(teamLeft: teamNacional, teamRight: teamDanubio, date: dateFormatterGet.date(from: "2022-05-05 00:00:00")!, guess:Score(leftScore: 1, rightScore: 3)))
-        matches.append(Match(teamLeft: teamNacional, teamRight: teamDefensor, date: dateFormatterGet.date(from: "2022-05-04 00:00:00")!, matchPlayed: true, score: Score(leftScore: 0, rightScore: 0)))
-        matches.append(Match(teamLeft: teamDanubio, teamRight: teamDefensor, date: dateFormatterGet.date(from: "2022-05-04 00:00:00")!, matchPlayed: true, score: Score(leftScore: 2, rightScore: 2), guess: Score(leftScore: 1, rightScore: 1)))
-        
-        
-        
+        var matches: [Match] = Database.loadData(jsonPath: "data")
         matches = matches.sorted(by: {$0.getDate() > $1.getDate()})
+        
         var currentDate: Date? = nil
         for match in matches {
             if(currentDate == nil || currentDate! != match.getDate()){
