@@ -10,8 +10,10 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var matchesList: [[Match]] = [];
+    var filteredMatchesList: [[Match]] = [];
     var dates: [Date] = [];
     
     override func viewDidLoad() {
@@ -19,6 +21,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
         
         Database.loadData(jsonPath: "data")
         let matches = Database.matches
@@ -34,23 +37,48 @@ class ViewController: UIViewController {
             self.matchesList[self.matchesList.endIndex-1].append(match)
         }
         
+        self.filteredMatchesList = self.matchesList
+        
         tableView.register(UINib(nibName: MatchTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: MatchTableViewCell.identifier)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.matchesList.count
+        return self.filteredMatchesList.count
+    }
+}
+
+extension ViewController: UISearchBarDelegate, UISearchDisplayDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if(searchText.count==0){
+            self.filteredMatchesList = self.matchesList
+        } else {
+            var currentDate : Date? = nil
+            self.filteredMatchesList = []
+            for matches in self.matchesList {
+                for match in matches {
+                    if(match.getTeamLeft().getName().contains(searchText) || match.getTeamRight().getName().contains(searchText)){
+                        if(currentDate == nil || currentDate! != match.getDate()){
+                            self.filteredMatchesList.append([])
+                            currentDate = match.getDate()
+                        }
+                        self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
+                    }
+                }   
+            }
+        }
+        self.tableView.reloadData()
     }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.matchesList[section].count
+        self.filteredMatchesList[section].count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MatchTableViewCell.identifier) as! MatchTableViewCell
-        let match = self.matchesList[indexPath.section][indexPath.row]
+        let match = self.filteredMatchesList[indexPath.section][indexPath.row]
         cell.delegate = self
         cell.indexPath = indexPath
         cell.matchStatusLabel.text = "\(match.getMatchStatus())"
@@ -100,7 +128,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 extension ViewController: MatchTableViewCellDelegate {
     
     func didTapSaveButton(index: IndexPath?, scoreLeft: Int, scoreRight: Int) {
-        let match = self.matchesList[index!.section][index!.row]
+        let match = self.filteredMatchesList[index!.section][index!.row]
         match.changeGuess(guessScore: Score(leftScore: scoreLeft, rightScore: scoreRight))
         self.view.endEditing(true)
     }
