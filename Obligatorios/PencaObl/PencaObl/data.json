@@ -22,7 +22,6 @@
             "teamLeft": "Boston river",
             "teamRight": "Maldonado",
             "date": "2022-05-03 00:00:00",
-            "matchPlayed": true,
             "score": {
                 "leftScore": 3,
                 "rightScore": 1
@@ -36,7 +35,6 @@
             "teamLeft": "Nacional",
             "teamRight": "Maldonado",
             "date": "2022-05-05 00:00:00",
-            "matchPlayed": false,
             "score": {
                 "leftScore": -1,
                 "rightScore": -1
@@ -50,7 +48,6 @@
             "teamLeft": "Nacional",
             "teamRight": "Boston river",
             "date": "2022-05-05 00:00:00",
-            "matchPlayed": false,
             "score": {
                 "leftScore": -1,
                 "rightScore": -1
@@ -64,7 +61,6 @@
             "teamLeft": "Nacional",
             "teamRight": "Fenix",
             "date": "2022-05-04 00:00:00",
-            "matchPlayed": true,
             "score": {
                 "leftScore": 0,
                 "rightScore": 0
@@ -78,7 +74,6 @@
             "teamLeft": "Boston river",
             "teamRight": "Fenix",
             "date": "2022-05-04 00:00:00",
-            "matchPlayed": true,
             "score": {
                 "leftScore": 2,
                 "rightScore": 2
