@@ -37,6 +37,7 @@
                                 <color key="backgroundColor" systemColor="systemCyanColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="3MO-sr-lua"/>
+                                    <constraint firstItem="Imc-rk-U9b" firstAttribute="width" secondItem="z2t-1d-rQq" secondAttribute="width" multiplier="2" id="L95-v7-N2Y"/>
                                     <constraint firstItem="Imc-rk-U9b" firstAttribute="top" secondItem="z2t-1d-rQq" secondAttribute="top" constant="5" id="ODr-zU-cF7"/>
                                     <constraint firstAttribute="bottom" secondItem="Imc-rk-U9b" secondAttribute="bottom" constant="5" id="Tcm-9L-e7q"/>
                                     <constraint firstItem="Imc-rk-U9b" firstAttribute="leading" secondItem="z2t-1d-rQq" secondAttribute="leading" constant="10" id="dFl-I4-jRb"/>
