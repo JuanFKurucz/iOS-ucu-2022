@@ -59,13 +59,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		5682F17B281B5CFA00ACD35B /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
 		5682F17C281B5D1000ACD35B /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,7 +89,6 @@
 			children = (
 				56740EA728237D7F000FD76D /* Utils */,
 				5682F17C281B5D1000ACD35B /* Model */,
-				5682F17B281B5CFA00ACD35B /* Data */,
 				568FD240281A252100DE3E55 /* AppDelegate.swift */,
 				568FD242281A252100DE3E55 /* SceneDelegate.swift */,
 				568FD244281A252100DE3E55 /* ViewController.swift */,
