@@ -11,13 +11,23 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var filterIcon: UIImageView!
     
     var matchesList: [[Match]] = [];
     var filteredMatchesList: [[Match]] = [];
     var dates: [Date] = [];
     
+    var filterTeamName : String?
+    var filterMatchStatus : MatchStatus?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // CHANGE TO BUTTON
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        filterIcon.isUserInteractionEnabled = true
+        filterIcon.addGestureRecognizer(tapGestureRecognizer)
+        
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
@@ -45,28 +55,75 @@ class ViewController: UIViewController {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.filteredMatchesList.count
     }
-}
-
-extension ViewController: UISearchBarDelegate, UISearchDisplayDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if(searchText.count==0){
-            self.filteredMatchesList = self.matchesList
-        } else {
-            var currentDate : Date? = nil
-            self.filteredMatchesList = []
-            for matches in self.matchesList {
-                for match in matches {
-                    if(match.teamLeft.name.lowercased().contains(searchText.lowercased()) || match.teamRight.name.lowercased().contains(searchText.lowercased())){
+    
+    func filterMatches(teamName:String?, matchStatus: MatchStatus?) {
+        self.filterTeamName = teamName
+        self.filterMatchStatus = matchStatus
+        
+        var currentDate : Date? = nil
+        if(self.filterTeamName == nil || self.filterTeamName!.count==0){
+            if(self.filterMatchStatus != nil ){
+                self.filteredMatchesList = []
+                for matches in self.matchesList {
+                    for match in matches {
                         if(currentDate == nil || currentDate! != match.date){
                             self.filteredMatchesList.append([])
                             currentDate = match.date
                         }
-                        self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
+                        if(match.getMatchStatus() == self.filterMatchStatus){
+                            self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
+                        }
+                    }
+                }
+            } else {
+                self.filteredMatchesList = self.matchesList
+            }
+        } else {
+            self.filteredMatchesList = []
+            for matches in self.matchesList {
+                for match in matches {
+                    if(match.teamLeft.name.lowercased().contains(self.filterTeamName!.lowercased()) || match.teamRight.name.lowercased().contains(self.filterTeamName!.lowercased())){
+                        if(currentDate == nil || currentDate! != match.date){
+                            self.filteredMatchesList.append([])
+                            currentDate = match.date
+                        }
+                        if(self.filterMatchStatus == nil || match.getMatchStatus() == self.filterMatchStatus){
+                            self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
+                        }
                     }
                 }
             }
         }
         self.tableView.reloadData()
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let alertController = UIAlertController(title: "Filtrar partidos", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Ver todos", style: .default, handler: {_ in
+            self.filterMatches(teamName: self.filterTeamName, matchStatus: nil)
+        }))
+        alertController.addAction(UIAlertAction(title: "Ver acertados", style: .default, handler: {_ in
+            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.correct)
+        }))
+        alertController.addAction(UIAlertAction(title: "Ver errados", style: .default, handler: {_ in
+            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.missed)
+        }))
+        alertController.addAction(UIAlertAction(title: "Ver pendientes", style: .destructive, handler: {_ in
+            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.pending)
+        }))
+        alertController.addAction(UIAlertAction(title: "Ver jugados s/resultado", style: .default, handler: {_ in
+            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.noResult)
+        }))
+        alertController.addAction(UIAlertAction(title: "Filtrar", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+}
+
+extension ViewController: UISearchBarDelegate, UISearchDisplayDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filterMatches(teamName: searchText, matchStatus: self.filterMatchStatus)
     }
 }
 
@@ -81,7 +138,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let match = self.filteredMatchesList[indexPath.section][indexPath.row]
         cell.delegate = self
         cell.indexPath = indexPath
-        cell.matchStatusLabel.text = "\(match.getMatchStatus().text)"
+        cell.matchStatusLabel.text = match.getMatchStatus().text
         
         cell.teamLeftLabel.text = match.teamLeft.name
         cell.teamLeftLogo.image = UIImage.init(named:match.teamLeft.image)

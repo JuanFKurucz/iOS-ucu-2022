@@ -97,6 +97,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="LmX-ZH-wmT"/>
                     <connections>
+                        <outlet property="filterIcon" destination="qga-zh-JPp" id="62Z-U0-8C3"/>
                         <outlet property="searchBar" destination="yOq-3a-rPE" id="MqJ-Wx-DLr"/>
                         <outlet property="tableView" destination="i3W-ih-ZIc" id="jQf-s1-X9N"/>
                     </connections>
