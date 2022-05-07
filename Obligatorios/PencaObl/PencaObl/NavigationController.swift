@@ -12,19 +12,15 @@ class NavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.backgroundColor = UIColor(red:22.0/255.0,green:27.0/255.0,blue:40.0/255.0, alpha:1.0)
-        let image = UIImage(named: "navbar-mobile")
-        let imageView = UIImageView(image:image)
-        
-        let bannerWidth = self.navigationBar.frame.size.width
-        let bannerHeight = self.navigationBar.frame.size.height
-        let bannerX = bannerWidth / 2 - (image?.size.width)! / 2
-        let bannerY = bannerHeight / 2 - (image?.size.height)! / 2
-        imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth, height: bannerHeight)
-        
-        self.navigationItem.titleView = imageView
         // Do any additional setup after loading the view.
+        
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let height = CGFloat(80)
+        navigationBar.frame = CGRect(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top, width: view.frame.width, height: height)
+    }
 
     /*
     // MARK: - Navigation

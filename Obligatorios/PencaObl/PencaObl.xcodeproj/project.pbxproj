@@ -23,6 +23,8 @@
 		56AC84A12824A40B00A43121 /* MatchDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AC84A02824A40B00A43121 /* MatchDetailsViewController.swift */; };
 		56EB813F28271BB2009BCC5A /* MatchLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB813D28271BB2009BCC5A /* MatchLogTableViewCell.swift */; };
 		56EB814028271BB2009BCC5A /* MatchLogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56EB813E28271BB2009BCC5A /* MatchLogTableViewCell.xib */; };
+		56EB814228272A86009BCC5A /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB814128272A86009BCC5A /* NavigationBar.swift */; };
+		56EB814428273325009BCC5A /* Visual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB814328273325009BCC5A /* Visual.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		56AC84A02824A40B00A43121 /* MatchDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailsViewController.swift; sourceTree = "<group>"; };
 		56EB813D28271BB2009BCC5A /* MatchLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchLogTableViewCell.swift; sourceTree = "<group>"; };
 		56EB813E28271BB2009BCC5A /* MatchLogTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatchLogTableViewCell.xib; sourceTree = "<group>"; };
+		56EB814128272A86009BCC5A /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		56EB814328273325009BCC5A /* Visual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Visual.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				56740EA828237D8D000FD76D /* Database.swift */,
+				56EB814328273325009BCC5A /* Visual.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -106,6 +111,7 @@
 				56740EA428236CCE000FD76D /* MatchTableViewCell.xib */,
 				56740EAA282383CC000FD76D /* data.json */,
 				5682F176281B575A00ACD35B /* NavigationController.swift */,
+				56EB814128272A86009BCC5A /* NavigationBar.swift */,
 				568FD249281A252300DE3E55 /* Assets.xcassets */,
 				568FD24B281A252300DE3E55 /* LaunchScreen.storyboard */,
 				568FD24E281A252300DE3E55 /* Info.plist */,
@@ -192,7 +198,9 @@
 				56EB813F28271BB2009BCC5A /* MatchLogTableViewCell.swift in Sources */,
 				568FD241281A252100DE3E55 /* AppDelegate.swift in Sources */,
 				56740EA528236CCE000FD76D /* MatchTableViewCell.swift in Sources */,
+				56EB814228272A86009BCC5A /* NavigationBar.swift in Sources */,
 				5682F177281B575A00ACD35B /* NavigationController.swift in Sources */,
+				56EB814428273325009BCC5A /* Visual.swift in Sources */,
 				56AC84A12824A40B00A43121 /* MatchDetailsViewController.swift in Sources */,
 				568FD243281A252100DE3E55 /* SceneDelegate.swift in Sources */,
 				56740EA928237D8D000FD76D /* Database.swift in Sources */,

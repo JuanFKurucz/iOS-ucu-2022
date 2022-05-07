@@ -50,6 +50,8 @@ class ViewController: UIViewController {
         self.filteredMatchesList = self.matchesList
         
         tableView.register(UINib(nibName: MatchTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: MatchTableViewCell.identifier)
+        
+        Visual.addNavBarImage(element:self)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
