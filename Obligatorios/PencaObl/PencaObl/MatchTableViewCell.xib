@@ -138,6 +138,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Ver detalles"/>
+                                <connections>
+                                    <action selector="onTapDetails:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DRT-M6-Eow"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>

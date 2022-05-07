@@ -2,6 +2,8 @@ import UIKit
 
 protocol MatchTableViewCellDelegate {
     func didTapSaveButton(index: IndexPath?, scoreLeft: Int, scoreRight: Int)
+    
+    func didTapDetailsButton(index: IndexPath?)
 }
 
 class MatchTableViewCell: UITableViewCell {
@@ -38,4 +40,7 @@ class MatchTableViewCell: UITableViewCell {
         saveButton.isHidden=false
     }
     
+    @IBAction func onTapDetails(_ sender: Any) {
+        self.delegate?.didTapDetailsButton(index: indexPath)
+    }
 }

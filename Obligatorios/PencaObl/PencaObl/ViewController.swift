@@ -176,13 +176,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "EEEE dd/MM"
+        dateFormatterGet.dateFormat = "EEEE d/M"
         return "\(dateFormatterGet.string(from:self.dates[section]))"
     }
 }
 
 
 extension ViewController: MatchTableViewCellDelegate {
+    func didTapDetailsButton(index: IndexPath?) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: MatchDetailsViewController.identifier) as! MatchDetailsViewController
+        nextViewController.match = self.filteredMatchesList[index!.section][index!.row]
+        show(nextViewController, sender: nil)
+    }
+    
     
     func didTapSaveButton(index: IndexPath?, scoreLeft: Int, scoreRight: Int) {
         let match = self.filteredMatchesList[index!.section][index!.row]
