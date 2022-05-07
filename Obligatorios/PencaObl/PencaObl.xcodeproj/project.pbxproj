@@ -20,6 +20,9 @@
 		568FD248281A252100DE3E55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 568FD246281A252100DE3E55 /* Main.storyboard */; };
 		568FD24A281A252300DE3E55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 568FD249281A252300DE3E55 /* Assets.xcassets */; };
 		568FD24D281A252300DE3E55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 568FD24B281A252300DE3E55 /* LaunchScreen.storyboard */; };
+		56AC84A12824A40B00A43121 /* MatchDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AC84A02824A40B00A43121 /* MatchDetailsViewController.swift */; };
+		56EB813F28271BB2009BCC5A /* MatchLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB813D28271BB2009BCC5A /* MatchLogTableViewCell.swift */; };
+		56EB814028271BB2009BCC5A /* MatchLogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56EB813E28271BB2009BCC5A /* MatchLogTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		568FD249281A252300DE3E55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		568FD24C281A252300DE3E55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		568FD24E281A252300DE3E55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		56AC84A02824A40B00A43121 /* MatchDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailsViewController.swift; sourceTree = "<group>"; };
+		56EB813D28271BB2009BCC5A /* MatchLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchLogTableViewCell.swift; sourceTree = "<group>"; };
+		56EB813E28271BB2009BCC5A /* MatchLogTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatchLogTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +99,9 @@
 				568FD242281A252100DE3E55 /* SceneDelegate.swift */,
 				568FD244281A252100DE3E55 /* ViewController.swift */,
 				568FD246281A252100DE3E55 /* Main.storyboard */,
+				56EB813D28271BB2009BCC5A /* MatchLogTableViewCell.swift */,
+				56EB813E28271BB2009BCC5A /* MatchLogTableViewCell.xib */,
+				56AC84A02824A40B00A43121 /* MatchDetailsViewController.swift */,
 				56740EA328236CCE000FD76D /* MatchTableViewCell.swift */,
 				56740EA428236CCE000FD76D /* MatchTableViewCell.xib */,
 				56740EAA282383CC000FD76D /* data.json */,
@@ -162,6 +171,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56EB814028271BB2009BCC5A /* MatchLogTableViewCell.xib in Resources */,
 				568FD24D281A252300DE3E55 /* LaunchScreen.storyboard in Resources */,
 				56740EAB282383CC000FD76D /* data.json in Resources */,
 				568FD24A281A252300DE3E55 /* Assets.xcassets in Resources */,
@@ -179,9 +189,11 @@
 			files = (
 				568FD245281A252100DE3E55 /* ViewController.swift in Sources */,
 				5682F17E281B5D3500ACD35B /* Team.swift in Sources */,
+				56EB813F28271BB2009BCC5A /* MatchLogTableViewCell.swift in Sources */,
 				568FD241281A252100DE3E55 /* AppDelegate.swift in Sources */,
 				56740EA528236CCE000FD76D /* MatchTableViewCell.swift in Sources */,
 				5682F177281B575A00ACD35B /* NavigationController.swift in Sources */,
+				56AC84A12824A40B00A43121 /* MatchDetailsViewController.swift in Sources */,
 				568FD243281A252100DE3E55 /* SceneDelegate.swift in Sources */,
 				56740EA928237D8D000FD76D /* Database.swift in Sources */,
 				5682F180281B5E3600ACD35B /* Match.swift in Sources */,

@@ -22,13 +22,9 @@ struct MatchData : Decodable {
     var teamLeft: String
     var teamRight: String
     var date: String
-    var score: ScoreData
-    var guess: ScoreData
-}
-
-struct ScoreData : Decodable{
-    var leftScore: Int
-    var rightScore: Int
+    var score: Score
+    var guess: Score
+    var log: [MatchLog]
 }
 
 class Database {
@@ -62,7 +58,7 @@ class Database {
                     if element.guess.leftScore != -1 && element.guess.rightScore != -1 {
                         guess = Score(leftScore: element.guess.leftScore, rightScore: element.guess.rightScore)
                     }
-                    Database.matches.append(Match(teamLeft: teamLeft[teamLeft.startIndex], teamRight: teamRight[teamRight.startIndex], date: dateFormatterGet.date(from:element.date)!, score: score, guess: guess))
+                    Database.matches.append(Match(teamLeft: teamLeft[teamLeft.startIndex], teamRight: teamRight[teamRight.startIndex], date: dateFormatterGet.date(from:element.date)!, score: score, guess: guess, logs: element.log))
                 }
                 Database.matches = Database.matches.sorted(by: {$0.date > $1.date})
             } catch {

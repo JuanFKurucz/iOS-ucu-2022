@@ -29,7 +29,8 @@
             "guess": {
                 "leftScore": 3,
                 "rightScore": 1
-            }
+            },
+            "log":[]
         },
         {
             "teamLeft": "Nacional",
@@ -42,7 +43,8 @@
             "guess": {
                 "leftScore": -1,
                 "rightScore": -1
-            }
+            },
+            "log":[]
         },
         {
             "teamLeft": "Nacional",
@@ -55,7 +57,8 @@
             "guess": {
                 "leftScore": 1,
                 "rightScore": 3
-            }
+            },
+            "log":[]
         },
         {
             "teamLeft": "Nacional",
@@ -68,7 +71,8 @@
             "guess": {
                 "leftScore": -1,
                 "rightScore": -1
-            }
+            },
+            "log":[]
         },
         {
             "teamLeft": "Boston river",
@@ -81,7 +85,57 @@
             "guess": {
                 "leftScore": 1,
                 "rightScore": 1
-            }
+            },
+            "log":[
+                {
+                    "time":16,
+                    "text":"De los Santos",
+                    "icon":"goal",
+                    "side":"left"
+                },
+                {
+                    "time":18,
+                    "text":"De los Santos",
+                    "icon":"goal",
+                    "side":"left"
+                },
+                {
+                    "time":21,
+                    "text":"De los Santos",
+                    "icon":"goal",
+                    "side":"left"
+                },
+                {
+                    "time":23,
+                    "text":"Suarez",
+                    "icon":"yellowCard",
+                    "side":"left"
+                },
+                {
+                    "time":24,
+                    "text":"Fernandez",
+                    "icon":"goal",
+                    "side":"right"
+                },
+                {
+                    "time":24,
+                    "text":"Fernandez",
+                    "icon":"yellowCard",
+                    "side":"right"
+                },
+                {
+                    "time":78,
+                    "text":"De los Santos",
+                    "icon":"yellowCard",
+                    "side":"left"
+                },
+                {
+                    "time":79,
+                    "text":"De los Santos",
+                    "icon":"redCard",
+                    "side":"right"
+                },
+            ]
         }
     ]
 }
