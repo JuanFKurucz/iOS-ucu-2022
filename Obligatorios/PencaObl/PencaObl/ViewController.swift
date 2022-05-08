@@ -11,7 +11,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var filterIcon: UIImageView!
     @IBOutlet weak var filterButton: UIButton!
     
     var matchesList: [[Match]] = [];
@@ -23,16 +22,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Data loading
         Database.loadData(jsonPath: "data")
-        
-        filterButton.setImage(UIImage(named: "filterIcon"), for: .normal)
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        searchBar.delegate = self
-        
-        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.white
         
         let matches = Database.matches
         
@@ -49,9 +41,20 @@ class ViewController: UIViewController {
         
         self.filteredMatchesList = self.matchesList
         
-        tableView.register(UINib(nibName: MatchTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: MatchTableViewCell.identifier)
+        // Visual components loading
         
         Visual.addNavBarImage(element:self)
+        
+        filterButton.setImage(UIImage(named: "filterIcon"), for: .normal)
+        
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = UIColor.white
+        
+        searchBar.delegate = self
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: MatchTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: MatchTableViewCell.identifier)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -158,6 +161,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.contentView.layer.cornerRadius = 4
         cell.contentView.layer.borderWidth = 1
         cell.contentView.layer.borderColor = CGColor(red: 81/255, green: 117/255, blue: 209/255, alpha: 1.0)
+        
         cell.matchStatusLabelView.backgroundColor = match.getMatchStatus().color
         cell.matchStatusContainerView.backgroundColor  = match.getMatchStatus().color.withAlphaComponent(0.5)
         
