@@ -16,7 +16,7 @@ class Visual {
         let imageView = UIImageView(image:  UIImage(named: "logo"))
         let imageWidth = CGFloat(170)
         let imageHeight = CGFloat(30)
-        imageView.frame = CGRect(x: (titleView.frame.width)/2-imageWidth/2, y: (titleView.frame.height)/2, width: imageWidth, height: imageHeight)
+        imageView.frame = CGRect(x: (titleView.frame.width)/2-imageWidth/2, y: (titleView.frame.height)/2-imageHeight/2, width: imageWidth, height: imageHeight)
         imageView.contentMode = .scaleAspectFit
         titleView.addSubview(imageView)
         titleView.backgroundColor = .clear

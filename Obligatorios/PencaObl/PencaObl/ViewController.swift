@@ -135,17 +135,38 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        tableView.sectionIndexBackgroundColor = UIColor.clear
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.textLabel?.textColor = .white
+            headerView.textLabel?.backgroundColor = UIColor.clear
+            headerView.contentView.backgroundColor = UIColor.clear
+            headerView.backgroundView?.backgroundColor = UIColor.clear
+            headerView.backgroundColor = UIColor.clear
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MatchTableViewCell.identifier) as! MatchTableViewCell
         let match = self.filteredMatchesList[indexPath.section][indexPath.row]
         cell.delegate = self
         cell.indexPath = indexPath
+        
         cell.matchStatusLabel.text = match.getMatchStatus().text
+        cell.matchStatusLabelView.layer.cornerRadius = 4
+        cell.matchStatusLabelView.layer.masksToBounds = true
+        cell.contentView.layer.cornerRadius = 4
+        cell.contentView.layer.borderWidth = 1
+        cell.contentView.layer.borderColor = CGColor(red: 81/255, green: 117/255, blue: 209/255, alpha: 1.0)
+        cell.matchStatusLabelView.backgroundColor = match.getMatchStatus().color
+        cell.matchStatusContainerView.backgroundColor  = match.getMatchStatus().color.withAlphaComponent(0.5)
+        
         
         cell.teamLeftLabel.text = match.teamLeft.name
         cell.teamLeftLogo.image = UIImage.init(named:match.teamLeft.image)
         cell.teamRightLabel.text = match.teamRight.name
         cell.teamRightLogo.image = UIImage.init(named:match.teamRight.image)
+        
         
         if match.getMatchStatus() == MatchStatus.pending {
             cell.detailsButton.isHidden=true
@@ -173,13 +194,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return 188
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "EEEE d/M"
-        return "\(dateFormatterGet.string(from:self.dates[section]))"
+        return "\(dateFormatterGet.string(from:self.dates[section]).capitalizingFirstLetter())"
     }
 }
 

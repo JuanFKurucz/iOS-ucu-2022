@@ -18,7 +18,8 @@ class NavigationController: UINavigationController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let height = CGFloat(80)
+        //let height = CGFloat(80)
+        let height = navigationBar.frame.height
         navigationBar.frame = CGRect(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top, width: view.frame.width, height: height)
     }
 
