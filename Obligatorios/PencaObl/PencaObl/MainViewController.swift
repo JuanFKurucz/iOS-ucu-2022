@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
+    static let identifier = "MainViewController"
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -126,13 +127,13 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController: UISearchBarDelegate, UISearchDisplayDelegate {
+extension MainViewController: UISearchBarDelegate, UISearchDisplayDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.filterMatches(teamName: searchText, matchStatus: self.filterMatchStatus)
     }
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.filteredMatchesList[section].count
     }
@@ -209,7 +210,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-extension ViewController: MatchTableViewCellDelegate {
+extension MainViewController: MatchTableViewCellDelegate {
     func didTapDetailsButton(index: IndexPath?) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextViewController = storyBoard.instantiateViewController(withIdentifier: MatchDetailsViewController.identifier) as! MatchDetailsViewController
