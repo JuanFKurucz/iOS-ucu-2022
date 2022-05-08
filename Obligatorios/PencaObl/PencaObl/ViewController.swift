@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var filterIcon: UIImageView!
+    @IBOutlet weak var filterButton: UIButton!
     
     var matchesList: [[Match]] = [];
     var filteredMatchesList: [[Match]] = [];
@@ -22,18 +23,17 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Database.loadData(jsonPath: "data")
         
-        // CHANGE TO BUTTON
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        filterIcon.isUserInteractionEnabled = true
-        filterIcon.addGestureRecognizer(tapGestureRecognizer)
+        filterButton.setImage(UIImage(named: "filterIcon"), for: .normal)
         
-        // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
         
-        Database.loadData(jsonPath: "data")
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = UIColor.white
+        
         let matches = Database.matches
         
         var currentDate: Date? = nil
@@ -98,10 +98,10 @@ class ViewController: UIViewController {
         }
         self.tableView.reloadData()
     }
-    
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
+    @IBAction func tappedFilterButton(_ sender: Any) {
+        
         let alertController = UIAlertController(title: "Filtrar partidos", message: nil, preferredStyle: .actionSheet)
+        
         alertController.addAction(UIAlertAction(title: "Ver todos", style: .default, handler: {_ in
             self.filterMatches(teamName: self.filterTeamName, matchStatus: nil)
         }))
