@@ -9,6 +9,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    static let identifier = "LoginViewController"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,6 +26,9 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func tapSignupButton(_ sender: Any) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: SignupViewController.identifier) as! SignupViewController
+        show(nextViewController, sender: nil)
     }
 
 }
