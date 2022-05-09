@@ -8,14 +8,26 @@
 import UIKit
 
 class SignupViewController: UIViewController {
+    static let identifier = "SignupViewController"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+        Visual.addNavBarImage(element:self)
     }
     
-
+    @IBAction func tapSignupButton(_ sender: Any) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: MainViewController.identifier) as! MainViewController
+        show(nextViewController, sender: nil)
+    }
+    
+    @IBAction func tapLoginButton(_ sender: Any) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: LoginViewController.identifier) as! LoginViewController
+        show(nextViewController, sender: nil)
+    }
     /*
     // MARK: - Navigation
 
