@@ -14,6 +14,13 @@ class CarouselCollectionView: UICollectionView {
         self.delegate=self
         self.dataSource=self
         
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 193)
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        flowLayout.scrollDirection = UICollectionView.ScrollDirection.horizontal
+        flowLayout.minimumInteritemSpacing = 0.0
+        self.collectionViewLayout = flowLayout
+        
         self.register(UINib(nibName: CarouselCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CarouselCollectionViewCell.identifier)
     }
 
@@ -26,14 +33,6 @@ extension CarouselCollectionView : UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.identifier, for: indexPath) as! CarouselCollectionViewCell;
-        cell.backgroundColor=UIColor(
-            red:   CGFloat(Float.random(in: 0..<1)),
-            green: CGFloat(Float.random(in: 0..<1)),
-            blue:  CGFloat(Float.random(in: 0..<1)),
-            alpha: CGFloat(Float.random(in: 0.5..<1))
-        );
         return cell;
     }
-    
-    
 }
