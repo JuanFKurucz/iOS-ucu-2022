@@ -10,7 +10,7 @@ import UIKit
 class MainViewController: UIViewController {
     static let identifier = "MainViewController"
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: MatchTableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var filterButton: UIButton!
     
@@ -139,6 +139,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if self.filteredMatchesList.count == 0 {
+            self.tableView.setMessage("Sin resultados encontrados")
+        } else {
+            self.tableView.restore()
+        }
         return self.filteredMatchesList.count
     }
     

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5622272C282B2526002CD2D6 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622272B282B2526002CD2D6 /* Alert.swift */; };
+		5622272E282B2693002CD2D6 /* MatchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622272D282B2693002CD2D6 /* MatchTableView.swift */; };
 		56740EA528236CCE000FD76D /* MatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56740EA328236CCE000FD76D /* MatchTableViewCell.swift */; };
 		56740EA628236CCE000FD76D /* MatchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56740EA428236CCE000FD76D /* MatchTableViewCell.xib */; };
 		56740EA928237D8D000FD76D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56740EA828237D8D000FD76D /* Database.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		5622272B282B2526002CD2D6 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		5622272D282B2693002CD2D6 /* MatchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTableView.swift; sourceTree = "<group>"; };
 		56740EA328236CCE000FD76D /* MatchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTableViewCell.swift; sourceTree = "<group>"; };
 		56740EA428236CCE000FD76D /* MatchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatchTableViewCell.xib; sourceTree = "<group>"; };
 		56740EA828237D8D000FD76D /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				56EB814D28287A46009BCC5A /* CarouselCollectionView.swift */,
 				56EB813D28271BB2009BCC5A /* MatchLogTableViewCell.swift */,
 				56740EA328236CCE000FD76D /* MatchTableViewCell.swift */,
+				5622272D282B2693002CD2D6 /* MatchTableView.swift */,
 				56EB814128272A86009BCC5A /* NavigationBar.swift */,
 			);
 			path = Views;
@@ -258,6 +261,7 @@
 				56EB814228272A86009BCC5A /* NavigationBar.swift in Sources */,
 				568DC4162829E37D00D1AB9A /* Navigation.swift in Sources */,
 				5682F177281B575A00ACD35B /* NavigationController.swift in Sources */,
+				5622272E282B2693002CD2D6 /* MatchTableView.swift in Sources */,
 				56EB814428273325009BCC5A /* Visual.swift in Sources */,
 				56EB81522828849B009BCC5A /* SignupViewController.swift in Sources */,
 				56AC84A12824A40B00A43121 /* MatchDetailsViewController.swift in Sources */,
