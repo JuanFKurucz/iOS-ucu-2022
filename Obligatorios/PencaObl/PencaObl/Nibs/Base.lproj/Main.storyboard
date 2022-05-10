@@ -133,6 +133,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oYc-NY-2KM"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="k27-Le-Oxi" id="Cq0-YG-AYL"/>
+                        <outlet property="passwordTextField" destination="qxf-RX-zrm" id="S3C-Xz-ZHP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1zT-2e-wrE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -251,6 +255,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qfv-rY-uSC"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="f05-1q-hVX" id="eEc-cu-NfM"/>
+                        <outlet property="passwordTextField" destination="zXT-1E-v7a" id="ad4-yI-0cr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVa-Rz-YRz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

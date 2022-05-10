@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5622272C282B2526002CD2D6 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622272B282B2526002CD2D6 /* Alert.swift */; };
 		56740EA528236CCE000FD76D /* MatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56740EA328236CCE000FD76D /* MatchTableViewCell.swift */; };
 		56740EA628236CCE000FD76D /* MatchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56740EA428236CCE000FD76D /* MatchTableViewCell.xib */; };
 		56740EA928237D8D000FD76D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56740EA828237D8D000FD76D /* Database.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5622272B282B2526002CD2D6 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		56740EA328236CCE000FD76D /* MatchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTableViewCell.swift; sourceTree = "<group>"; };
 		56740EA428236CCE000FD76D /* MatchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatchTableViewCell.xib; sourceTree = "<group>"; };
 		56740EA828237D8D000FD76D /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				56740EA828237D8D000FD76D /* Database.swift */,
 				568DC4152829E37D00D1AB9A /* Navigation.swift */,
 				56EB814328273325009BCC5A /* Visual.swift */,
+				5622272B282B2526002CD2D6 /* Alert.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5622272C282B2526002CD2D6 /* Alert.swift in Sources */,
 				568FD245281A252100DE3E55 /* MainViewController.swift in Sources */,
 				5682F17E281B5D3500ACD35B /* Team.swift in Sources */,
 				56EB814E28287A46009BCC5A /* CarouselCollectionView.swift in Sources */,

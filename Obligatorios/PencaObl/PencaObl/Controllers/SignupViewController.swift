@@ -9,7 +9,9 @@ import UIKit
 
 class SignupViewController: UIViewController {
     static let identifier = "SignupViewController"
-
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,7 +20,11 @@ class SignupViewController: UIViewController {
     }
     
     @IBAction func tapSignupButton(_ sender: Any) {
-        let _ = Navigation.jumpToView(currentViewController: self,nextViewController: MainViewController.identifier)
+        if(emailTextField.text?.isEmpty ?? true || passwordTextField.text?.isEmpty ?? true){
+            Alert.showAlertBox(currentViewController: self,title: "Error",message: "Usuario o contraseña incorrecto")
+        } else {
+            let _ = Navigation.jumpToView(currentViewController: self,nextViewController: MainViewController.identifier)
+        }
     }
     
     @IBAction func tapLoginButton(_ sender: Any) {
