@@ -37,15 +37,17 @@ class MatchTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        saveButton.isHidden=true
+        self.scoreLeftField.delegate = self
+        self.scoreRightField.delegate = self
+        self.saveButton.isHidden=true
         
         let icon = UIImage(systemName: "chevron.right")
         
-        detailsButton.setImage(icon, for: .normal)
-        detailsButton.tintColor = UIColor(red: 188/255, green: 192/255, blue: 229/255, alpha: 1.0)
-        detailsButton.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-        detailsButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-        detailsButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        self.detailsButton.setImage(icon, for: .normal)
+        self.detailsButton.tintColor = UIColor(red: 188/255, green: 192/255, blue: 229/255, alpha: 1.0)
+        self.detailsButton.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        self.detailsButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        self.detailsButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         
 
         self.addTopBorderToButton(button: detailsButton)
@@ -71,5 +73,18 @@ class MatchTableViewCell: UITableViewCell {
         super.layoutSubviews()
 
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0))
+    }
+}
+
+
+extension MatchTableViewCell : UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let scoreNumber = Int(textField.text ?? "") ?? -1
+    
+        if scoreNumber > 99 || scoreNumber < 0 {
+            textField.text = ""
+        } else {
+            textField.text = String(scoreNumber)
+        }
     }
 }

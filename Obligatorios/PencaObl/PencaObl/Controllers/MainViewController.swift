@@ -140,7 +140,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if self.filteredMatchesList.count == 0 {
-            self.tableView.setMessage("Sin resultados encontrados")
+            self.tableView.setMessage(message: "Sin resultados encontrados")
         } else {
             self.tableView.restore()
         }
