@@ -20,15 +20,11 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func tapLoginButton(_ sender: Any) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewController(withIdentifier: MainViewController.identifier) as! MainViewController
-        show(nextViewController, sender: nil)
+        let _ = Navigation.jumpToView(currentViewController: self,nextViewController: MainViewController.identifier)
     }
     
     @IBAction func tapSignupButton(_ sender: Any) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewController(withIdentifier: SignupViewController.identifier) as! SignupViewController
-        show(nextViewController, sender: nil)
+        let _ = Navigation.jumpToView(currentViewController: self,nextViewController: SignupViewController.identifier)
     }
 
 }

@@ -46,22 +46,23 @@ class MainViewController: UIViewController {
         
         Visual.addNavBarImage(element:self)
         
+        // SearchBar
         filterButton.setImage(UIImage(named: "filterIcon"), for: .normal)
-        
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.white
-        
         searchBar.delegate = self
         
+        //  Table view
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: MatchTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: MatchTableViewCell.identifier)
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return self.filteredMatchesList.count
-    }
-    
+    /// This function picks the matches from `matchesList` that conform `teamName` and `matchStatus` queries.
+    /// and puts them in `filteredMatchesList`
+    ///
+    /// - Parameter teamName: A string query to filter matches by their team name, it can be `nil` which means no querying
+    /// - Parameter matchStatus: A `MatchStatus` element to filter matches by their status, it can be `nil` which means no querying
     func filterMatches(teamName:String?, matchStatus: MatchStatus?) {
         self.filterTeamName = teamName
         self.filterMatchStatus = matchStatus
@@ -102,10 +103,9 @@ class MainViewController: UIViewController {
         }
         self.tableView.reloadData()
     }
+    
     @IBAction func tappedFilterButton(_ sender: Any) {
-        
         let alertController = UIAlertController(title: "Filtrar partidos", message: nil, preferredStyle: .actionSheet)
-        
         alertController.addAction(UIAlertAction(title: "Ver todos", style: .default, handler: {_ in
             self.filterMatches(teamName: self.filterTeamName, matchStatus: nil)
         }))
@@ -138,6 +138,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         self.filteredMatchesList[section].count
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.filteredMatchesList.count
+    }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         tableView.sectionIndexBackgroundColor = UIColor.clear
@@ -212,17 +215,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension MainViewController: MatchTableViewCellDelegate {
     func didTapDetailsButton(index: IndexPath?) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewController(withIdentifier: MatchDetailsViewController.identifier) as! MatchDetailsViewController
+        let nextViewController = Navigation.jumpToView(currentViewController: self,nextViewController: MatchDetailsViewController.identifier) as! MatchDetailsViewController
         nextViewController.match = self.filteredMatchesList[index!.section][index!.row]
-        show(nextViewController, sender: nil)
     }
-    
     
     func didTapSaveButton(index: IndexPath?, scoreLeft: Int, scoreRight: Int) {
         let match = self.filteredMatchesList[index!.section][index!.row]
         match.changeGuess(guessScore: Score(leftScore: scoreLeft, rightScore: scoreRight))
         self.view.endEditing(true)
     }
-    
 }

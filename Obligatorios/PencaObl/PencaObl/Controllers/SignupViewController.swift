@@ -18,24 +18,10 @@ class SignupViewController: UIViewController {
     }
     
     @IBAction func tapSignupButton(_ sender: Any) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewController(withIdentifier: MainViewController.identifier) as! MainViewController
-        show(nextViewController, sender: nil)
+        let _ = Navigation.jumpToView(currentViewController: self,nextViewController: MainViewController.identifier)
     }
     
     @IBAction func tapLoginButton(_ sender: Any) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewController(withIdentifier: LoginViewController.identifier) as! LoginViewController
-        show(nextViewController, sender: nil)
+        let _ = Navigation.jumpToView(currentViewController: self,nextViewController: LoginViewController.identifier)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
