@@ -12,11 +12,9 @@ class CarouselCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var carrouselImage: UIImageView!
     
-    func loadBanner(bannerURL: String){
-        let url = URL(string: "https://\(bannerURL)")
-        let data = try? Data(contentsOf: url!)
-        if let existentData = data {
-            carrouselImage.image = UIImage(data: existentData)
+    func loadBanner(bannerImage: UIImage?){
+        if let image = bannerImage {
+            carrouselImage.image = image
         }
     }
 

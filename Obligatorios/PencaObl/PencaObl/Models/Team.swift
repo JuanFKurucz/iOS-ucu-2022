@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 class Team : Equatable {
@@ -14,11 +15,11 @@ class Team : Equatable {
     }
     let id: Int
     let name: String
-    let image: String
+    let image: UIImage?
     
-    init(id:Int, name: String, image: String){
+    init(id:Int, name: String, imageURL: String){
         self.id = id
         self.name = name
-        self.image = image
+        self.image = Visual.loadExternalImage(imageURL: "https://\(imageURL)")
     }
 }

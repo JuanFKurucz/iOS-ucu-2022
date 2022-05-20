@@ -30,12 +30,12 @@ class MainViewController: UIViewController {
             
             var teamLeft : [Team] = Database.teams.filter({$0.id == APIMatch.homeTeamId})
             if(teamLeft.isEmpty){
-                teamLeft = [Team(id:APIMatch.homeTeamId,name:APIMatch.homeTeamName,image:APIMatch.homeTeamLogo)]
+                teamLeft = [Team(id:APIMatch.homeTeamId,name:APIMatch.homeTeamName,imageURL:APIMatch.homeTeamLogo)]
                 Database.teams.append(teamLeft.first!)
             }
             var teamRight : [Team] = Database.teams.filter({$0.id == APIMatch.awayTeamId})
             if(teamRight.isEmpty){
-                teamRight = [Team(id:APIMatch.awayTeamId,name:APIMatch.awayTeamName,image:APIMatch.awayTeamLogo)]
+                teamRight = [Team(id:APIMatch.awayTeamId,name:APIMatch.awayTeamName,imageURL:APIMatch.awayTeamLogo)]
                 Database.teams.append(teamRight.first!)
             }
             
@@ -225,10 +225,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         cell.teamLeftLabel.text = match.teamLeft.name
-        cell.teamLeftLogo.image = UIImage.init(named:match.teamLeft.image)
+        if let image = match.teamLeft.image {
+            cell.teamLeftLogo.image = image
+        }
         cell.teamRightLabel.text = match.teamRight.name
-        cell.teamRightLogo.image = UIImage.init(named:match.teamRight.image)
-        
+        if let image = match.teamRight.image {
+            cell.teamRightLogo.image = image
+        }
         
         if match.getMatchStatus() == MatchStatus.pending {
             cell.detailsButton.isHidden=true

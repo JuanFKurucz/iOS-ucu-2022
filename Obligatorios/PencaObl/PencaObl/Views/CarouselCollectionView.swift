@@ -8,15 +8,16 @@
 import UIKit
 
 class CarouselCollectionView: UICollectionView {
-    var bannerList : [String] = []
+    var bannerList : [UIImage?] = []
     
     func onAPIRequestFail(error: Error){
         print(error)
     }
     
     func onGetBannerURLsComplete(apiBanners: APIBanners){
-        self.bannerList = apiBanners.bannerURLs
-        print(self.bannerList)
+        for imageURL in apiBanners.bannerURLs {
+            self.bannerList.append(Visual.loadExternalImage(imageURL:  "https://\(imageURL)"))
+        }
         self.reloadData()
     }
     
@@ -46,7 +47,7 @@ extension CarouselCollectionView : UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.identifier, for: indexPath) as! CarouselCollectionViewCell;
-        cell.loadBanner(bannerURL:self.bannerList[indexPath.row])
+        cell.loadBanner(bannerImage:self.bannerList[indexPath.row])
         return cell;
     }
 }
