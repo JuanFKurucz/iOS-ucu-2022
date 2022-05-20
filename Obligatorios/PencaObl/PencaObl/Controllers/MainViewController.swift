@@ -118,7 +118,7 @@ class MainViewController: UIViewController {
                         if(currentDate == nil || currentDate! != match.date){
                             currentDate = match.date
                         }
-                        if(match.getMatchStatus() == self.filterMatchStatus){
+                        if(match.matchStatus == self.filterMatchStatus){
                             if (!filteredDates.contains(currentDate!)){
                                 self.filteredDates.append(currentDate!)
                                 self.filteredMatchesList.append([])
@@ -139,7 +139,7 @@ class MainViewController: UIViewController {
                         if(currentDate == nil || currentDate! != match.date){
                             currentDate = match.date
                         }
-                        if(self.filterMatchStatus == nil || match.getMatchStatus() == self.filterMatchStatus){
+                        if(self.filterMatchStatus == nil || match.matchStatus == self.filterMatchStatus){
                             if (!filteredDates.contains(currentDate!)){
                                 self.filteredDates.append(currentDate!)
                                 self.filteredMatchesList.append([])
@@ -213,15 +213,15 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         cell.indexPath = indexPath
         
-        cell.matchStatusLabel.text = match.getMatchStatus().text
+        cell.matchStatusLabel.text = match.matchStatus.text
         cell.matchStatusLabelView.layer.cornerRadius = 4
         cell.matchStatusLabelView.layer.masksToBounds = true
         cell.contentView.layer.cornerRadius = 4
         cell.contentView.layer.borderWidth = 1
         cell.contentView.layer.borderColor = CGColor(red: 81/255, green: 117/255, blue: 209/255, alpha: 1.0)
         
-        cell.matchStatusLabelView.backgroundColor = match.getMatchStatus().color
-        cell.matchStatusContainerView.backgroundColor  = match.getMatchStatus().color.withAlphaComponent(0.5)
+        cell.matchStatusLabelView.backgroundColor = match.matchStatus.color
+        cell.matchStatusContainerView.backgroundColor  = match.matchStatus.color.withAlphaComponent(0.5)
         
         
         cell.teamLeftLabel.text = match.teamLeft.name
@@ -233,7 +233,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             cell.teamRightLogo.image = image
         }
         
-        if match.getMatchStatus() == MatchStatus.pending {
+        if match.matchStatus == MatchStatus.pending {
             cell.detailsButton.isHidden=true
             cell.scoreLeftField.isUserInteractionEnabled=true
             cell.scoreRightField.isUserInteractionEnabled=true
@@ -285,7 +285,8 @@ extension MainViewController: MatchTableViewCellDelegate {
     }
     func didTapSaveButton(index: IndexPath?, scoreLeft: Int, scoreRight: Int) {
         let match = self.filteredMatchesList[index!.section][index!.row]
-        match.changeGuess(guessScore: Score(leftScore: scoreLeft, rightScore: scoreRight))
-        APIPenca.predictMatch(matchId: match.matchId, homeGoals: scoreLeft, awayGoals: scoreRight, onComplete: onPredictMatchComplete, onFail: onPredictMatchFail)
+        if(match.changeGuess(guessScore: Score(leftScore: scoreLeft, rightScore: scoreRight))){
+            APIPenca.predictMatch(matchId: match.matchId, homeGoals: scoreLeft, awayGoals: scoreRight, onComplete: onPredictMatchComplete, onFail: onPredictMatchFail)
+        }
     }
 }

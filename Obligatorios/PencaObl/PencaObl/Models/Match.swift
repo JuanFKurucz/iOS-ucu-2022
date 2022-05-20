@@ -63,8 +63,8 @@ class Match {
     private(set) var score: Score?
     private(set) var guess: Score?
     private(set) var date: Date
+    private(set) var matchStatus: MatchStatus
     var logs: [MatchLog]
-    var matchStatus: MatchStatus
     
     init(matchId: Int, teamLeft: Team, teamRight: Team, matchStatus: MatchStatus, date: Date, score: Score? = nil, guess: Score? = nil, logs: [MatchLog] = []){
         self.matchId = matchId
@@ -80,15 +80,13 @@ class Match {
     public func getMatchPlayed() -> Bool {
         return self.date >= Date() || self.score != nil
     }
-    
-    public func getMatchStatus() -> MatchStatus {
-        return self.matchStatus
-    }
-    
-    public func changeGuess(guessScore: Score){
+
+    public func changeGuess(guessScore: Score) -> Bool{
         if !self.getMatchPlayed() {
             self.guess = guessScore
+            return true
         }
+        return false;
     }
     
 }

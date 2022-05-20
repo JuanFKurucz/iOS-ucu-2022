@@ -9,10 +9,7 @@ import Foundation
 import UIKit
 
 
-class Team : Equatable {
-    static func == (lhs: Team, rhs: Team) -> Bool {
-        lhs.name == rhs.name
-    }
+class Team {
     let id: Int
     let name: String
     let image: UIImage?

@@ -46,28 +46,6 @@ class MatchDetailsViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        APIPenca.getMatchDetails(matchId: self.match!.matchId, onComplete: onGetMatchDetailsSuccess, onFail: onGetMatchDetailsFail)
-        
-        self.tableView.register(UINib(nibName: MatchLogTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: MatchLogTableViewCell.identifier)
-        
-        // Do any additional setup after loading the view.
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "EEEE d/M"
-        self.dateLabel.text = dateFormatterGet.string(from:self.match!.date).capitalizingFirstLetter()
-        
-        self.statusLabel.text = match!.getMatchStatus().text
-        
-        self.teamLeftImage.image = match!.teamLeft.image
-        self.teamRightImage.image = match!.teamRight.image
-        self.teamLeftLabel.text = match!.teamLeft.name
-        self.teamRightLabel.text = match!.teamRight.name
-        self.matchScoreLabel.text = "\(match!.score!.leftScore) - \(match!.score!.rightScore)"
-        
-        self.statusView.layer.cornerRadius = 4;
-        self.statusView.layer.masksToBounds = true;
-        self.statusView.backgroundColor = match!.getMatchStatus().color
-        self.statusContainer.backgroundColor  = match!.getMatchStatus().color.withAlphaComponent(0.5)
-        
         let rect:CGRect = CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: 312, height: 23))
         
         let titleView:UIView = UIView.init(frame: rect)
@@ -79,6 +57,38 @@ class MatchDetailsViewController: UIViewController {
         titleView.addSubview(label)
         
         self.navigationItem.titleView = titleView
+        
+        
+        if let match = self.match {
+        
+            APIPenca.getMatchDetails(matchId: match.matchId, onComplete: onGetMatchDetailsSuccess, onFail: onGetMatchDetailsFail)
+            
+            self.tableView.register(UINib(nibName: MatchLogTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: MatchLogTableViewCell.identifier)
+            
+            // Do any additional setup after loading the view.
+            let dateFormatterGet = DateFormatter()
+            dateFormatterGet.dateFormat = "EEEE d/M"
+            self.dateLabel.text = dateFormatterGet.string(from:match.date).capitalizingFirstLetter()
+            
+            self.statusLabel.text = match.matchStatus.text
+            
+            self.teamLeftImage.image = match.teamLeft.image
+            self.teamRightImage.image = match.teamRight.image
+            self.teamLeftLabel.text = match.teamLeft.name
+            self.teamRightLabel.text = match.teamRight.name
+            self.matchScoreLabel.text = "\(match.score!.leftScore) - \(match.score!.rightScore)"
+            
+            self.statusView.layer.cornerRadius = 4;
+            self.statusView.layer.masksToBounds = true;
+            self.statusView.backgroundColor = match.matchStatus.color
+            self.statusContainer.backgroundColor  = match.matchStatus.color.withAlphaComponent(0.5)
+            
+        } else {
+            Alert.showAlertBox(currentViewController: self, title: "Error", message: "Match does not exist", handler: {_ in
+                self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
+            })
+        }
     }
     
 }

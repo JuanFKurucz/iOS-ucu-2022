@@ -63,8 +63,8 @@ struct APIBanners: Decodable {
 enum APIUrls : String {
     case signup = "https://api.penca.inhouse.decemberlabs.com/api/v1/user/"
     case login = "https://api.penca.inhouse.decemberlabs.com/api/v1/user/login"
-    case getMatches = "https://api.penca.inhouse.decemberlabs.com/api/v1/match/"
-    case getBanners = "https://api.penca.inhouse.decemberlabs.com/api/v1/files/"
+    case match = "https://api.penca.inhouse.decemberlabs.com/api/v1/match/"
+    case files = "https://api.penca.inhouse.decemberlabs.com/api/v1/files/"
 }
 
 class APIPenca {
@@ -103,7 +103,7 @@ class APIPenca {
     }
     
     static func getMatches(onComplete : @escaping (GetMatches) -> Void, onFail: @escaping (Error) -> Void){
-        _ = APIClient.shared.requestItem(urlString: APIUrls.getMatches.rawValue,
+        _ = APIClient.shared.requestItem(urlString: APIUrls.match.rawValue,
                                          method: .get,
                                          params: [:],
                                          sessionPolicy: .privateDomain,
@@ -118,7 +118,7 @@ class APIPenca {
     }
     
     static func getMatchDetails(matchId: Int, onComplete : @escaping (APIMatchDetails) -> Void, onFail: @escaping (Error) -> Void){
-        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.getMatches.rawValue)\(matchId)",
+        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.match.rawValue)\(matchId)",
                                          method: .get,
                                          params: [:],
                                          sessionPolicy: .privateDomain,
@@ -133,7 +133,7 @@ class APIPenca {
     }
     
     static func predictMatch(matchId: Int, homeGoals: Int, awayGoals: Int, onComplete : @escaping (APIPredictMatch) -> Void, onFail: @escaping (Error) -> Void){
-        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.getMatches.rawValue)\(matchId)",
+        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.match.rawValue)\(matchId)",
                                          method: .patch,
                                          params: ["homeGoals":homeGoals,"awayGoals":awayGoals],
                                          sessionPolicy: .privateDomain,
@@ -148,7 +148,7 @@ class APIPenca {
     }
     
     static func getBannerURLs(onComplete : @escaping (APIBanners) -> Void, onFail: @escaping (Error) -> Void){
-        _ = APIClient.shared.requestItem(urlString: APIUrls.getBanners.rawValue,
+        _ = APIClient.shared.requestItem(urlString: APIUrls.files.rawValue,
                                          method: .get,
                                          params: [:],
                                          sessionPolicy: .privateDomain,
