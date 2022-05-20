@@ -12,8 +12,7 @@ import UIKit
 
 class Alert {
     static func showAlertBox(currentViewController: UIViewController, title: String, message: String){
-
-        let alert = UIAlertController(title: "Error", message: "Usuario o contraseña incorrecto", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         currentViewController.present(alert, animated: true, completion: nil)
     }

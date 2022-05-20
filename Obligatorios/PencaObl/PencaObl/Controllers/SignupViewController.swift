@@ -19,11 +19,19 @@ class SignupViewController: UIViewController {
         Visual.addNavBarImage(element:self)
     }
     
+    func onSignupSuccess(user: AuthUser){
+        let _ = Navigation.jumpToView(currentViewController: self,nextViewController: MainViewController.identifier)
+    }
+    
+    func onSignupError(error: Error){
+        Alert.showAlertBox(currentViewController: self, title: "Api error", message: error.localizedDescription)
+    }
+    
     @IBAction func tapSignupButton(_ sender: Any) {
         if(emailTextField.text?.isEmpty ?? true || passwordTextField.text?.isEmpty ?? true){
             Alert.showAlertBox(currentViewController: self,title: "Error",message: "Usuario o contraseña incorrecto")
         } else {
-            let _ = Navigation.jumpToView(currentViewController: self,nextViewController: MainViewController.identifier)
+            APIPenca.signup(email: emailTextField.text!, password: passwordTextField.text!, onComplete: self.onSignupSuccess, onFail: self.onSignupError)
         }
     }
     

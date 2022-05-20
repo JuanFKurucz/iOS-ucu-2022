@@ -12,13 +12,13 @@ class Team : Equatable {
     static func == (lhs: Team, rhs: Team) -> Bool {
         lhs.name == rhs.name
     }
-    
+    let id: Int
     let name: String
     let image: String
     
-    init(name: String, image: String){
+    init(id:Int, name: String, image: String){
+        self.id = id
         self.name = name
         self.image = image
     }
-    
 }

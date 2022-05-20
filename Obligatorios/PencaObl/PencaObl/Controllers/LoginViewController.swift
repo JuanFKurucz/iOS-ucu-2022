@@ -20,12 +20,19 @@ class LoginViewController: UIViewController {
         Visual.addNavBarImage(element:self)
     }
     
+    func onLoginSuccess(user: AuthUser){
+        let _ = Navigation.jumpToView(currentViewController: self,nextViewController: MainViewController.identifier)
+    }
+    
+    func onLoginError(error: Error){
+        Alert.showAlertBox(currentViewController: self, title: "Api error", message: error.localizedDescription)
+    }
 
     @IBAction func tapLoginButton(_ sender: Any) {
         if(emailTextField.text?.isEmpty ?? true || passwordTextField.text?.isEmpty ?? true){
             Alert.showAlertBox(currentViewController: self,title: "Error",message: "Usuario o contraseña incorrecto")
         } else {
-            let _ = Navigation.jumpToView(currentViewController: self,nextViewController: MainViewController.identifier)
+            APIPenca.login(email: emailTextField.text!, password: passwordTextField.text!, onComplete: self.onLoginSuccess, onFail: self.onLoginError)
         }
     }
     

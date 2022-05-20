@@ -20,15 +20,15 @@ struct MatchLog : Decodable {
     var side : String = ""
 }
 
-enum MatchStatus {
-    case pending, correct, missed, noResult
+enum MatchStatus: String, Decodable {
+    case pending, correct, incorrect, notPredicted
 
     var text : String {
       switch self {
       case .pending: return "Pendiente"
       case .correct: return "Acertado"
-      case .missed: return "Errado"
-      case .noResult: return "No jugado"
+      case .incorrect: return "Errado"
+      case .notPredicted: return "No jugado"
       }
     }
     
@@ -36,9 +36,13 @@ enum MatchStatus {
       switch self {
       case .pending: return UIColor(red:25.0/255,green:55.0/255,blue: 163.0/255, alpha: 1.0)
       case .correct: return UIColor(red:0.0/255,green:163.0/255,blue: 98.0/255, alpha: 1.0)
-      case .missed: return UIColor(red:208.0/255,green:49.0/255,blue: 87.0/255, alpha: 1.0)
-      case .noResult: return UIColor(red:161.0/255,green:159.0/255,blue: 157.0/255, alpha: 1.0)
+      case .incorrect: return UIColor(red:208.0/255,green:49.0/255,blue: 87.0/255, alpha: 1.0)
+      case .notPredicted: return UIColor(red:161.0/255,green:159.0/255,blue: 157.0/255, alpha: 1.0)
       }
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case pending, notPredicted = "not_predicted", correct, incorrect
     }
 }
 
@@ -49,14 +53,16 @@ class Match {
     private(set) var guess: Score?
     private(set) var date: Date
     private(set) var logs: [MatchLog]
+    var matchStatus: MatchStatus
     
-    init(teamLeft: Team, teamRight: Team, date: Date, score: Score? = nil, guess: Score? = nil, logs: [MatchLog] = []){
+    init(teamLeft: Team, teamRight: Team, matchStatus: MatchStatus, date: Date, score: Score? = nil, guess: Score? = nil, logs: [MatchLog] = []){
         self.teamLeft = teamLeft
         self.teamRight = teamRight
         self.score = score
         self.guess = guess
         self.date = date
         self.logs = logs
+        self.matchStatus = matchStatus
     }
     
     public func getMatchPlayed() -> Bool {
@@ -64,17 +70,7 @@ class Match {
     }
     
     public func getMatchStatus() -> MatchStatus {
-        if (self.getMatchPlayed()){
-            if(self.guess==nil){
-                return MatchStatus.noResult
-            }
-            
-            if(self.score == self.guess){
-                return MatchStatus.correct
-            }
-            return MatchStatus.missed
-        }
-        return MatchStatus.pending
+        return self.matchStatus
     }
     
     public func changeGuess(guessScore: Score){

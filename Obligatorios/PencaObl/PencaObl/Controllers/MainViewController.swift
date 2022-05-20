@@ -17,17 +17,45 @@ class MainViewController: UIViewController {
     var matchesList: [[Match]] = [];
     var filteredMatchesList: [[Match]] = [];
     var dates: [Date] = [];
+    var filteredDates: [Date] = [];
     
     var filterTeamName : String?
     var filterMatchStatus : MatchStatus?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Data loading
-        Database.loadData(jsonPath: "data")
-        
-        let matches = Database.matches
+    func onGetMatchesSuccess(getMatches: GetMatches){
+        var matches: [Match] = []
+        getMatches.matches.forEach { APIMatch in
+            let formatter = ISO8601DateFormatter()
+            formatter.formatOptions.insert(.withFractionalSeconds)
+            
+            var teamLeft : [Team] = Database.teams.filter({$0.id == APIMatch.homeTeamId})
+            if(teamLeft.isEmpty){
+                teamLeft = [Team(id:APIMatch.homeTeamId,name:APIMatch.homeTeamName,image:APIMatch.homeTeamLogo)]
+                Database.teams.append(teamLeft.first!)
+            }
+            var teamRight : [Team] = Database.teams.filter({$0.id == APIMatch.awayTeamId})
+            if(teamRight.isEmpty){
+                teamRight = [Team(id:APIMatch.awayTeamId,name:APIMatch.awayTeamName,image:APIMatch.awayTeamLogo)]
+                Database.teams.append(teamRight.first!)
+            }
+            
+            var score: Score? = nil
+            if let scoreLeft = APIMatch.homeTeamGoals, let scoreRight = APIMatch.awayTeamGoals {
+                score = Score(leftScore: scoreLeft, rightScore: scoreRight)
+            }
+            
+            var matchStatus:MatchStatus
+            switch APIMatch.status {
+            case "pending": matchStatus = MatchStatus.pending
+            case "not_predicted": matchStatus = MatchStatus.notPredicted
+            case "correct": matchStatus = MatchStatus.correct
+            case "incorrect": matchStatus = MatchStatus.incorrect
+            default: matchStatus = MatchStatus.pending
+            }
+            matches.append(Match(teamLeft: teamLeft.first!, teamRight: teamRight.first!, matchStatus: matchStatus, date: formatter.date(from: APIMatch.date)!, score: score))
+            
+        }
+        matches = matches.sorted(by: {$0.date > $1.date})
         
         var currentDate: Date? = nil
         
@@ -41,9 +69,22 @@ class MainViewController: UIViewController {
         }
         
         self.filteredMatchesList = self.matchesList
+        self.filteredDates = self.dates
+        
+        self.tableView.reloadData()
+    }
+    
+    func onGetMatchesError(error: Error){
+        Alert.showAlertBox(currentViewController: self, title: "Api error", message: error.localizedDescription)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Data loading
+        APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail: onGetMatchesError)
         
         // Visual components loading
-        
         Visual.addNavBarImage(element:self)
         
         // SearchBar
@@ -68,22 +109,27 @@ class MainViewController: UIViewController {
         self.filterMatchStatus = matchStatus
         
         var currentDate : Date? = nil
+        self.filteredDates = []
         if(self.filterTeamName == nil || self.filterTeamName!.count==0){
             if(self.filterMatchStatus != nil ){
                 self.filteredMatchesList = []
                 for matches in self.matchesList {
                     for match in matches {
                         if(currentDate == nil || currentDate! != match.date){
-                            self.filteredMatchesList.append([])
                             currentDate = match.date
                         }
                         if(match.getMatchStatus() == self.filterMatchStatus){
+                            if (!filteredDates.contains(currentDate!)){
+                                self.filteredDates.append(currentDate!)
+                                self.filteredMatchesList.append([])
+                            }
                             self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
                         }
                     }
                 }
             } else {
                 self.filteredMatchesList = self.matchesList
+                self.filteredDates = self.dates
             }
         } else {
             self.filteredMatchesList = []
@@ -91,10 +137,13 @@ class MainViewController: UIViewController {
                 for match in matches {
                     if(match.teamLeft.name.lowercased().contains(self.filterTeamName!.lowercased()) || match.teamRight.name.lowercased().contains(self.filterTeamName!.lowercased())){
                         if(currentDate == nil || currentDate! != match.date){
-                            self.filteredMatchesList.append([])
                             currentDate = match.date
                         }
                         if(self.filterMatchStatus == nil || match.getMatchStatus() == self.filterMatchStatus){
+                            if (!filteredDates.contains(currentDate!)){
+                                self.filteredDates.append(currentDate!)
+                                self.filteredMatchesList.append([])
+                            }
                             self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
                         }
                     }
@@ -113,13 +162,13 @@ class MainViewController: UIViewController {
             self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.correct)
         }))
         alertController.addAction(UIAlertAction(title: "Ver errados", style: .default, handler: {_ in
-            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.missed)
+            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.incorrect)
         }))
         alertController.addAction(UIAlertAction(title: "Ver pendientes", style: .destructive, handler: {_ in
             self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.pending)
         }))
         alertController.addAction(UIAlertAction(title: "Ver jugados s/resultado", style: .default, handler: {_ in
-            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.noResult)
+            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.notPredicted)
         }))
         alertController.addAction(UIAlertAction(title: "Filtrar", style: .cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
@@ -212,8 +261,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "EEEE d/M"
-        return "\(dateFormatterGet.string(from:self.dates[section]).capitalizingFirstLetter())"
+        dateFormatterGet.dateFormat = "EEEE d/M/Y"
+        return "\(dateFormatterGet.string(from:self.filteredDates[section]).capitalizingFirstLetter())"
     }
 }
 
