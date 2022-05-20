@@ -14,10 +14,20 @@ struct Score: Decodable, Equatable {
 }
 
 struct MatchLog : Decodable {
-    var time : Int = 0
-    var text : String = ""
-    var icon : String = ""
-    var side : String = ""
+    var minute : Int
+    var side : String
+    var event : String
+    var playerName : String
+    
+    var icon : String {
+      switch self.event {
+      case "red card": return "redCard"
+      case "yellow card": return "yellowCard"
+      case "goal": return "goal"
+      default: return ""
+      }
+    }
+    
 }
 
 enum MatchStatus: String, Decodable {
@@ -47,15 +57,17 @@ enum MatchStatus: String, Decodable {
 }
 
 class Match {
+    let matchId: Int
     let teamLeft: Team
     let teamRight: Team
     private(set) var score: Score?
     private(set) var guess: Score?
     private(set) var date: Date
-    private(set) var logs: [MatchLog]
+    var logs: [MatchLog]
     var matchStatus: MatchStatus
     
-    init(teamLeft: Team, teamRight: Team, matchStatus: MatchStatus, date: Date, score: Score? = nil, guess: Score? = nil, logs: [MatchLog] = []){
+    init(matchId: Int, teamLeft: Team, teamRight: Team, matchStatus: MatchStatus, date: Date, score: Score? = nil, guess: Score? = nil, logs: [MatchLog] = []){
+        self.matchId = matchId
         self.teamLeft = teamLeft
         self.teamRight = teamRight
         self.score = score

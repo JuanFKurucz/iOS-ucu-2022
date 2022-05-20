@@ -31,11 +31,22 @@ class MatchDetailsViewController: UIViewController {
     @IBOutlet weak var teamLeftLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    func onGetMatchDetailsSuccess(apiMatch: APIMatchDetails){
+        match?.logs = apiMatch.incidences!
+        self.tableView.reloadData()
+    }
+    
+    func onGetMatchDetailsFail(error: Error){
+        Alert.showAlertBox(currentViewController: self, title: "Api error", message: error.localizedDescription)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        APIPenca.getMatchDetails(matchId: self.match!.matchId, onComplete: onGetMatchDetailsSuccess, onFail: onGetMatchDetailsFail)
         
         self.tableView.register(UINib(nibName: MatchLogTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: MatchLogTableViewCell.identifier)
         
@@ -81,13 +92,13 @@ extension MatchDetailsViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MatchLogTableViewCell.identifier) as! MatchLogTableViewCell
         let matchLog = self.match?.logs[indexPath.row]
-        cell.timeLabel.text = "\(matchLog!.time)’"
+        cell.timeLabel.text = "\(matchLog!.minute)’"
         if matchLog!.side == "left"{
-            cell.leftLabel.text = matchLog!.text
+            cell.leftLabel.text = matchLog!.playerName
             cell.rightLabel.text = ""
         } else {
             cell.leftLabel.text = ""
-            cell.rightLabel.text = matchLog!.text
+            cell.rightLabel.text = matchLog!.playerName
         }
         cell.iconImage.image = UIImage.init(named:"icon_\(matchLog!.icon)")
         return cell

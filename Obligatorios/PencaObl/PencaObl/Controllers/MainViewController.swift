@@ -52,7 +52,7 @@ class MainViewController: UIViewController {
             case "incorrect": matchStatus = MatchStatus.incorrect
             default: matchStatus = MatchStatus.pending
             }
-            matches.append(Match(teamLeft: teamLeft.first!, teamRight: teamRight.first!, matchStatus: matchStatus, date: formatter.date(from: APIMatch.date)!, score: score))
+            matches.append(Match(matchId: APIMatch.matchId, teamLeft: teamLeft.first!, teamRight: teamRight.first!, matchStatus: matchStatus, date: formatter.date(from: APIMatch.date)!, score: score))
             
         }
         matches = matches.sorted(by: {$0.date > $1.date})

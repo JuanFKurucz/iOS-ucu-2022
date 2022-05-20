@@ -39,6 +39,14 @@ struct APIMatch: Decodable {
     let status: String
     let homeTeamGoals: Int?
     let awayTeamGoals: Int?
+    let homeTeamPrediction: Int?
+    let awayTeamPrediction: Int?
+    let incidences: [MatchLog]?
+}
+
+struct APIMatchDetails: Decodable {
+    let matchId: Int
+    let incidences: [MatchLog]?
 }
 
 
@@ -47,7 +55,6 @@ enum APIUrls : String {
     case login = "https://api.penca.inhouse.decemberlabs.com/api/v1/user/login"
     case predictMatch = "https://api.penca.inhouse.decemberlabs.com/api/v1/match/:matchId"
     case getMatches = "https://api.penca.inhouse.decemberlabs.com/api/v1/match/"
-    case getMatchDetails = "https://api.penca.inhouse.decemberlabs.com/api/v1/match/"
     case getBanners = "https://api.penca.inhouse.decemberlabs.com/api/v1/files/"
 }
 
@@ -96,6 +103,23 @@ class APIPenca {
             case .success(let data):
                 onComplete(data)
             case .failure(let error):
+                onFail(error)
+            }
+        })
+    }
+    
+    static func getMatchDetails(matchId: Int, onComplete : @escaping (APIMatchDetails) -> Void, onFail: @escaping (Error) -> Void){
+        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.getMatches.rawValue)\(matchId)",
+                                         method: .get,
+                                         params: [:],
+                                         sessionPolicy: .privateDomain,
+                                         onCompletion: { (result: Result<APIMatchDetails, Error>) in
+            switch result {
+            case .success(let data):
+                onComplete(data)
+            case .failure(let error):
+                print(error)
+                print(error.localizedDescription)
                 onFail(error)
             }
         })
