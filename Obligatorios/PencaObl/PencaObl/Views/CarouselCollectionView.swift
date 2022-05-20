@@ -8,11 +8,24 @@
 import UIKit
 
 class CarouselCollectionView: UICollectionView {
+    var bannerList : [String] = []
+    
+    func onAPIRequestFail(error: Error){
+        print(error)
+    }
+    
+    func onGetBannerURLsComplete(apiBanners: APIBanners){
+        self.bannerList = apiBanners.bannerURLs
+        print(self.bannerList)
+        self.reloadData()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.delegate=self
+        self.delegate = self
         self.dataSource=self
+        
+        APIPenca.getBannerURLs(onComplete: onGetBannerURLsComplete, onFail: onAPIRequestFail)
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 193)
@@ -28,11 +41,12 @@ class CarouselCollectionView: UICollectionView {
 
 extension CarouselCollectionView : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        self.bannerList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.identifier, for: indexPath) as! CarouselCollectionViewCell;
+        cell.loadBanner(bannerURL:self.bannerList[indexPath.row])
         return cell;
     }
 }

@@ -16,7 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="344" height="146"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="carousel_image" translatesAutoresizingMaskIntoConstraints="NO" id="jU0-Fw-ikd">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="jU0-Fw-ikd">
                         <rect key="frame" x="0.0" y="0.0" width="344" height="146"/>
                     </imageView>
                 </subviews>
@@ -31,10 +31,10 @@
                 <constraint firstItem="jU0-Fw-ikd" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="mIQ-FM-5q2"/>
             </constraints>
             <size key="customSize" width="344" height="146"/>
+            <connections>
+                <outlet property="carrouselImage" destination="jU0-Fw-ikd" id="cSB-6i-0z2"/>
+            </connections>
             <point key="canvasLocation" x="84.057971014492765" y="89.0625"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="carousel_image" width="344" height="144"/>
-    </resources>
 </document>

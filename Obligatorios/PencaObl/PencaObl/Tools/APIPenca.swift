@@ -56,6 +56,9 @@ struct APIPredictMatch: Decodable {
     let awayGoals: Int
 }
 
+struct APIBanners: Decodable {
+    let bannerURLs: [String]
+}
 
 enum APIUrls : String {
     case signup = "https://api.penca.inhouse.decemberlabs.com/api/v1/user/"
@@ -142,6 +145,20 @@ class APIPenca {
                 onFail(error)
             }
         })
-        
+    }
+    
+    static func getBannerURLs(onComplete : @escaping (APIBanners) -> Void, onFail: @escaping (Error) -> Void){
+        _ = APIClient.shared.requestItem(urlString: APIUrls.getBanners.rawValue,
+                                         method: .get,
+                                         params: [:],
+                                         sessionPolicy: .privateDomain,
+                                         onCompletion: { (result: Result<APIBanners, Error>) in
+            switch result {
+            case .success(let data):
+                onComplete(data)
+            case .failure(let error):
+                onFail(error)
+            }
+        })
     }
 }
