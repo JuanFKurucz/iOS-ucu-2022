@@ -43,7 +43,6 @@ class APIClient {
         }
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
-        print("Request URL \(url)")
         // Headers
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         if sessionPolicy == .privateDomain {

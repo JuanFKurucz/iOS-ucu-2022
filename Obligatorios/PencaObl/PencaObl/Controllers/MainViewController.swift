@@ -74,7 +74,7 @@ class MainViewController: UIViewController {
         self.tableView.reloadData()
     }
     
-    func onGetMatchesError(error: Error){
+    func onAPIRequestFail(error: Error){
         Alert.showAlertBox(currentViewController: self, title: "Api error", message: error.localizedDescription)
     }
     
@@ -82,7 +82,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         // Data loading
-        APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail: onGetMatchesError)
+        APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail: onAPIRequestFail)
         
         // Visual components loading
         Visual.addNavBarImage(element:self)
@@ -273,9 +273,16 @@ extension MainViewController: MatchTableViewCellDelegate {
         nextViewController.match = self.filteredMatchesList[index!.section][index!.row]
     }
     
+    func onPredictMatchComplete(result: APIPredictMatch){
+        self.view.endEditing(true)
+    }
+    func onPredictMatchFail(error: Error){
+        self.view.endEditing(true)
+        onAPIRequestFail(error: error)
+    }
     func didTapSaveButton(index: IndexPath?, scoreLeft: Int, scoreRight: Int) {
         let match = self.filteredMatchesList[index!.section][index!.row]
         match.changeGuess(guessScore: Score(leftScore: scoreLeft, rightScore: scoreRight))
-        self.view.endEditing(true)
+        APIPenca.predictMatch(matchId: match.matchId, homeGoals: scoreLeft, awayGoals: scoreRight, onComplete: onPredictMatchComplete, onFail: onPredictMatchFail)
     }
 }
