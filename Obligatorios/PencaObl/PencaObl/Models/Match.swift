@@ -54,6 +54,13 @@ enum MatchStatus: String, Decodable {
     private enum CodingKeys: String, CodingKey {
         case pending, notPredicted = "not_predicted", correct, incorrect
     }
+    
+    var encoding : String {
+      switch self {
+      case .notPredicted: return "not_predicted"
+      default: return self.rawValue
+      }
+    }
 }
 
 class Match {

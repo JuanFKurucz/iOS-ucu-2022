@@ -41,6 +41,7 @@ class APIClient {
         } else {
             url = URL(string: urlString)!
         }
+        
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         // Headers
@@ -48,7 +49,6 @@ class APIClient {
         if sessionPolicy == .privateDomain {
             let defaults = UserDefaults.standard
             if let token = defaults.string(forKey: "userToken") {
-                print("token: \(token)")
                 request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization") // Set Authorization header
             } else {
                 let userInfo: [String : Any] =

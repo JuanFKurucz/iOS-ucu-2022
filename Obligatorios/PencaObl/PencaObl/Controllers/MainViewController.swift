@@ -25,6 +25,10 @@ class MainViewController: UIViewController {
     var filterMatchStatus : MatchStatus?
     
     func onGetMatchesSuccess(getMatches: GetMatches){
+        self.matchesList = []
+        self.filteredMatchesList = []
+        self.dates = []
+        self.filteredDates = []
         var matches: [Match] = []
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions.insert(.withFractionalSeconds)
@@ -88,7 +92,7 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Data loading
-        APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail: onAPIRequestFail)
+        APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail: self.onAPIRequestFail)
     }
     
     override func viewDidLoad() {
@@ -110,75 +114,99 @@ class MainViewController: UIViewController {
     }
     
     /// This function picks the matches from `matchesList` that conform `teamName` and `matchStatus` queries.
-    /// and puts them in `filteredMatchesList`
-    ///
-    /// - Parameter teamName: A string query to filter matches by their team name, it can be `nil` which means no querying
-    /// - Parameter matchStatus: A `MatchStatus` element to filter matches by their status, it can be `nil` which means no querying
-    func filterMatches(teamName:String?, matchStatus: MatchStatus?) {
-        self.filterTeamName = teamName
-        self.filterMatchStatus = matchStatus
-        
-        var currentDate : Date? = nil
-        self.filteredDates = []
-        if(self.filterTeamName == nil || self.filterTeamName!.count==0){
-            if(self.filterMatchStatus != nil ){
-                self.filteredMatchesList = []
-                for matches in self.matchesList {
-                    for match in matches {
-                        if(currentDate == nil || currentDate! != match.date){
-                            currentDate = match.date
-                        }
-                        if(match.matchStatus == self.filterMatchStatus){
-                            if (!filteredDates.contains(currentDate!)){
-                                self.filteredDates.append(currentDate!)
-                                self.filteredMatchesList.append([])
-                            }
-                            self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
-                        }
-                    }
-                }
-            } else {
-                self.filteredMatchesList = self.matchesList
-                self.filteredDates = self.dates
-            }
-        } else {
-            self.filteredMatchesList = []
-            for matches in self.matchesList {
-                for match in matches {
-                    if(match.teamLeft.name.lowercased().contains(self.filterTeamName!.lowercased()) || match.teamRight.name.lowercased().contains(self.filterTeamName!.lowercased())){
-                        if(currentDate == nil || currentDate! != match.date){
-                            currentDate = match.date
-                        }
-                        if(self.filterMatchStatus == nil || match.matchStatus == self.filterMatchStatus){
-                            if (!filteredDates.contains(currentDate!)){
-                                self.filteredDates.append(currentDate!)
-                                self.filteredMatchesList.append([])
-                            }
-                            self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
-                        }
-                    }
-                }
-            }
-        }
-        self.tableView.reloadData()
-    }
+   /// and puts them in `filteredMatchesList`
+   ///
+   /// - Parameter teamName: A string query to filter matches by their team name, it can be `nil` which means no querying
+   /// - Parameter matchStatus: A `MatchStatus` element to filter matches by their status, it can be `nil` which means no querying
+   func filterMatches(teamName:String?, matchStatus: MatchStatus?) {
+       self.filterTeamName = teamName
+       self.filterMatchStatus = matchStatus
+       var currentDate : Date? = nil
+       self.filteredDates = []
+       if(self.filterTeamName == nil || self.filterTeamName!.count==0){
+           if(self.filterMatchStatus != nil ){
+               self.filteredMatchesList = []
+               for matches in self.matchesList {
+                   for match in matches {
+                       if(currentDate == nil || currentDate! != match.date){
+                           currentDate = match.date
+                       }
+                       if(match.matchStatus == self.filterMatchStatus){
+                           if (!filteredDates.contains(currentDate!)){
+                               self.filteredDates.append(currentDate!)
+                               self.filteredMatchesList.append([])
+                           }
+                           self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
+                       }
+                   }
+               }
+           } else {
+               self.filteredMatchesList = self.matchesList
+               self.filteredDates = self.dates
+           }
+       } else {
+           self.filteredMatchesList = []
+           for matches in self.matchesList {
+               for match in matches {
+                   if(match.teamLeft.name.lowercased().contains(self.filterTeamName!.lowercased()) || match.teamRight.name.lowercased().contains(self.filterTeamName!.lowercased())){
+                       if(currentDate == nil || currentDate! != match.date){
+                           currentDate = match.date
+                       }
+                       if(self.filterMatchStatus == nil || match.matchStatus == self.filterMatchStatus){
+                           if (!filteredDates.contains(currentDate!)){
+                               self.filteredDates.append(currentDate!)
+                               self.filteredMatchesList.append([])
+                           }
+                           self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
+                       }
+                   }
+               }
+           }
+       }
+       self.tableView.reloadData()
+   }
+
     
     @IBAction func tappedFilterButton(_ sender: Any) {
         let alertController = UIAlertController(title: "Filtrar partidos", message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Ver todos", style: .default, handler: {_ in
-            self.filterMatches(teamName: self.filterTeamName, matchStatus: nil)
+            APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail: self.onAPIRequestFail, teamName: self.filterTeamName)
         }))
         alertController.addAction(UIAlertAction(title: "Ver acertados", style: .default, handler: {_ in
-            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.correct)
+            APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail:  { error in
+                self.onAPIRequestFail(error: error)
+                APIPenca.getMatches(onComplete: { getMatches in
+                    self.onGetMatchesSuccess(getMatches: getMatches)
+                    self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.correct)
+                }, onFail: self.onAPIRequestFail)
+            }, teamName: self.filterTeamName, status: MatchStatus.correct.encoding)
         }))
         alertController.addAction(UIAlertAction(title: "Ver errados", style: .default, handler: {_ in
-            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.incorrect)
+            APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail:  { error in
+                self.onAPIRequestFail(error: error)
+                APIPenca.getMatches(onComplete: { getMatches in
+                    self.onGetMatchesSuccess(getMatches: getMatches)
+                    self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.incorrect)
+                }, onFail: self.onAPIRequestFail)
+            }, teamName: self.filterTeamName, status: MatchStatus.incorrect.encoding)
         }))
         alertController.addAction(UIAlertAction(title: "Ver pendientes", style: .destructive, handler: {_ in
-            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.pending)
+            APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail:  { error in
+                self.onAPIRequestFail(error: error)
+                APIPenca.getMatches(onComplete: { getMatches in
+                    self.onGetMatchesSuccess(getMatches: getMatches)
+                    self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.pending)
+                }, onFail: self.onAPIRequestFail)
+            }, teamName: self.filterTeamName, status: MatchStatus.pending.encoding)
         }))
         alertController.addAction(UIAlertAction(title: "Ver jugados s/resultado", style: .default, handler: {_ in
-            self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.notPredicted)
+            APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail: { error in
+                self.onAPIRequestFail(error: error)
+                APIPenca.getMatches(onComplete: { getMatches in
+                    self.onGetMatchesSuccess(getMatches: getMatches)
+                    self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.notPredicted)
+                }, onFail: self.onAPIRequestFail)
+            }, teamName: self.filterTeamName, status: MatchStatus.notPredicted.encoding)
         }))
         alertController.addAction(UIAlertAction(title: "Filtrar", style: .cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
@@ -188,7 +216,8 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UISearchBarDelegate, UISearchDisplayDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filterMatches(teamName: searchText, matchStatus: self.filterMatchStatus)
+        self.filterTeamName = searchText
+        APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail: self.onAPIRequestFail, teamName: self.filterTeamName)
     }
 }
 

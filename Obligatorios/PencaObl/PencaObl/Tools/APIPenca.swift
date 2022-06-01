@@ -102,10 +102,17 @@ class APIPenca {
         })
     }
     
-    static func getMatches(onComplete : @escaping (GetMatches) -> Void, onFail: @escaping (Error) -> Void){
+    static func getMatches(onComplete : @escaping (GetMatches) -> Void, onFail: @escaping (Error) -> Void, teamName: String? = nil, status: String? = nil){
+        var params: [String:Any] = [:]
+        if teamName != nil{
+            params["teamName"] = teamName
+        }
+        if status != nil{
+            params["status"] = status
+        }
         _ = APIClient.shared.requestItem(urlString: APIUrls.match.rawValue,
                                          method: .get,
-                                         params: [:],
+                                         params: params,
                                          sessionPolicy: .privateDomain,
                                          onCompletion: { (result: Result<GetMatches, Error>) in
             switch result {
