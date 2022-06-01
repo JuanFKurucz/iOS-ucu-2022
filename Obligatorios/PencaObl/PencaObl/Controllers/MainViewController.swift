@@ -95,7 +95,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         // Visual components loading
-        Visual.addNavBarImage(element:self)
+        Visual.addNavBarImage(element:self, showsLogout: true)
         
         // SearchBar
         filterButton.setImage(UIImage(named: "filterIcon"), for: .normal)

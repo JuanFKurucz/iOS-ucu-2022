@@ -68,8 +68,6 @@ enum APIUrls : String {
 }
 
 class APIPenca {
-    static var currentUser: AuthUser? = nil
-    
     static func login(email:String, password:String, onComplete : @escaping (AuthUser) -> Void, onFail: @escaping (Error) -> Void){
         _ = APIClient.shared.requestItem(urlString: APIUrls.login.rawValue,
                                          method: .post,
@@ -78,7 +76,8 @@ class APIPenca {
                                          onCompletion: { (result: Result<AuthUser, Error>) in
             switch result {
             case .success(let data):
-                APIPenca.currentUser = data
+                let defaults = UserDefaults.standard
+                defaults.set(data.token, forKey: "userToken")
                 onComplete(data)
             case .failure(let error):
                 onFail(error)
@@ -94,7 +93,8 @@ class APIPenca {
                                          onCompletion: { (result: Result<AuthUser, Error>) in
             switch result {
             case .success(let data):
-                APIPenca.currentUser = data
+                let defaults = UserDefaults.standard
+                defaults.set(data.token, forKey: "userToken")
                 onComplete(data)
             case .failure(let error):
                 onFail(error)

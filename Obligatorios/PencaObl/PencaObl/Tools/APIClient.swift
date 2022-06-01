@@ -46,9 +46,10 @@ class APIClient {
         // Headers
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         if sessionPolicy == .privateDomain {
-            if let currentUser = APIPenca.currentUser {
-                print("token: \(currentUser.token)")
-                request.setValue("Bearer \(currentUser.token)", forHTTPHeaderField: "Authorization") // Set Authorization header
+            let defaults = UserDefaults.standard
+            if let token = defaults.string(forKey: "userToken") {
+                print("token: \(token)")
+                request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization") // Set Authorization header
             } else {
                 let userInfo: [String : Any] =
                         [
