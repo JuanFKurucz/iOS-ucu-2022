@@ -8,7 +8,7 @@
 import Foundation
 
 class APIClient {
-
+    
     enum Method: String {
         case get = "GET"
         case post = "POST"
@@ -26,10 +26,10 @@ class APIClient {
     private init() { }
     
     @discardableResult private func request(urlString: String,
-                                    method: Method = .get,
-                                    params: [String: Any] = [:],
-                                    sessionPolicy: SessionPolicy = .publicDomain,
-                                onCompletion: @escaping (Result<Data, Error>) -> Void) -> URLSessionDataTask {
+                                            method: Method = .get,
+                                            params: [String: Any] = [:],
+                                            sessionPolicy: SessionPolicy = .publicDomain,
+                                            onCompletion: @escaping (Result<Data, Error>) -> Void) -> URLSessionDataTask {
         
         // 1 - Create URL
         let url: URL
@@ -52,10 +52,10 @@ class APIClient {
                 request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization") // Set Authorization header
             } else {
                 let userInfo: [String : Any] =
-                        [
-                            "NSLocalizedDescriptionKey" :  NSLocalizedString("Unauthorized", value: "Token not provided", comment: "") ,
-                            "NSLocalizedFailureReasonErrorKey" : NSLocalizedString("Unauthorized", value: "Token not provided", comment: "")
-                    ]
+                [
+                    "NSLocalizedDescriptionKey" :  NSLocalizedString("Unauthorized", value: "Token not provided", comment: "") ,
+                    "NSLocalizedFailureReasonErrorKey" : NSLocalizedString("Unauthorized", value: "Token not provided", comment: "")
+                ]
                 onCompletion(.failure(NSError(domain:"", code:401, userInfo:userInfo)))
             }
         }

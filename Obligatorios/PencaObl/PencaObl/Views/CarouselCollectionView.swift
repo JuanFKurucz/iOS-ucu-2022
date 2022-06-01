@@ -37,7 +37,7 @@ class CarouselCollectionView: UICollectionView {
         
         self.register(UINib(nibName: CarouselCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CarouselCollectionViewCell.identifier)
     }
-
+    
 }
 
 extension CarouselCollectionView : UICollectionViewDelegate, UICollectionViewDataSource {

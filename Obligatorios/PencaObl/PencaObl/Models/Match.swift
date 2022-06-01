@@ -20,35 +20,35 @@ struct MatchLog : Decodable {
     var playerName : String
     
     var icon : String {
-      switch self.event {
-      case "red card": return "redCard"
-      case "yellow card": return "yellowCard"
-      case "goal": return "goal"
-      default: return ""
-      }
+        switch self.event {
+        case "red card": return "redCard"
+        case "yellow card": return "yellowCard"
+        case "goal": return "goal"
+        default: return ""
+        }
     }
     
 }
 
 enum MatchStatus: String, Decodable {
     case pending, correct, incorrect, notPredicted
-
+    
     var text : String {
-      switch self {
-      case .pending: return "Pendiente"
-      case .correct: return "Acertado"
-      case .incorrect: return "Errado"
-      case .notPredicted: return "No jugado"
-      }
+        switch self {
+        case .pending: return "Pendiente"
+        case .correct: return "Acertado"
+        case .incorrect: return "Errado"
+        case .notPredicted: return "No jugado"
+        }
     }
     
     var color : UIColor {
-      switch self {
-      case .pending: return UIColor(red:25.0/255,green:55.0/255,blue: 163.0/255, alpha: 1.0)
-      case .correct: return UIColor(red:0.0/255,green:163.0/255,blue: 98.0/255, alpha: 1.0)
-      case .incorrect: return UIColor(red:208.0/255,green:49.0/255,blue: 87.0/255, alpha: 1.0)
-      case .notPredicted: return UIColor(red:161.0/255,green:159.0/255,blue: 157.0/255, alpha: 1.0)
-      }
+        switch self {
+        case .pending: return UIColor(red:25.0/255,green:55.0/255,blue: 163.0/255, alpha: 1.0)
+        case .correct: return UIColor(red:0.0/255,green:163.0/255,blue: 98.0/255, alpha: 1.0)
+        case .incorrect: return UIColor(red:208.0/255,green:49.0/255,blue: 87.0/255, alpha: 1.0)
+        case .notPredicted: return UIColor(red:161.0/255,green:159.0/255,blue: 157.0/255, alpha: 1.0)
+        }
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -56,10 +56,10 @@ enum MatchStatus: String, Decodable {
     }
     
     var encoding : String {
-      switch self {
-      case .notPredicted: return "not_predicted"
-      default: return self.rawValue
-      }
+        switch self {
+        case .notPredicted: return "not_predicted"
+        default: return self.rawValue
+        }
     }
 }
 
@@ -87,7 +87,7 @@ class Match {
     public func getMatchPlayed() -> Bool {
         return self.date <= Date() || self.score != nil
     }
-
+    
     public func changeGuess(guessScore: Score) -> Bool{
         if !self.getMatchPlayed() {
             self.guess = guessScore

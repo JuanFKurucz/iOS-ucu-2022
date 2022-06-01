@@ -9,7 +9,7 @@ protocol MatchTableViewCellDelegate {
 class MatchTableViewCell: UITableViewCell {
     
     static let identifier = "MatchTableViewCell"
-
+    
     @IBOutlet weak var matchStatusLabelView: UIView!
     @IBOutlet weak var matchStatusContainerView: UIView!
     @IBOutlet weak var matchStatusLabel: UILabel!
@@ -49,7 +49,7 @@ class MatchTableViewCell: UITableViewCell {
         self.detailsButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         self.detailsButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         
-
+        
         self.addTopBorderToButton(button: detailsButton)
         self.addTopBorderToButton(button: saveButton)
     }
@@ -71,7 +71,7 @@ class MatchTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0))
     }
 }
@@ -80,7 +80,7 @@ class MatchTableViewCell: UITableViewCell {
 extension MatchTableViewCell : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         let scoreNumber = Int(textField.text ?? "") ?? -1
-    
+        
         if scoreNumber > 99 || scoreNumber < 0 {
             textField.text = ""
         } else {

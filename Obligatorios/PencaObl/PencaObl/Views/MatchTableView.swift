@@ -8,7 +8,7 @@
 import UIKit
 
 class MatchTableView: UITableView {
-
+    
     func setMessage(message: String) {
         let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
         messageLabel.text = message
@@ -16,7 +16,7 @@ class MatchTableView: UITableView {
         messageLabel.textAlignment = .center
         self.backgroundView = messageLabel
     }
-
+    
     func restore() {
         self.backgroundView = nil
     }

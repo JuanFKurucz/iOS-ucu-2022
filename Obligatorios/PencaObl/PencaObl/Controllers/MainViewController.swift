@@ -57,11 +57,11 @@ class MainViewController: UIViewController {
             
             var matchStatus:MatchStatus
             switch APIMatch.status {
-                case "pending": matchStatus = MatchStatus.pending
-                case "not_predicted": matchStatus = MatchStatus.notPredicted
-                case "correct": matchStatus = MatchStatus.correct
-                case "incorrect": matchStatus = MatchStatus.incorrect
-                default: matchStatus = MatchStatus.pending
+            case "pending": matchStatus = MatchStatus.pending
+            case "not_predicted": matchStatus = MatchStatus.notPredicted
+            case "correct": matchStatus = MatchStatus.correct
+            case "incorrect": matchStatus = MatchStatus.incorrect
+            default: matchStatus = MatchStatus.pending
             }
             matches.append(Match(matchId: APIMatch.matchId, teamLeft: teamLeft.first!, teamRight: teamRight.first!, matchStatus: matchStatus, date: formatter.date(from: APIMatch.date)!, score: score, guess: guess))
             
@@ -114,58 +114,65 @@ class MainViewController: UIViewController {
     }
     
     /// This function picks the matches from `matchesList` that conform `teamName` and `matchStatus` queries.
-   /// and puts them in `filteredMatchesList`
-   ///
-   /// - Parameter teamName: A string query to filter matches by their team name, it can be `nil` which means no querying
-   /// - Parameter matchStatus: A `MatchStatus` element to filter matches by their status, it can be `nil` which means no querying
-   func filterMatches(teamName:String?, matchStatus: MatchStatus?) {
-       self.filterTeamName = teamName
-       self.filterMatchStatus = matchStatus
-       var currentDate : Date? = nil
-       self.filteredDates = []
-       if(self.filterTeamName == nil || self.filterTeamName!.count==0){
-           if(self.filterMatchStatus != nil ){
-               self.filteredMatchesList = []
-               for matches in self.matchesList {
-                   for match in matches {
-                       if(currentDate == nil || currentDate! != match.date){
-                           currentDate = match.date
-                       }
-                       if(match.matchStatus == self.filterMatchStatus){
-                           if (!filteredDates.contains(currentDate!)){
-                               self.filteredDates.append(currentDate!)
-                               self.filteredMatchesList.append([])
-                           }
-                           self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
-                       }
-                   }
-               }
-           } else {
-               self.filteredMatchesList = self.matchesList
-               self.filteredDates = self.dates
-           }
-       } else {
-           self.filteredMatchesList = []
-           for matches in self.matchesList {
-               for match in matches {
-                   if(match.teamLeft.name.lowercased().contains(self.filterTeamName!.lowercased()) || match.teamRight.name.lowercased().contains(self.filterTeamName!.lowercased())){
-                       if(currentDate == nil || currentDate! != match.date){
-                           currentDate = match.date
-                       }
-                       if(self.filterMatchStatus == nil || match.matchStatus == self.filterMatchStatus){
-                           if (!filteredDates.contains(currentDate!)){
-                               self.filteredDates.append(currentDate!)
-                               self.filteredMatchesList.append([])
-                           }
-                           self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
-                       }
-                   }
-               }
-           }
-       }
-       self.tableView.reloadData()
-   }
-
+    /// and puts them in `filteredMatchesList`
+    ///
+    /// - Parameter teamName: A string query to filter matches by their team name, it can be `nil` which means no querying
+    /// - Parameter matchStatus: A `MatchStatus` element to filter matches by their status, it can be `nil` which means no querying
+    func filterMatches(teamName:String?, matchStatus: MatchStatus?) {
+        self.filterTeamName = teamName
+        self.filterMatchStatus = matchStatus
+        var currentDate : Date? = nil
+        self.filteredDates = []
+        if(self.filterTeamName == nil || self.filterTeamName!.count==0){
+            if(self.filterMatchStatus != nil ){
+                self.filteredMatchesList = []
+                for matches in self.matchesList {
+                    for match in matches {
+                        if(currentDate == nil || currentDate! != match.date){
+                            currentDate = match.date
+                        }
+                        if(match.matchStatus == self.filterMatchStatus){
+                            if (!filteredDates.contains(currentDate!)){
+                                self.filteredDates.append(currentDate!)
+                                self.filteredMatchesList.append([])
+                            }
+                            self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
+                        }
+                    }
+                }
+            } else {
+                self.filteredMatchesList = self.matchesList
+                self.filteredDates = self.dates
+            }
+        } else {
+            self.filteredMatchesList = []
+            for matches in self.matchesList {
+                for match in matches {
+                    if(match.teamLeft.name.lowercased().contains(self.filterTeamName!.lowercased()) || match.teamRight.name.lowercased().contains(self.filterTeamName!.lowercased())){
+                        if(currentDate == nil || currentDate! != match.date){
+                            currentDate = match.date
+                        }
+                        if(self.filterMatchStatus == nil || match.matchStatus == self.filterMatchStatus){
+                            if (!filteredDates.contains(currentDate!)){
+                                self.filteredDates.append(currentDate!)
+                                self.filteredMatchesList.append([])
+                            }
+                            self.filteredMatchesList[self.filteredMatchesList.endIndex-1].append(match)
+                        }
+                    }
+                }
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
+    func onExternalFilterError(error: Error, matchStatus: MatchStatus?){
+        self.onAPIRequestFail(error: error)
+        APIPenca.getMatches(onComplete: { getMatches in
+            self.onGetMatchesSuccess(getMatches: getMatches)
+            self.filterMatches(teamName: self.filterTeamName, matchStatus: matchStatus)
+        }, onFail: self.onAPIRequestFail, teamName: self.filterTeamName)
+    }
     
     @IBAction func tappedFilterButton(_ sender: Any) {
         let alertController = UIAlertController(title: "Filtrar partidos", message: nil, preferredStyle: .actionSheet)
@@ -174,38 +181,22 @@ class MainViewController: UIViewController {
         }))
         alertController.addAction(UIAlertAction(title: "Ver acertados", style: .default, handler: {_ in
             APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail:  { error in
-                self.onAPIRequestFail(error: error)
-                APIPenca.getMatches(onComplete: { getMatches in
-                    self.onGetMatchesSuccess(getMatches: getMatches)
-                    self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.correct)
-                }, onFail: self.onAPIRequestFail)
+                self.onExternalFilterError(error: error, matchStatus: MatchStatus.correct)
             }, teamName: self.filterTeamName, status: MatchStatus.correct.encoding)
         }))
         alertController.addAction(UIAlertAction(title: "Ver errados", style: .default, handler: {_ in
             APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail:  { error in
-                self.onAPIRequestFail(error: error)
-                APIPenca.getMatches(onComplete: { getMatches in
-                    self.onGetMatchesSuccess(getMatches: getMatches)
-                    self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.incorrect)
-                }, onFail: self.onAPIRequestFail)
+                self.onExternalFilterError(error: error, matchStatus: MatchStatus.incorrect)
             }, teamName: self.filterTeamName, status: MatchStatus.incorrect.encoding)
         }))
         alertController.addAction(UIAlertAction(title: "Ver pendientes", style: .destructive, handler: {_ in
             APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail:  { error in
-                self.onAPIRequestFail(error: error)
-                APIPenca.getMatches(onComplete: { getMatches in
-                    self.onGetMatchesSuccess(getMatches: getMatches)
-                    self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.pending)
-                }, onFail: self.onAPIRequestFail)
+                self.onExternalFilterError(error: error, matchStatus: MatchStatus.pending)
             }, teamName: self.filterTeamName, status: MatchStatus.pending.encoding)
         }))
         alertController.addAction(UIAlertAction(title: "Ver jugados s/resultado", style: .default, handler: {_ in
             APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail: { error in
-                self.onAPIRequestFail(error: error)
-                APIPenca.getMatches(onComplete: { getMatches in
-                    self.onGetMatchesSuccess(getMatches: getMatches)
-                    self.filterMatches(teamName: self.filterTeamName, matchStatus: MatchStatus.notPredicted)
-                }, onFail: self.onAPIRequestFail)
+                self.onExternalFilterError(error: error, matchStatus: MatchStatus.notPredicted)
             }, teamName: self.filterTeamName, status: MatchStatus.notPredicted.encoding)
         }))
         alertController.addAction(UIAlertAction(title: "Filtrar", style: .cancel, handler: nil))

@@ -15,7 +15,7 @@ class CarouselCollectionViewCell: UICollectionViewCell {
     func loadBanner(bannerURL: String){
         carrouselImage.kf.setImage(with: URL(string: bannerURL))
     }
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

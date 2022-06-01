@@ -30,7 +30,8 @@
                 "leftScore": 3,
                 "rightScore": 1
             },
-            "log":[]
+            "log":[],
+            "status":"correct"
         },
         {
             "teamLeft": "Nacional",
@@ -44,7 +45,8 @@
                 "leftScore": -1,
                 "rightScore": -1
             },
-            "log":[]
+            "log":[],
+            "status":"pending"
         },
         {
             "teamLeft": "Nacional",
@@ -58,7 +60,8 @@
                 "leftScore": 1,
                 "rightScore": 3
             },
-            "log":[]
+            "log":[],
+            "status":"pending"
         },
         {
             "teamLeft": "Nacional",
@@ -72,7 +75,8 @@
                 "leftScore": -1,
                 "rightScore": -1
             },
-            "log":[]
+            "log":[],
+            "status":"not_predicted"
         },
         {
             "teamLeft": "Boston river",
@@ -135,7 +139,8 @@
                     "icon":"redCard",
                     "side":"right"
                 },
-            ]
+            ],
+            "status":"incorrect"
         }
     ]
 }

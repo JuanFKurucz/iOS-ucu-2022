@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
     static let identifier = "LoginViewController"
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -23,7 +23,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         Visual.addNavBarImage(element:self)
     }
@@ -35,7 +35,7 @@ class LoginViewController: UIViewController {
     func onLoginError(error: Error){
         Alert.showAlertBox(currentViewController: self, title: "Api error", message: error.localizedDescription)
     }
-
+    
     @IBAction func tapLoginButton(_ sender: Any) {
         if(emailTextField.text?.isEmpty ?? true || passwordTextField.text?.isEmpty ?? true){
             Alert.showAlertBox(currentViewController: self,title: "Error",message: "Usuario o contraseña incorrecto")
@@ -47,5 +47,5 @@ class LoginViewController: UIViewController {
     @IBAction func tapSignupButton(_ sender: Any) {
         let _ = Navigation.jumpToView(currentViewController: self,nextViewController: SignupViewController.identifier)
     }
-
+    
 }

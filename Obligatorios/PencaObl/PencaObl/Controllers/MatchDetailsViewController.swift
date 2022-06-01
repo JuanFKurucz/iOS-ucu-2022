@@ -9,11 +9,11 @@ import UIKit
 
 extension String {
     func capitalizingFirstLetter() -> String {
-      return prefix(1).uppercased() + self.lowercased().dropFirst()
+        return prefix(1).uppercased() + self.lowercased().dropFirst()
     }
-
+    
     mutating func capitalizeFirstLetter() {
-      self = self.capitalizingFirstLetter()
+        self = self.capitalizingFirstLetter()
     }
 }
 
@@ -60,7 +60,7 @@ class MatchDetailsViewController: UIViewController {
         
         
         if let match = self.match {
-        
+            
             APIPenca.getMatchDetails(matchId: match.matchId, onComplete: onGetMatchDetailsSuccess, onFail: onGetMatchDetailsFail)
             
             self.tableView.register(UINib(nibName: MatchLogTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: MatchLogTableViewCell.identifier)
