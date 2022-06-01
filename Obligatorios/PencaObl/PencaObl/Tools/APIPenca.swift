@@ -39,8 +39,8 @@ struct APIMatch: Decodable {
     let status: String
     let homeTeamGoals: Int?
     let awayTeamGoals: Int?
-    let homeTeamPrediction: Int?
-    let awayTeamPrediction: Int?
+    let predictedHomeGoals: Int?
+    let predictedAwayGoals: Int?
     let incidences: [MatchLog]?
 }
 

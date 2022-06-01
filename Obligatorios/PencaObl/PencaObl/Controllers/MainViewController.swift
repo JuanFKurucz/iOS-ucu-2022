@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Kingfisher
+
 class MainViewController: UIViewController {
     static let identifier = "MainViewController"
     
@@ -24,10 +26,10 @@ class MainViewController: UIViewController {
     
     func onGetMatchesSuccess(getMatches: GetMatches){
         var matches: [Match] = []
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions.insert(.withFractionalSeconds)
+        
         getMatches.matches.forEach { APIMatch in
-            let formatter = ISO8601DateFormatter()
-            formatter.formatOptions.insert(.withFractionalSeconds)
-            
             var teamLeft : [Team] = Database.teams.filter({$0.id == APIMatch.homeTeamId})
             if(teamLeft.isEmpty){
                 teamLeft = [Team(id:APIMatch.homeTeamId,name:APIMatch.homeTeamName,imageURL:APIMatch.homeTeamLogo)]
@@ -44,15 +46,20 @@ class MainViewController: UIViewController {
                 score = Score(leftScore: scoreLeft, rightScore: scoreRight)
             }
             
+            var guess: Score? = nil
+            if let guessLeft = APIMatch.predictedHomeGoals, let guessRight = APIMatch.predictedAwayGoals {
+                guess = Score(leftScore: guessLeft, rightScore: guessRight)
+            }
+            
             var matchStatus:MatchStatus
             switch APIMatch.status {
-            case "pending": matchStatus = MatchStatus.pending
-            case "not_predicted": matchStatus = MatchStatus.notPredicted
-            case "correct": matchStatus = MatchStatus.correct
-            case "incorrect": matchStatus = MatchStatus.incorrect
-            default: matchStatus = MatchStatus.pending
+                case "pending": matchStatus = MatchStatus.pending
+                case "not_predicted": matchStatus = MatchStatus.notPredicted
+                case "correct": matchStatus = MatchStatus.correct
+                case "incorrect": matchStatus = MatchStatus.incorrect
+                default: matchStatus = MatchStatus.pending
             }
-            matches.append(Match(matchId: APIMatch.matchId, teamLeft: teamLeft.first!, teamRight: teamRight.first!, matchStatus: matchStatus, date: formatter.date(from: APIMatch.date)!, score: score))
+            matches.append(Match(matchId: APIMatch.matchId, teamLeft: teamLeft.first!, teamRight: teamRight.first!, matchStatus: matchStatus, date: formatter.date(from: APIMatch.date)!, score: score, guess: guess))
             
         }
         matches = matches.sorted(by: {$0.date > $1.date})
@@ -78,11 +85,14 @@ class MainViewController: UIViewController {
         Alert.showAlertBox(currentViewController: self, title: "Api error", message: error.localizedDescription)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         // Data loading
         APIPenca.getMatches(onComplete: self.onGetMatchesSuccess, onFail: onAPIRequestFail)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         // Visual components loading
         Visual.addNavBarImage(element:self)
@@ -210,6 +220,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MatchTableViewCell.identifier) as! MatchTableViewCell
         let match = self.filteredMatchesList[indexPath.section][indexPath.row]
+        print("Creating match: \(match.teamLeft.name) vs \(match.teamRight.name) with index \(indexPath.section),\(indexPath.row)")
         cell.delegate = self
         cell.indexPath = indexPath
         
@@ -225,13 +236,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         cell.teamLeftLabel.text = match.teamLeft.name
-        if let image = match.teamLeft.image {
-            cell.teamLeftLogo.image = image
-        }
+        cell.teamLeftLogo.kf.setImage(with: URL(string:match.teamLeft.imageURL))
         cell.teamRightLabel.text = match.teamRight.name
-        if let image = match.teamRight.image {
-            cell.teamRightLogo.image = image
-        }
+        cell.teamRightLogo.kf.setImage(with: URL(string:match.teamRight.imageURL))
         
         if match.matchStatus == MatchStatus.pending {
             cell.detailsButton.isHidden=true
@@ -244,15 +251,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         var score : Score? = nil
-        if match.score != nil {
-            score = match.score!
-        } else if match.guess != nil {
-            score = match.guess!
+        if let matchScore = match.score {
+            score = matchScore
+        } else if let matchGuess = match.guess {
+            score = matchGuess
         }
         
-        if score != nil {
-            cell.scoreLeftField.text = "\(score!.leftScore)"
-            cell.scoreRightField.text = "\(score!.rightScore)"
+        if let scoreValue = score {
+            print("Score value: \(scoreValue.leftScore) vs \(scoreValue.rightScore)")
+            cell.scoreLeftField.text = "\(scoreValue.leftScore)"
+            cell.scoreRightField.text = "\(scoreValue.rightScore)"
+        } else {
+            cell.scoreLeftField.text = ""
+            cell.scoreRightField.text = ""
         }
         
         return cell
@@ -279,12 +290,15 @@ extension MainViewController: MatchTableViewCellDelegate {
     func onPredictMatchComplete(result: APIPredictMatch){
         self.view.endEditing(true)
     }
+    
     func onPredictMatchFail(error: Error){
         self.view.endEditing(true)
         onAPIRequestFail(error: error)
     }
+    
     func didTapSaveButton(index: IndexPath?, scoreLeft: Int, scoreRight: Int) {
         let match = self.filteredMatchesList[index!.section][index!.row]
+        print("Save prediction on: \(match.teamLeft.name) vs \(match.teamRight.name)")
         if(match.changeGuess(guessScore: Score(leftScore: scoreLeft, rightScore: scoreRight))){
             APIPenca.predictMatch(matchId: match.matchId, homeGoals: scoreLeft, awayGoals: scoreRight, onComplete: onPredictMatchComplete, onFail: onPredictMatchFail)
         }

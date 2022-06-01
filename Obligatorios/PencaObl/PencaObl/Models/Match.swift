@@ -60,7 +60,7 @@ class Match {
     let matchId: Int
     let teamLeft: Team
     let teamRight: Team
-    private(set) var score: Score?
+    let score: Score?
     private(set) var guess: Score?
     private(set) var date: Date
     private(set) var matchStatus: MatchStatus
@@ -78,7 +78,7 @@ class Match {
     }
     
     public func getMatchPlayed() -> Bool {
-        return self.date >= Date() || self.score != nil
+        return self.date <= Date() || self.score != nil
     }
 
     public func changeGuess(guessScore: Score) -> Bool{

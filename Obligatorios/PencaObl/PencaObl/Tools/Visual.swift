@@ -4,7 +4,6 @@
 //
 //  Created by Juan Francisco Kurucz on 7/5/22.
 //
-
 import Foundation
 import UIKit
 
@@ -25,14 +24,5 @@ class Visual {
         if hidesBackButton {
             element.navigationItem.hidesBackButton = true
         }
-    }
-    
-    static func loadExternalImage(imageURL: String) -> UIImage? {
-        let url = URL(string: imageURL)
-        let data = try? Data(contentsOf: url!)
-        if let existentData = data {
-            return UIImage(data: existentData)
-        }
-        return nil
     }
 }

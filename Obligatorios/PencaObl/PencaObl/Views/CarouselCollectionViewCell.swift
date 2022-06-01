@@ -12,10 +12,8 @@ class CarouselCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var carrouselImage: UIImageView!
     
-    func loadBanner(bannerImage: UIImage?){
-        if let image = bannerImage {
-            carrouselImage.image = image
-        }
+    func loadBanner(bannerURL: String){
+        carrouselImage.kf.setImage(with: URL(string: bannerURL))
     }
 
     override func awakeFromNib() {

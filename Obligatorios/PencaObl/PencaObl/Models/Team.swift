@@ -12,11 +12,11 @@ import UIKit
 class Team {
     let id: Int
     let name: String
-    let image: UIImage?
+    let imageURL: String
     
     init(id:Int, name: String, imageURL: String){
         self.id = id
         self.name = name
-        self.image = Visual.loadExternalImage(imageURL: "https://\(imageURL)")
+        self.imageURL = "https://\(imageURL)"
     }
 }

@@ -72,8 +72,8 @@ class MatchDetailsViewController: UIViewController {
             
             self.statusLabel.text = match.matchStatus.text
             
-            self.teamLeftImage.image = match.teamLeft.image
-            self.teamRightImage.image = match.teamRight.image
+            self.teamLeftImage.kf.setImage(with: URL(string:match.teamLeft.imageURL))
+            self.teamRightImage.kf.setImage(with: URL(string:match.teamRight.imageURL))
             self.teamLeftLabel.text = match.teamLeft.name
             self.teamRightLabel.text = match.teamRight.name
             self.matchScoreLabel.text = "\(match.score!.leftScore) - \(match.score!.rightScore)"
