@@ -35,6 +35,7 @@ class Visual {
     {
         let defaults = UserDefaults.standard
         defaults.set(nil, forKey: "userToken")
+        print("logged out")
         let _ = Navigation.jumpToView(currentViewController: element, nextViewController: LoginViewController.identifier)
     }
 }
