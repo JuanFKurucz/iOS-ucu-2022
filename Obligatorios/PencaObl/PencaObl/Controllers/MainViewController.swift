@@ -298,6 +298,21 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         dateFormatterGet.dateFormat = "EEEE d/M/Y"
         return "\(dateFormatterGet.string(from:self.filteredDates[section]).capitalizingFirstLetter())"
     }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == self.filteredDates.count-1 {
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+            return footerView
+        }
+        return nil
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == self.filteredDates.count-1 {
+            return 50
+        }
+        return 0
+    }
 }
 
 
