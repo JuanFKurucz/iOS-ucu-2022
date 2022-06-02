@@ -88,7 +88,7 @@ class Match {
         return self.matchStatus != MatchStatus.pending
     }
     
-    public func changeGuess(guessScore: Score) -> Bool{
+    public func changeGuess(guessScore: Score?) -> Bool{
         if !self.getMatchPlayed() {
             self.guess = guessScore
             return true

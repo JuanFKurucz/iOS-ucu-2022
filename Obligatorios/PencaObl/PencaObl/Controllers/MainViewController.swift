@@ -335,7 +335,11 @@ extension MainViewController: MatchTableViewCellDelegate {
         let match = self.filteredMatchesList[index!.section][index!.row]
         print("Save prediction on: \(match.teamLeft.name) vs \(match.teamRight.name)")
         if(match.changeGuess(guessScore: Score(leftScore: scoreLeft, rightScore: scoreRight))){
-            APIPenca.predictMatch(matchId: match.matchId, homeGoals: scoreLeft, awayGoals: scoreRight, onComplete: onPredictMatchComplete, onFail: onPredictMatchFail)
+            let pastGuess : Score? = match.guess
+            APIPenca.predictMatch(matchId: match.matchId, homeGoals: scoreLeft, awayGoals: scoreRight, onComplete: onPredictMatchComplete, onFail: { error in
+                let _ = match.changeGuess(guessScore: pastGuess)
+                self.onAPIRequestFail(error: error)
+            })
         }
     }
 }

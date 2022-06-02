@@ -55,8 +55,8 @@ class MatchTableViewCell: UITableViewCell {
     }
     
     @IBAction func onClickSaveButton(_ sender: Any) {
-        let scoreLeft : Int = Int(self.scoreLeftField.text ?? "") ?? 0
-        let scoreRight : Int = Int(self.scoreRightField.text ?? "") ?? 0
+        let scoreLeft : Int = Int(Validation.scoreValidation(number: self.scoreLeftField.text ?? "")) ?? 0
+        let scoreRight : Int = Int(Validation.scoreValidation(number: self.scoreRightField.text ?? "")) ?? 0
         self.delegate?.didTapSaveButton(index: self.indexPath, scoreLeft: scoreLeft, scoreRight: scoreRight)
         saveButton.isHidden=true
     }
@@ -79,12 +79,6 @@ class MatchTableViewCell: UITableViewCell {
 
 extension MatchTableViewCell : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let scoreNumber = Int(textField.text ?? "") ?? -1
-        
-        if scoreNumber > 99 || scoreNumber < 0 {
-            textField.text = ""
-        } else {
-            textField.text = String(scoreNumber)
-        }
+        textField.text = Validation.scoreValidation(number: textField.text ?? "")
     }
 }

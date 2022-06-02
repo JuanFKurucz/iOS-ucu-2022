@@ -36,6 +36,7 @@
 		56EB814E28287A46009BCC5A /* CarouselCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB814D28287A46009BCC5A /* CarouselCollectionView.swift */; };
 		56EB81502828848F009BCC5A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB814F2828848F009BCC5A /* LoginViewController.swift */; };
 		56EB81522828849B009BCC5A /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB81512828849B009BCC5A /* SignupViewController.swift */; };
+		56F22EC9284848EF00D265CE /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F22EC8284848EF00D265CE /* Validation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		56EB814D28287A46009BCC5A /* CarouselCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCollectionView.swift; sourceTree = "<group>"; };
 		56EB814F2828848F009BCC5A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		56EB81512828849B009BCC5A /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		56F22EC8284848EF00D265CE /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = PencaObl/Tools/Validation.swift; sourceTree = SOURCE_ROOT; };
 		625233FA55128BD3045F51AA /* Pods_PencaObl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PencaObl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF5BA45EA2AB89F46AC7680D /* Pods-PencaObl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PencaObl.debug.xcconfig"; path = "Target Support Files/Pods-PencaObl/Pods-PencaObl.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,7 +94,6 @@
 				EF5BA45EA2AB89F46AC7680D /* Pods-PencaObl.debug.xcconfig */,
 				34B4C965F2ED8E8D089905CE /* Pods-PencaObl.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -100,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				56740EA828237D8D000FD76D /* Database.swift */,
+				56F22EC8284848EF00D265CE /* Validation.swift */,
 				568DC4152829E37D00D1AB9A /* Navigation.swift */,
 				56EB814328273325009BCC5A /* Visual.swift */,
 				5622272B282B2526002CD2D6 /* Alert.swift */,
@@ -327,6 +329,7 @@
 			files = (
 				5622272C282B2526002CD2D6 /* Alert.swift in Sources */,
 				568FD245281A252100DE3E55 /* MainViewController.swift in Sources */,
+				56F22EC9284848EF00D265CE /* Validation.swift in Sources */,
 				5682F17E281B5D3500ACD35B /* Team.swift in Sources */,
 				5624D6EB2837015800BFCF39 /* APIClient.swift in Sources */,
 				5624D6ED2837039800BFCF39 /* APIPenca.swift in Sources */,
