@@ -70,9 +70,9 @@ enum APIUrls : String {
 class APIPenca {
     static func login(email:String, password:String, onComplete : @escaping (AuthUser) -> Void, onFail: @escaping (Error) -> Void){
         _ = APIClient.shared.requestItem(urlString: APIUrls.login.rawValue,
-                                         method: .post,
+                                         method: APIClient.Method.post,
                                          params: ["email": email,"password": password],
-                                         sessionPolicy: .publicDomain,
+                                         sessionPolicy: APIClient.SessionPolicy.publicDomain,
                                          onCompletion: { (result: Result<AuthUser, Error>) in
             switch result {
             case .success(let data):
@@ -87,9 +87,9 @@ class APIPenca {
     
     static func signup(email:String, password:String, onComplete : @escaping (AuthUser) -> Void, onFail: @escaping (Error) -> Void){
         _ = APIClient.shared.requestItem(urlString: APIUrls.signup.rawValue,
-                                         method: .post,
+                                         method: APIClient.Method.post,
                                          params: ["email": email,"password": password],
-                                         sessionPolicy: .publicDomain,
+                                         sessionPolicy: APIClient.SessionPolicy.publicDomain,
                                          onCompletion: { (result: Result<AuthUser, Error>) in
             switch result {
             case .success(let data):
@@ -111,9 +111,9 @@ class APIPenca {
             params["status"] = status
         }
         _ = APIClient.shared.requestItem(urlString: APIUrls.match.rawValue,
-                                         method: .get,
+                                         method: APIClient.Method.get,
                                          params: params,
-                                         sessionPolicy: .privateDomain,
+                                         sessionPolicy: APIClient.SessionPolicy.privateDomain,
                                          onCompletion: { (result: Result<GetMatches, Error>) in
             switch result {
             case .success(let data):
@@ -126,9 +126,9 @@ class APIPenca {
     
     static func getMatchDetails(matchId: Int, onComplete : @escaping (APIMatchDetails) -> Void, onFail: @escaping (Error) -> Void){
         _ = APIClient.shared.requestItem(urlString: "\(APIUrls.match.rawValue)\(matchId)",
-                                         method: .get,
+                                         method: APIClient.Method.get,
                                          params: [:],
-                                         sessionPolicy: .privateDomain,
+                                         sessionPolicy: APIClient.SessionPolicy.privateDomain,
                                          onCompletion: { (result: Result<APIMatchDetails, Error>) in
             switch result {
             case .success(let data):
@@ -141,9 +141,9 @@ class APIPenca {
     
     static func predictMatch(matchId: Int, homeGoals: Int, awayGoals: Int, onComplete : @escaping (APIPredictMatch) -> Void, onFail: @escaping (Error) -> Void){
         _ = APIClient.shared.requestItem(urlString: "\(APIUrls.match.rawValue)\(matchId)",
-                                         method: .patch,
+                                         method: APIClient.Method.patch,
                                          params: ["homeGoals":homeGoals,"awayGoals":awayGoals],
-                                         sessionPolicy: .privateDomain,
+                                         sessionPolicy: APIClient.SessionPolicy.privateDomain,
                                          onCompletion: { (result: Result<APIPredictMatch, Error>) in
             switch result {
             case .success(let data):
@@ -156,9 +156,9 @@ class APIPenca {
     
     static func getBannerURLs(onComplete : @escaping (APIBanners) -> Void, onFail: @escaping (Error) -> Void){
         _ = APIClient.shared.requestItem(urlString: APIUrls.files.rawValue,
-                                         method: .get,
+                                         method: APIClient.Method.get,
                                          params: [:],
-                                         sessionPolicy: .privateDomain,
+                                         sessionPolicy: APIClient.SessionPolicy.privateDomain,
                                          onCompletion: { (result: Result<APIBanners, Error>) in
             switch result {
             case .success(let data):

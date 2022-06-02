@@ -85,7 +85,7 @@ class Match {
     }
     
     public func getMatchPlayed() -> Bool {
-        return self.date <= Date() || self.score != nil
+        return self.matchStatus != MatchStatus.pending
     }
     
     public func changeGuess(guessScore: Score) -> Bool{
