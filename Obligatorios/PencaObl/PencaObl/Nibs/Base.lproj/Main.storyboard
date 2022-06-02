@@ -322,24 +322,24 @@
                                         <cells/>
                                     </collectionView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Yjb-OX-1yh">
-                                        <rect key="frame" x="164" y="172" width="32" height="21"/>
+                                        <rect key="frame" x="164" y="193" width="32" height="10"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ellipse_selected" translatesAutoresizingMaskIntoConstraints="NO" id="xe5-LH-BPg">
-                                                <rect key="frame" x="0.0" y="6.5" width="8" height="8"/>
+                                                <rect key="frame" x="0.0" y="1" width="8" height="8"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="8" id="Mdu-7f-HbL"/>
                                                     <constraint firstAttribute="height" constant="8" id="sGW-RT-ld1"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ellipse" translatesAutoresizingMaskIntoConstraints="NO" id="hjM-wk-cKv">
-                                                <rect key="frame" x="12" y="6.5" width="8" height="8"/>
+                                                <rect key="frame" x="12" y="1" width="8" height="8"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="8" id="3Kq-Xp-gZE"/>
                                                     <constraint firstAttribute="width" constant="8" id="ph4-XG-8cC"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ellipse" translatesAutoresizingMaskIntoConstraints="NO" id="S1m-iz-COp">
-                                                <rect key="frame" x="24" y="6.5" width="8" height="8"/>
+                                                <rect key="frame" x="24" y="1" width="8" height="8"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="8" id="JVD-sa-JTI"/>
                                                     <constraint firstAttribute="height" constant="8" id="sze-nm-86B"/>
@@ -355,9 +355,9 @@
                                     <constraint firstAttribute="height" constant="193" id="BT7-mE-IKt"/>
                                     <constraint firstAttribute="bottom" secondItem="NJE-gi-igp" secondAttribute="bottom" id="IuE-Hl-cil"/>
                                     <constraint firstItem="NJE-gi-igp" firstAttribute="width" secondItem="YZf-4Z-tcn" secondAttribute="width" id="YUz-Ox-Kzr"/>
-                                    <constraint firstAttribute="bottom" secondItem="Yjb-OX-1yh" secondAttribute="bottom" id="aVa-Rp-Rby"/>
+                                    <constraint firstAttribute="bottom" secondItem="Yjb-OX-1yh" secondAttribute="bottom" constant="-10" id="aVa-Rp-Rby"/>
                                     <constraint firstItem="NJE-gi-igp" firstAttribute="top" secondItem="YZf-4Z-tcn" secondAttribute="top" id="mzT-4U-DOa"/>
-                                    <constraint firstItem="Yjb-OX-1yh" firstAttribute="top" secondItem="NJE-gi-igp" secondAttribute="bottom" constant="-21" id="nPp-H9-0GJ"/>
+                                    <constraint firstItem="Yjb-OX-1yh" firstAttribute="top" secondItem="NJE-gi-igp" secondAttribute="bottom" id="nPp-H9-0GJ"/>
                                     <constraint firstItem="Yjb-OX-1yh" firstAttribute="centerX" secondItem="YZf-4Z-tcn" secondAttribute="centerX" id="u4m-qb-kJk"/>
                                 </constraints>
                             </view>
