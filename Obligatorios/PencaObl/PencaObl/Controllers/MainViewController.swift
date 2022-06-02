@@ -240,7 +240,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MatchTableViewCell.identifier) as! MatchTableViewCell
         let match = self.filteredMatchesList[indexPath.section][indexPath.row]
-        print("Creating match: \(match.teamLeft.name) vs \(match.teamRight.name) with index \(indexPath.section),\(indexPath.row)")
         cell.delegate = self
         cell.indexPath = indexPath
         
@@ -278,7 +277,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if let scoreValue = score {
-            print("Score value: \(scoreValue.leftScore) vs \(scoreValue.rightScore)")
             cell.scoreLeftField.text = "\(scoreValue.leftScore)"
             cell.scoreRightField.text = "\(scoreValue.rightScore)"
         } else {
@@ -333,7 +331,6 @@ extension MainViewController: MatchTableViewCellDelegate {
     
     func didTapSaveButton(index: IndexPath?, scoreLeft: Int, scoreRight: Int) {
         let match = self.filteredMatchesList[index!.section][index!.row]
-        print("Save prediction on: \(match.teamLeft.name) vs \(match.teamRight.name)")
         if(match.changeGuess(guessScore: Score(leftScore: scoreLeft, rightScore: scoreRight))){
             let pastGuess : Score? = match.guess
             APIPenca.predictMatch(matchId: match.matchId, homeGoals: scoreLeft, awayGoals: scoreRight, onComplete: onPredictMatchComplete, onFail: { error in
