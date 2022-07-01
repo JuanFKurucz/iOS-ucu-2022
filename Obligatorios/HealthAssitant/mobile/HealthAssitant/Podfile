@@ -1,0 +1,7 @@
+platform :ios, '13.0'
+
+target 'HealthAssitant' do
+  use_frameworks!
+  pod 'Kingfisher', '7.2.2'
+  pod 'Charts', '~> 4.0'
+end
