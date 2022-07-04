@@ -320,17 +320,20 @@
                             <constraint firstItem="JoG-XT-M0F" firstAttribute="leading" secondItem="ZxQ-dE-IfD" secondAttribute="leading" constant="20" id="Bkz-5e-Of1"/>
                             <constraint firstItem="zaH-aQ-uiR" firstAttribute="leading" secondItem="ZxQ-dE-IfD" secondAttribute="leading" constant="20" id="DKw-9L-gXi"/>
                             <constraint firstItem="ZxQ-dE-IfD" firstAttribute="trailing" secondItem="JoG-XT-M0F" secondAttribute="trailing" constant="20" id="Hjy-0D-6iX"/>
+                            <constraint firstItem="ZxQ-dE-IfD" firstAttribute="trailing" secondItem="rD8-Py-m50" secondAttribute="trailing" constant="78" id="LNt-ef-DDC"/>
                             <constraint firstItem="9bp-Kw-ZBV" firstAttribute="top" secondItem="ZxQ-dE-IfD" secondAttribute="top" constant="30" id="MtF-Jx-rhP"/>
+                            <constraint firstItem="ZxQ-dE-IfD" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6sK-BV-obr" secondAttribute="trailing" symbolic="YES" id="Mvm-WD-VsH"/>
                             <constraint firstItem="6sK-BV-obr" firstAttribute="leading" secondItem="9bp-Kw-ZBV" secondAttribute="trailing" constant="10" id="NG6-lF-Glh"/>
                             <constraint firstItem="JoG-XT-M0F" firstAttribute="top" secondItem="4pB-I3-DLq" secondAttribute="bottom" constant="10" id="NIE-5X-vno"/>
-                            <constraint firstItem="j48-d0-0kg" firstAttribute="leading" secondItem="9bp-Kw-ZBV" secondAttribute="trailing" constant="10" id="R26-6h-8VV"/>
+                            <constraint firstItem="j48-d0-0kg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9bp-Kw-ZBV" secondAttribute="trailing" symbolic="YES" id="R26-6h-8VV"/>
+                            <constraint firstItem="ZxQ-dE-IfD" firstAttribute="trailing" secondItem="j48-d0-0kg" secondAttribute="trailing" constant="113" id="Vp4-He-caS"/>
                             <constraint firstItem="ZxQ-dE-IfD" firstAttribute="bottom" secondItem="zaH-aQ-uiR" secondAttribute="bottom" constant="50" id="brN-8i-dwA"/>
                             <constraint firstItem="94M-I5-qDi" firstAttribute="top" secondItem="ZxQ-dE-IfD" secondAttribute="top" id="dMq-pO-Z6b"/>
                             <constraint firstItem="rD8-Py-m50" firstAttribute="top" secondItem="j48-d0-0kg" secondAttribute="bottom" constant="10" id="dhP-Qs-iMl"/>
                             <constraint firstItem="4pB-I3-DLq" firstAttribute="top" secondItem="rD8-Py-m50" secondAttribute="bottom" constant="50" id="f7W-7l-7AP"/>
                             <constraint firstItem="6sK-BV-obr" firstAttribute="top" secondItem="ZxQ-dE-IfD" secondAttribute="top" constant="40" id="fxO-KM-UYG"/>
                             <constraint firstItem="j48-d0-0kg" firstAttribute="top" secondItem="6sK-BV-obr" secondAttribute="bottom" constant="10" id="hAl-iw-fX9"/>
-                            <constraint firstItem="rD8-Py-m50" firstAttribute="leading" secondItem="9bp-Kw-ZBV" secondAttribute="trailing" constant="10" id="hj2-GL-WDR"/>
+                            <constraint firstItem="rD8-Py-m50" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9bp-Kw-ZBV" secondAttribute="trailing" symbolic="YES" id="hj2-GL-WDR"/>
                             <constraint firstItem="ZxQ-dE-IfD" firstAttribute="trailing" secondItem="zaH-aQ-uiR" secondAttribute="trailing" constant="20" id="mfm-Ju-6NR"/>
                             <constraint firstItem="4pB-I3-DLq" firstAttribute="centerX" secondItem="ZxQ-dE-IfD" secondAttribute="centerX" id="qrF-su-2dh"/>
                             <constraint firstItem="94M-I5-qDi" firstAttribute="centerX" secondItem="ZxQ-dE-IfD" secondAttribute="centerX" id="xa1-lY-rpQ"/>
@@ -614,7 +617,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="LpD-wZ-Dpm">
-                                <rect key="frame" x="25" y="589" width="364" height="100"/>
+                                <rect key="frame" x="25" y="588.5" width="364" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="k7a-Up-Kn3"/>
                                 </constraints>

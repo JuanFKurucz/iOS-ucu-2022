@@ -18,7 +18,6 @@ enum Gender: Int {
         switch self {
         case .male: return "Male"
         case .female: return "Female"
-        default: return "Unknown"
         }
     }
 }
