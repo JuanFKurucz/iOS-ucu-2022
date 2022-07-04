@@ -198,6 +198,9 @@
                                 <rect key="frame" x="337" y="112" width="57" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Filter"/>
+                                <connections>
+                                    <action selector="onTapFilter:" destination="rIV-xX-YUG" eventType="touchUpInside" id="xxH-44-rO5"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sfd-ph-ZRI">
                                 <rect key="frame" x="20" y="170" width="374" height="602"/>
@@ -242,7 +245,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Patients" image="person.fill" catalog="system" id="Kb0-3K-1rR"/>
                     <connections>
+                        <outlet property="filterButton" destination="HmS-UW-JMf" id="WoF-TX-Fn8"/>
                         <outlet property="patientsTableView" destination="sfd-ph-ZRI" id="0Ag-ZX-jd9"/>
+                        <outlet property="searchBarField" destination="d8U-fV-5Xi" id="dzj-nD-tKK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bC0-2O-1VZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

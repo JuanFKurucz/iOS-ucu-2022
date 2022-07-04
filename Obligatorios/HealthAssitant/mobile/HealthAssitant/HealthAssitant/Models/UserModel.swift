@@ -104,6 +104,10 @@ class PatientModel {
         self.cases = cases
         self.imageBase64 = imageBase64
     }
+    
+    func getInformation() -> String {
+        return "\(self.identification) - \(self.fullName)"
+    }
 }
 
 class CaseModel {
