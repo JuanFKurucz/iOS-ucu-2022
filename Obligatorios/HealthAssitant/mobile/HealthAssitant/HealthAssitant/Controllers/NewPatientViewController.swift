@@ -17,8 +17,6 @@ class NewPatientViewController: UIViewController, DropDownTableViewControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func onSelectGender(_: Any) {

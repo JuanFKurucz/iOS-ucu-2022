@@ -20,15 +20,11 @@ class DropDownTableViewController: UITableViewController {
         tableView.register(UINib(nibName: DropDownTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: DropDownTableViewCell.identifier)
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSections(in _: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return elements.count + 1
     }
 

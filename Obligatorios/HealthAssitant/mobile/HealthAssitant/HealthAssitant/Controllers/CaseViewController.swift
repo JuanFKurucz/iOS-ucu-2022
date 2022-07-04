@@ -64,11 +64,9 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
         dropDown.elements = Symptom.allCases.map { $0.text }
         dropDown.titleLabel.text = "Select information"
     }
-
-    @IBAction func onSubmitNegativeInformation(_: Any) {
-        if let symptom = informationValue, let caseElement = caseElement {
-            let historyElement = HistoryModel(date: Date.now, symptom: symptom, state: false)
-
+    
+    private func submitInformation(historyElement: HistoryModel){
+        if let caseElement = caseElement {
             APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { _ in
                 caseElement.history.append(historyElement)
 
@@ -86,30 +84,22 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
             }, onFail: { _ in
                 Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
             })
+        } else {
+            Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not obtain case element")
+        }
+    }
+
+    @IBAction func onSubmitNegativeInformation(_: Any) {
+        if let symptom = informationValue {
+            let historyElement = HistoryModel(date: Date.now, symptom: symptom, state: false)
+            self.submitInformation(historyElement: historyElement)
         }
     }
 
     @IBAction func onSubmitPositiveInformation(_: Any) {
-        if let symptom = informationValue, let caseElement = caseElement {
+        if let symptom = informationValue {
             let historyElement = HistoryModel(date: Date.now, symptom: symptom, state: true)
-
-            APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { _ in
-                caseElement.history.append(historyElement)
-
-                APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
-                    self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-                }, onFail: { _ in
-                    Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
-                })
-
-                self.informationValue = nil
-                self.informationDropDown.setTitle("Select information", for: .normal)
-
-                self.informationTableView.reloadData()
-
-            }, onFail: { _ in
-                Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
-            })
+            self.submitInformation(historyElement: historyElement)
         }
     }
 
