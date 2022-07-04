@@ -15,6 +15,10 @@
 		5636D516286E63A40008B514 /* CloseCaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D515286E63A40008B514 /* CloseCaseViewController.swift */; };
 		5636D519286E6DF10008B514 /* InformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D517286E6DF10008B514 /* InformationTableViewCell.swift */; };
 		5636D51A286E6DF10008B514 /* InformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5636D518286E6DF10008B514 /* InformationTableViewCell.xib */; };
+		5636D51C286E77550008B514 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D51B286E77550008B514 /* APIClient.swift */; };
+		5636D51E286E77730008B514 /* APIHealthAssitant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D51D286E77730008B514 /* APIHealthAssitant.swift */; };
+		5636D521286E7F230008B514 /* CaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D51F286E7F230008B514 /* CaseTableViewCell.swift */; };
+		5636D522286E7F230008B514 /* CaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5636D520286E7F230008B514 /* CaseTableViewCell.xib */; };
 		567EB2D62863EBB50010218E /* PatientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB2D42863EBB50010218E /* PatientTableViewCell.swift */; };
 		567EB2D72863EBB50010218E /* PatientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 567EB2D52863EBB50010218E /* PatientTableViewCell.xib */; };
 		567EB2D92863EE0B0010218E /* PatientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB2D82863EE0B0010218E /* PatientsViewController.swift */; };
@@ -43,6 +47,10 @@
 		5636D515286E63A40008B514 /* CloseCaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseCaseViewController.swift; sourceTree = "<group>"; };
 		5636D517286E6DF10008B514 /* InformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationTableViewCell.swift; sourceTree = "<group>"; };
 		5636D518286E6DF10008B514 /* InformationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InformationTableViewCell.xib; sourceTree = "<group>"; };
+		5636D51B286E77550008B514 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		5636D51D286E77730008B514 /* APIHealthAssitant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHealthAssitant.swift; sourceTree = "<group>"; };
+		5636D51F286E7F230008B514 /* CaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseTableViewCell.swift; sourceTree = "<group>"; };
+		5636D520286E7F230008B514 /* CaseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CaseTableViewCell.xib; sourceTree = "<group>"; };
 		567EB2D42863EBB50010218E /* PatientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTableViewCell.swift; sourceTree = "<group>"; };
 		567EB2D52863EBB50010218E /* PatientTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PatientTableViewCell.xib; sourceTree = "<group>"; };
 		567EB2D82863EE0B0010218E /* PatientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +148,7 @@
 				56A97707285BD13A00764F11 /* LaunchScreen.storyboard */,
 				56A97702285BD13800764F11 /* Main.storyboard */,
 				5636D518286E6DF10008B514 /* InformationTableViewCell.xib */,
+				5636D520286E7F230008B514 /* CaseTableViewCell.xib */,
 				567EB2D52863EBB50010218E /* PatientTableViewCell.xib */,
 			);
 			path = Nibs;
@@ -156,6 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				567EB2DA2863F0690010218E /* Navigation.swift */,
+				5636D51B286E77550008B514 /* APIClient.swift */,
+				5636D51D286E77730008B514 /* APIHealthAssitant.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -166,6 +177,7 @@
 				567EB2D42863EBB50010218E /* PatientTableViewCell.swift */,
 				5636D50D286E452A0008B514 /* DropDownTableViewCell.swift */,
 				5636D517286E6DF10008B514 /* InformationTableViewCell.swift */,
+				5636D51F286E7F230008B514 /* CaseTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -249,6 +261,7 @@
 			files = (
 				56A97709285BD13A00764F11 /* LaunchScreen.storyboard in Resources */,
 				567EB2D72863EBB50010218E /* PatientTableViewCell.xib in Resources */,
+				5636D522286E7F230008B514 /* CaseTableViewCell.xib in Resources */,
 				5636D51A286E6DF10008B514 /* InformationTableViewCell.xib in Resources */,
 				5636D510286E452A0008B514 /* DropDownTableViewCell.xib in Resources */,
 				56A97706285BD13A00764F11 /* Assets.xcassets in Resources */,
@@ -306,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56A97701285BD13800764F11 /* LoginViewController.swift in Sources */,
+				5636D51C286E77550008B514 /* APIClient.swift in Sources */,
 				567EB2DD2863F0D40010218E /* NewPatientViewController.swift in Sources */,
 				5636D519286E6DF10008B514 /* InformationTableViewCell.swift in Sources */,
 				5692954E285BEDD8005EC718 /* ChartsViewController.swift in Sources */,
@@ -316,7 +330,9 @@
 				567EB2DB2863F0690010218E /* Navigation.swift in Sources */,
 				567EB2D92863EE0B0010218E /* PatientsViewController.swift in Sources */,
 				5636D50C286E3D8A0008B514 /* DropDownTableViewController.swift in Sources */,
+				5636D521286E7F230008B514 /* CaseTableViewCell.swift in Sources */,
 				5636D514286E63980008B514 /* CaseViewController.swift in Sources */,
+				5636D51E286E77730008B514 /* APIHealthAssitant.swift in Sources */,
 				5636D512286E5F740008B514 /* PatientProfileViewController.swift in Sources */,
 				5636D516286E63A40008B514 /* CloseCaseViewController.swift in Sources */,
 				5636D50F286E452A0008B514 /* DropDownTableViewCell.swift in Sources */,

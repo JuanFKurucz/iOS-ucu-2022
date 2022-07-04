@@ -11,6 +11,9 @@ class NewPatientViewController: UIViewController, DropDownTableViewControllerDel
     static let identifier : String = "NewPatientViewController"
     @IBOutlet weak var genderButton: UIButton!
     
+    @IBOutlet weak var identificationField: UITextField!
+    @IBOutlet weak var fullNameField: UITextField!
+    @IBOutlet weak var birthDatePicker: UIDatePicker!
     
     var genderValue : Int = -1
     var genderOptions : [String] = ["Male","Female"]
@@ -39,7 +42,12 @@ class NewPatientViewController: UIViewController, DropDownTableViewControllerDel
     }
     
     @IBAction func onSubmitPatient(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
+        if let code = identificationField.text, let fullName = fullNameField.text, let gender = Gender(rawValue: genderValue+1) {
+            APIHealthAssitant.newPatient(code: code, fullName: fullName, gender: gender, birthDate: birthDatePicker.date, onComplete: { _ in let _ = self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true, completion: nil) }, onFail: {_ in print("error")})
+        } else {
+            print("not all fields filled")
+        }
+        
     }
 }

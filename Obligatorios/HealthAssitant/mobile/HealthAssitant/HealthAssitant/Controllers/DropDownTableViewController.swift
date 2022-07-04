@@ -52,7 +52,6 @@ class DropDownTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected row at \(indexPath.row)")
         delegate?.getSelected(element: indexPath.row)
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)

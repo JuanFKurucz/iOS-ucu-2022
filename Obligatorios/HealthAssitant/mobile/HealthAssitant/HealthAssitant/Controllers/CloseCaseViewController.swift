@@ -34,7 +34,7 @@ class CloseCaseViewController: UIViewController, DropDownTableViewControllerDele
     @IBAction func onSelectDiagnostic(_ sender: Any) {
         let dropDown = Navigation.jumpToView(currentViewController: self, nextViewController: "DropDownTableViewController",overCurrntContext: true) as! DropDownTableViewController
         dropDown.delegate = self
-        dropDown.elements = Diagnosis.allCases.map({ $0.rawValue })
+        dropDown.elements = Diagnosis.allCases.map({ $0.text })
         dropDown.titleLabel.text = "Select diagnostic"
     
     }
@@ -45,7 +45,7 @@ class CloseCaseViewController: UIViewController, DropDownTableViewControllerDele
             self.diagnosticDropDown.setTitle("Select diagnostic", for:.normal)
         } else {
             self.diagnosisValue = Diagnosis.allCases[element]
-            self.diagnosticDropDown.setTitle(Diagnosis.allCases[element].rawValue, for:.normal)
+            self.diagnosticDropDown.setTitle(Diagnosis.allCases[element].text, for:.normal)
         }
     }
 }

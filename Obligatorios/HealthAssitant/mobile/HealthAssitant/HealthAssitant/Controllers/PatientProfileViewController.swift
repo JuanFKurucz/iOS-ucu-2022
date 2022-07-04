@@ -14,6 +14,7 @@ class PatientProfileViewController: UIViewController {
     @IBOutlet weak var birthDateLabel: UILabel!
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var casesTableView: UITableView!
     var patient: PatientModel?
     
     override func viewDidLoad() {
@@ -23,15 +24,52 @@ class PatientProfileViewController: UIViewController {
             fullNameLabel.text = patient.fullName
             idLabel.text = "ID : \(patient.identification)"
             genderLabel.text = "Gender: \(patient.gender.text)"
-            birthDateLabel.text = "Birth date: \(patient.birthDate.ISO8601Format())"
+            
+            if let birthDate = patient.birthDate {
+                birthDateLabel.text = "Birth date: \(birthDate.ISO8601Format())"
+            }
+            
+            self.casesTableView.delegate = self
+            self.casesTableView.dataSource = self
+            
+            self.casesTableView.register(UINib(nibName: CaseTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: CaseTableViewCell.identifier)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("patient profile: view will Appear")
+        if let patient = patient {
+            print("patient exist do call")
+            APIHealthAssitant.getCases(patientId: patient.patientId, onComplete: { p in
+                print("Cases: \(p)")
+                patient.cases = p
+                self.casesTableView.reloadData()
+            }, onFail: {_ in print("cases failed")})
         }
     }
     
     @IBAction func onTapNewCase(_ sender: Any) {
         let caseView = Navigation.jumpToView(currentViewController: self, nextViewController: "CaseViewController") as! CaseViewController
         if let patient = patient {
-            caseView.caseElement = patient.getOrCreateCurrentCase()
+            APIHealthAssitant.getOrCreateCase(patientId: patient.patientId, onComplete: { caseElement in caseView.caseElement = caseElement
+                caseView.onGetCase()
+            }, onFail: {_ in})
+            
         }
     }
+}
+
+
+extension PatientProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.patient!.cases.count
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CaseTableViewCell.identifier) as! CaseTableViewCell
+        let caseElement = self.patient!.cases[indexPath.row]
+        cell.caseName.text = "\(caseElement.getName())"
+        return cell
+    }
 }

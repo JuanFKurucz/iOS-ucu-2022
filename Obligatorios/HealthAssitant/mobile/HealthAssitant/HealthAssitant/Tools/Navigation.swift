@@ -19,7 +19,6 @@ class Navigation {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextViewController = storyBoard.instantiateViewController(withIdentifier:nextViewController)
         if(overCurrntContext){
-            print("Over current context")
             nextViewController.modalPresentationStyle = UIModalPresentationStyle.popover
             currentViewController.present(nextViewController, animated: true)
         } else {

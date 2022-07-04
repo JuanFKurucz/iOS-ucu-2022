@@ -11,61 +11,91 @@ class UserModel {
     }
 }
 
-enum Gender: String {
-    case male, female
+enum Gender: Int {
+    case male = 1, female = 2
     
     var text : String {
         switch self {
         case .male: return "Male"
         case .female: return "Female"
-        default: return self.rawValue
+        default: return "Unknown"
         }
     }
 }
 
 
-enum Diagnosis: String, CaseIterable {
-    case COVID19, Influenza, CommonCold, Tuberculosis, LungCancer, PneumoniaCOVID19, Pneumonia, BrainTumor
+enum Diagnosis: Int, CaseIterable {
+    case Unknown = 0, COVID19 = 1, Influenza = 2, CommonCold = 3, Tuberculosis = 4, LungCancer = 5, PneumoniaCOVID19 = 6, Pneumonia = 7, BrainTumor = 8
+    
+    var text : String {
+        switch self {
+        case .COVID19: return "COVID-19"
+        case .Influenza: return "Influenza"
+        case .CommonCold: return "Common Cold"
+        case .Tuberculosis: return "Tuberculosis"
+        case .LungCancer: return "Lung Cancer"
+        case .PneumoniaCOVID19: return "Pneumonia COVID19"
+        case .Pneumonia: return "Pneumonia"
+        case .BrainTumor: return "Brain Tumor"
+        default: return "Unknown"
+        }
+    }
 }
 
 
-enum Symptom: String, CaseIterable {
-    case Fever, DryCough, Rhinorrhea, Dyspnea, Fatigue, MusclePain, ChestPain, Anosmia, Dysgeusia, KidneyFailure, Myocarditis, Hemoptisis, Headache
+enum Symptom: Int, CaseIterable {
+    case Fever = 1, DryCough = 2, Rhinorrhea = 3, Dyspnea = 4, Fatigue = 5, MusclePain = 6, ChestPain = 7, Anosmia = 8, Dysgeusia = 9, KidneyFailure = 10, Myocarditis = 11, Hemoptisis = 12, Headache = 13
+    
+    var text : String {
+        switch self {
+        case .Fever: return "Fever"
+        case .DryCough: return "Dry Cough"
+        case .Rhinorrhea: return "Rhinorrhea"
+        case .Dyspnea: return "Dyspnea"
+        case .Fatigue: return "Fatigue"
+        case .MusclePain: return "Muscle Pain"
+        case .ChestPain: return "Chest Pain"
+        case .Anosmia: return "Anosmia"
+        case .Dysgeusia: return "Dysgeusia"
+        case .KidneyFailure: return "Kidney Failure"
+        case .Myocarditis: return "Myocarditis"
+        case .Hemoptisis: return "Hemoptisis"
+        case .Headache: return "Headache"
+        default: return "Unknown"
+        }
+    }
 }
 
 
 class PatientModel {
+    let patientId: Int
     let identification: String
     let fullName: String
     let gender: Gender
-    let birthDate: Date
-    let cases: [CaseModel]
+    let birthDate: Date?
+    var cases: [CaseModel]
     
-    init(identification:String, fullName: String, gender:Gender, birthDate: Date, cases: [CaseModel] = []){
+    init(identification:String, patientId: Int, fullName: String, gender:Gender, birthDate: Date?, cases: [CaseModel] = []){
+        self.patientId = patientId
         self.identification = identification
         self.fullName = fullName
         self.gender = gender
         self.birthDate = birthDate
         self.cases = cases
     }
-    
-    func getOrCreateCurrentCase() -> CaseModel? {
-        for caseElement in self.cases {
-            if let _ = caseElement.endDate {
-                return caseElement
-            }
-        }
-        return CaseModel(startDate: Date.now, endDate: nil, history: [], diagnosis: nil)
-    }
 }
 
 class CaseModel {
+    let patientId : Int
+    let caseId : Int
     let startDate: Date
     var endDate: Date?
     var history: [HistoryModel]
     var diagnosis: Diagnosis?
     
-    init(startDate: Date, endDate: Date?, history: [HistoryModel], diagnosis: Diagnosis?){
+    init(patientId: Int, caseId: Int, startDate: Date, endDate: Date?, history: [HistoryModel], diagnosis: Diagnosis?){
+        self.patientId = patientId
+        self.caseId = caseId
         self.startDate = startDate
         self.endDate = endDate
         self.history = history
@@ -84,16 +114,6 @@ class CaseModel {
             return "\(diagnosis.rawValue) - \(self.startDate) - \(endDate)"
         }
         return"\(self.getCaseStatus()) - \(self.startDate)"
-    }
-    
-    func addInformation(symptom:Symptom, date: Date?){
-        let historyElement : HistoryModel
-        if let date = date {
-            historyElement = HistoryModel(date: date, symptom: symptom)
-        } else {
-            historyElement = HistoryModel(date: Date.now, symptom: symptom)
-        }
-        self.history.append(historyElement)
     }
     
     func endCase(date: Date, diagnosis: Diagnosis){

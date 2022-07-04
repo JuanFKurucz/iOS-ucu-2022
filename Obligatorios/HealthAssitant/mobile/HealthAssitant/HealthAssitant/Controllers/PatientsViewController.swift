@@ -11,14 +11,24 @@ class PatientsViewController: UIViewController {
     static let identifier : String = "PatientsViewController"
     @IBOutlet weak var patientsTableView: UITableView!
     
+    var patients : [PatientModel] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.patientsTableView.delegate = self
         self.patientsTableView.dataSource = self
         
-        
         self.patientsTableView.register(UINib(nibName: PatientTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: PatientTableViewCell.identifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        APIHealthAssitant.getPatients(onComplete: { p in
+            self.patients = p
+            self.patientsTableView.reloadData()
+        }, onFail: {_ in })
     }
 
     @IBAction func onTapNewPatient(_ sender: Any) {
@@ -28,22 +38,18 @@ class PatientsViewController: UIViewController {
 
 extension PatientsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        patients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PatientTableViewCell.identifier) as! PatientTableViewCell
+        let patient = self.patients[indexPath.row]
+        cell.nameLabel.text = "\(patient.identification) - \(patient.fullName)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected row at \(indexPath.row)")
         let patientProfile = Navigation.jumpToView(currentViewController: self, nextViewController: "PatientProfileViewController") as! PatientProfileViewController
-        
-        let isoDate = "1999-02-20T00:00:00+0000"
-
-        let dateFormatter = ISO8601DateFormatter()
-        let date = dateFormatter.date(from:isoDate)!
-        patientProfile.patient = PatientModel(identification: "50550453", fullName: "Juan Francisco Kurucz", gender: Gender.male, birthDate:date)
+        patientProfile.patient = self.patients[indexPath.row]
     }
 }
