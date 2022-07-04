@@ -22,6 +22,12 @@
 		5636D5242872BD600008B514 /* TextManipulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D5232872BD600008B514 /* TextManipulation.swift */; };
 		5636D5262872BFAC0008B514 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D5252872BFAC0008B514 /* Alert.swift */; };
 		5636D52828736AD10008B514 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D52728736AD10008B514 /* ImageUtils.swift */; };
+		5636D52A2873A32D0008B514 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D5292873A32D0008B514 /* Gender.swift */; };
+		5636D52C2873A3440008B514 /* Diagnosis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D52B2873A3440008B514 /* Diagnosis.swift */; };
+		5636D52E2873A3610008B514 /* Symptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D52D2873A3610008B514 /* Symptom.swift */; };
+		5636D5302873A3740008B514 /* PatientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D52F2873A3740008B514 /* PatientModel.swift */; };
+		5636D5322873A3910008B514 /* CaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D5312873A3910008B514 /* CaseModel.swift */; };
+		5636D5342873A3A00008B514 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D5332873A3A00008B514 /* HistoryModel.swift */; };
 		567EB2D62863EBB50010218E /* PatientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB2D42863EBB50010218E /* PatientTableViewCell.swift */; };
 		567EB2D72863EBB50010218E /* PatientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 567EB2D52863EBB50010218E /* PatientTableViewCell.xib */; };
 		567EB2D92863EE0B0010218E /* PatientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB2D82863EE0B0010218E /* PatientsViewController.swift */; };
@@ -57,6 +63,12 @@
 		5636D5232872BD600008B514 /* TextManipulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextManipulation.swift; sourceTree = "<group>"; };
 		5636D5252872BFAC0008B514 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		5636D52728736AD10008B514 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageUtils.swift; path = HealthAssitant/Tools/ImageUtils.swift; sourceTree = SOURCE_ROOT; };
+		5636D5292873A32D0008B514 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
+		5636D52B2873A3440008B514 /* Diagnosis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagnosis.swift; sourceTree = "<group>"; };
+		5636D52D2873A3610008B514 /* Symptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptom.swift; sourceTree = "<group>"; };
+		5636D52F2873A3740008B514 /* PatientModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientModel.swift; sourceTree = "<group>"; };
+		5636D5312873A3910008B514 /* CaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseModel.swift; sourceTree = "<group>"; };
+		5636D5332873A3A00008B514 /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
 		567EB2D42863EBB50010218E /* PatientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTableViewCell.swift; sourceTree = "<group>"; };
 		567EB2D52863EBB50010218E /* PatientTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PatientTableViewCell.xib; sourceTree = "<group>"; };
 		567EB2D82863EE0B0010218E /* PatientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +155,12 @@
 			isa = PBXGroup;
 			children = (
 				56A97717285BD1AB00764F11 /* UserModel.swift */,
+				5636D5292873A32D0008B514 /* Gender.swift */,
+				5636D52B2873A3440008B514 /* Diagnosis.swift */,
+				5636D52D2873A3610008B514 /* Symptom.swift */,
+				5636D52F2873A3740008B514 /* PatientModel.swift */,
+				5636D5312873A3910008B514 /* CaseModel.swift */,
+				5636D5332873A3A00008B514 /* HistoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -330,14 +348,20 @@
 				56A97701285BD13800764F11 /* LoginViewController.swift in Sources */,
 				5636D51C286E77550008B514 /* APIClient.swift in Sources */,
 				567EB2DD2863F0D40010218E /* NewPatientViewController.swift in Sources */,
+				5636D52C2873A3440008B514 /* Diagnosis.swift in Sources */,
+				5636D52A2873A32D0008B514 /* Gender.swift in Sources */,
 				5636D519286E6DF10008B514 /* InformationTableViewCell.swift in Sources */,
 				5692954E285BEDD8005EC718 /* ChartsViewController.swift in Sources */,
+				5636D5302873A3740008B514 /* PatientModel.swift in Sources */,
 				567EB2D62863EBB50010218E /* PatientTableViewCell.swift in Sources */,
+				5636D5322873A3910008B514 /* CaseModel.swift in Sources */,
 				5636D5262872BFAC0008B514 /* Alert.swift in Sources */,
 				56A976FD285BD13800764F11 /* AppDelegate.swift in Sources */,
+				5636D5342873A3A00008B514 /* HistoryModel.swift in Sources */,
 				56A97718285BD1AB00764F11 /* UserModel.swift in Sources */,
 				56A976FF285BD13800764F11 /* SceneDelegate.swift in Sources */,
 				567EB2DB2863F0690010218E /* Navigation.swift in Sources */,
+				5636D52E2873A3610008B514 /* Symptom.swift in Sources */,
 				567EB2D92863EE0B0010218E /* PatientsViewController.swift in Sources */,
 				5636D50C286E3D8A0008B514 /* DropDownTableViewController.swift in Sources */,
 				5636D521286E7F230008B514 /* CaseTableViewCell.swift in Sources */,
@@ -424,7 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -478,7 +502,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -503,7 +527,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -532,7 +556,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
