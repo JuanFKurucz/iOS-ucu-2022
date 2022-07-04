@@ -9,11 +9,12 @@
 //  https://github.com/danielgindi/Charts
 //
 
-import CoreGraphics
 import Foundation
+import CoreGraphics
 
 @objc(ChartRenderer)
 public protocol Renderer {
+
     /// the component that handles the drawing area of the chart and it's offsets
     var viewPortHandler: ViewPortHandler { get }
 }

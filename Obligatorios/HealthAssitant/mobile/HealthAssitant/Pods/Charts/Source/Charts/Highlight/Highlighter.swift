@@ -9,11 +9,12 @@
 //  https://github.com/danielgindi/Charts
 //
 
-import CoreGraphics
 import Foundation
+import CoreGraphics
 
 @objc(ChartHighlighter)
-public protocol Highlighter: AnyObject {
+public protocol Highlighter: AnyObject
+{
     /// - Parameters:
     ///   - x:
     ///   - y:

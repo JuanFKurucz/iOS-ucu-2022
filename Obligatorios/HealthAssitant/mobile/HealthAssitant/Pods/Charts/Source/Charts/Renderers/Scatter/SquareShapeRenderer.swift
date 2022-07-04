@@ -8,17 +8,18 @@
 //
 //  https://github.com/danielgindi/Charts
 //
-import CoreGraphics
 import Foundation
+import CoreGraphics
 
-open class SquareShapeRenderer: NSObject, ShapeRenderer {
+open class SquareShapeRenderer : NSObject, ShapeRenderer
+{
     open func renderShape(
         context: CGContext,
         dataSet: ScatterChartDataSetProtocol,
-        viewPortHandler _: ViewPortHandler,
+        viewPortHandler: ViewPortHandler,
         point: CGPoint,
-        color: NSUIColor
-    ) {
+        color: NSUIColor)
+    {
         let shapeSize = dataSet.scatterShapeSize
         let shapeHalf = shapeSize / 2.0
         let shapeHoleSizeHalf = dataSet.scatterShapeHoleRadius
@@ -26,8 +27,9 @@ open class SquareShapeRenderer: NSObject, ShapeRenderer {
         let shapeHoleColor = dataSet.scatterShapeHoleColor
         let shapeStrokeSize = (shapeSize - shapeHoleSize) / 2.0
         let shapeStrokeSizeHalf = shapeStrokeSize / 2.0
-
-        if shapeHoleSize > 0.0 {
+        
+        if shapeHoleSize > 0.0
+        {
             context.setStrokeColor(color.cgColor)
             context.setLineWidth(shapeStrokeSize)
             var rect = CGRect()
@@ -36,8 +38,9 @@ open class SquareShapeRenderer: NSObject, ShapeRenderer {
             rect.size.width = shapeHoleSize + shapeStrokeSize
             rect.size.height = shapeHoleSize + shapeStrokeSize
             context.stroke(rect)
-
-            if let shapeHoleColor = shapeHoleColor {
+            
+            if let shapeHoleColor = shapeHoleColor
+            {
                 context.setFillColor(shapeHoleColor.cgColor)
                 rect.origin.x = point.x - shapeHoleSizeHalf
                 rect.origin.y = point.y - shapeHoleSizeHalf
@@ -45,7 +48,9 @@ open class SquareShapeRenderer: NSObject, ShapeRenderer {
                 rect.size.height = shapeHoleSize
                 context.fill(rect)
             }
-        } else {
+        }
+        else
+        {
             context.setFillColor(color.cgColor)
             var rect = CGRect()
             rect.origin.x = point.x - shapeHalf

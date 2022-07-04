@@ -9,35 +9,39 @@
 //  https://github.com/danielgindi/Charts
 //
 
-import CoreGraphics
 import Foundation
+import CoreGraphics
 
-open class BubbleChartDataSet: BarLineScatterCandleBubbleChartDataSet, BubbleChartDataSetProtocol {
+
+open class BubbleChartDataSet: BarLineScatterCandleBubbleChartDataSet, BubbleChartDataSetProtocol
+{
     // MARK: - Data functions and accessors
-
+    
     internal var _maxSize = CGFloat(0.0)
-
+    
     open var maxSize: CGFloat { return _maxSize }
     @objc open var normalizeSizeEnabled: Bool = true
     open var isNormalizeSizeEnabled: Bool { return normalizeSizeEnabled }
-
-    override open func calcMinMax(entry e: ChartDataEntry) {
+    
+    open override func calcMinMax(entry e: ChartDataEntry)
+    {
         guard let e = e as? BubbleChartDataEntry
-        else { return }
-
+            else { return }
+        
         super.calcMinMax(entry: e)
-
+        
         _maxSize = Swift.max(e.size, maxSize)
     }
-
+    
     // MARK: - Styling functions and accessors
-
+    
     /// Sets/gets the width of the circle that surrounds the bubble when highlighted
     open var highlightCircleWidth: CGFloat = 2.5
-
+    
     // MARK: - NSCopying
-
-    override open func copy(with zone: NSZone? = nil) -> Any {
+    
+    open override func copy(with zone: NSZone? = nil) -> Any
+    {
         let copy = super.copy(with: zone) as! BubbleChartDataSet
         copy._xMin = _xMin
         copy._xMax = _xMax

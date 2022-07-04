@@ -9,10 +9,12 @@
 //  https://github.com/danielgindi/Charts
 //
 
-import CoreGraphics
 import Foundation
+import CoreGraphics
+
 
 public protocol AxisRenderer: Renderer {
+
     associatedtype Axis: AxisBase
 
     /// base axis this axis renderer works with
