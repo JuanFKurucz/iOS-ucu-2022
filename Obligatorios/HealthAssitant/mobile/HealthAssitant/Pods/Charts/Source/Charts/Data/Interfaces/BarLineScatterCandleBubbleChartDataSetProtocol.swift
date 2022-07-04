@@ -9,16 +9,15 @@
 //  https://github.com/danielgindi/Charts
 //
 
-import Foundation
 import CoreGraphics
+import Foundation
 
 @objc
-public protocol BarLineScatterCandleBubbleChartDataSetProtocol: ChartDataSetProtocol
-{
+public protocol BarLineScatterCandleBubbleChartDataSetProtocol: ChartDataSetProtocol {
     // MARK: - Data functions and accessors
-    
+
     // MARK: - Styling functions and accessors
-    
+
     var highlightColor: NSUIColor { get set }
     var highlightLineWidth: CGFloat { get set }
     var highlightLineDashPhase: CGFloat { get set }

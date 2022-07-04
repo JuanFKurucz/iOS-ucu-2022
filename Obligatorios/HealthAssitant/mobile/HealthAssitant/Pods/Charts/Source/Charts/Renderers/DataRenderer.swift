@@ -9,13 +9,12 @@
 //  https://github.com/danielgindi/Charts
 //
 
-import Foundation
 import CoreGraphics
+import Foundation
 
 @objc(ChartDataRenderer)
-public protocol DataRenderer: Renderer
-{
-     /// An array of accessibility elements that are presented to the ChartViewBase accessibility methods.
+public protocol DataRenderer: Renderer {
+    /// An array of accessibility elements that are presented to the ChartViewBase accessibility methods.
     ///
     /// Note that the order of elements in this array determines the order in which they are presented and navigated by
     /// Accessibility clients such as VoiceOver.
@@ -52,14 +51,14 @@ public protocol DataRenderer: Renderer
     ///   - defaultDescription: A simple string describing the type/design of Chart.
     /// - Returns: A header ```NSUIAccessibilityElement``` that can be added to accessibleChartElements.
     func createAccessibleHeader(usingChart chart: ChartViewBase,
-                                        andData data: ChartData,
-                                        withDefaultDescription defaultDescription: String) -> NSUIAccessibilityElement
+                                andData data: ChartData,
+                                withDefaultDescription defaultDescription: String) -> NSUIAccessibilityElement
 }
 
-internal struct AccessibleHeader {
+internal enum AccessibleHeader {
     static func create(usingChart chart: ChartViewBase,
-                                andData data: ChartData,
-                                withDefaultDescription defaultDescription: String = "Chart") -> NSUIAccessibilityElement
+                       andData data: ChartData,
+                       withDefaultDescription defaultDescription: String = "Chart") -> NSUIAccessibilityElement
     {
         let chartDescriptionText = chart.chartDescription.text ?? defaultDescription
         let dataSetDescriptions = data.map { $0.label ?? "" }
@@ -69,7 +68,7 @@ internal struct AccessibleHeader {
         element.accessibilityLabel = chartDescriptionText + ". \(data.count) dataset\(data.count == 1 ? "" : "s"). \(dataSetDescriptionText)"
         element.accessibilityFrame = chart.bounds
         element.isHeader = true
-        
+
         return element
     }
 }

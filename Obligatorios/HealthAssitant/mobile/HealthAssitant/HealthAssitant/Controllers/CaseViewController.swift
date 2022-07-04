@@ -1,134 +1,119 @@
-//
-//  CaseViewController.swift
-//  HealthAssitant
-//
-//  Created by Juan Francisco Kurucz on 30/6/22.
-//
-
 import UIKit
-
-
 
 protocol CaseViewControllerDelegate {
     func onTerminateCase()
 }
 
-
 class CaseViewController: UIViewController, DropDownTableViewControllerDelegate, CaseViewControllerDelegate {
-    static let identifier : String = "CaseViewController"
-    @IBOutlet weak var caseNameLabel: UILabel!
-    @IBOutlet weak var diagnosticLabel: UILabel!
-    @IBOutlet weak var testLabel: UILabel!
-    @IBOutlet weak var informationTableView: UITableView!
-    
-    @IBOutlet weak var informationDropDown: UIButton!
-    var caseElement : CaseModel?
-    
+    static let identifier: String = "CaseViewController"
+    @IBOutlet var caseNameLabel: UILabel!
+    @IBOutlet var diagnosticLabel: UILabel!
+    @IBOutlet var testLabel: UILabel!
+    @IBOutlet var informationTableView: UITableView!
+
+    @IBOutlet var informationDropDown: UIButton!
+    var caseElement: CaseModel?
+
     var informationValue: Symptom?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.informationTableView.delegate = self
-        self.informationTableView.dataSource = self
-        
-        self.informationTableView.register(UINib(nibName: InformationTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: InformationTableViewCell.identifier)
+        informationTableView.delegate = self
+        informationTableView.dataSource = self
+
+        informationTableView.register(UINib(nibName: InformationTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: InformationTableViewCell.identifier)
     }
-    
+
     func onGetCase() {
-        if let caseElement = self.caseElement {
+        if let caseElement = caseElement {
             caseNameLabel.text = caseElement.getName()
-            self.informationTableView.reloadData()
-            APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
+            informationTableView.reloadData()
+            APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
                 self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-            }, onFail: {_ in
+            }, onFail: { _ in
                 Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
             })
         }
     }
-    
+
     func onTerminateCase() {
         if let caseElement = caseElement {
             APIHealthAssitant.closeCase(patientId: caseElement.patientId, caseId: caseElement.caseId, diagnostic: caseElement.diagnosis!, date: caseElement.endDate!, onComplete: {
                 self.navigationController?.popViewController(animated: true)
                 self.dismiss(animated: true, completion: nil)
-            }, onFail: {_ in
+            }, onFail: { _ in
                 Alert.showAlertBox(currentViewController: self, title: "Invalid close case", message: "Could not close case")
             })
         }
-        
     }
-    
+
     func getSelected(element: Int) {
         if element >= Symptom.allCases.count {
-            self.informationValue = nil
-            self.informationDropDown.setTitle("Select information", for:.normal)
+            informationValue = nil
+            informationDropDown.setTitle("Select information", for: .normal)
         } else {
-            self.informationValue = Symptom.allCases[element]
-            self.informationDropDown.setTitle(Symptom.allCases[element].text, for:.normal)
+            informationValue = Symptom.allCases[element]
+            informationDropDown.setTitle(Symptom.allCases[element].text, for: .normal)
         }
     }
-    
-    @IBAction func onInformationDropDown(_ sender: Any) {
-        let dropDown = Navigation.jumpToView(currentViewController: self, nextViewController: "DropDownTableViewController",overCurrntContext: true) as! DropDownTableViewController
+
+    @IBAction func onInformationDropDown(_: Any) {
+        let dropDown = Navigation.jumpToView(currentViewController: self, nextViewController: "DropDownTableViewController", overCurrntContext: true) as! DropDownTableViewController
         dropDown.delegate = self
-        dropDown.elements = Symptom.allCases.map({ $0.text })
+        dropDown.elements = Symptom.allCases.map { $0.text }
         dropDown.titleLabel.text = "Select information"
     }
-    
-    @IBAction func onSubmitNegativeInformation(_ sender: Any) {
-        if let symptom = self.informationValue, let caseElement = self.caseElement {
-        
-            let historyElement : HistoryModel = HistoryModel(date: Date.now, symptom: symptom, state: false)
-            
-            APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { history in
+
+    @IBAction func onSubmitNegativeInformation(_: Any) {
+        if let symptom = informationValue, let caseElement = caseElement {
+            let historyElement = HistoryModel(date: Date.now, symptom: symptom, state: false)
+
+            APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { _ in
                 caseElement.history.append(historyElement)
-                
-                APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
+
+                APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
                     self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-                }, onFail: {_ in
+                }, onFail: { _ in
                     Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
                 })
-                
+
                 self.informationValue = nil
-                self.informationDropDown.setTitle("Select information", for:.normal)
-                
+                self.informationDropDown.setTitle("Select information", for: .normal)
+
                 self.informationTableView.reloadData()
-                
-            }, onFail: {_ in
+
+            }, onFail: { _ in
                 Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
             })
-            
         }
     }
-    
-    @IBAction func onSubmitPositiveInformation(_ sender: Any) {
-        if let symptom = self.informationValue, let caseElement = self.caseElement {
-        
-            let historyElement : HistoryModel = HistoryModel(date: Date.now, symptom: symptom, state: true)
-            
-            APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { history in
+
+    @IBAction func onSubmitPositiveInformation(_: Any) {
+        if let symptom = informationValue, let caseElement = caseElement {
+            let historyElement = HistoryModel(date: Date.now, symptom: symptom, state: true)
+
+            APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { _ in
                 caseElement.history.append(historyElement)
-                
-                APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
+
+                APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
                     self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-                }, onFail: {_ in
+                }, onFail: { _ in
                     Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
                 })
-                
+
                 self.informationValue = nil
-                self.informationDropDown.setTitle("Select information", for:.normal)
-                
+                self.informationDropDown.setTitle("Select information", for: .normal)
+
                 self.informationTableView.reloadData()
-                
-            }, onFail: {_ in
+
+            }, onFail: { _ in
                 Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
             })
-            
         }
     }
-    
-    @IBAction func onCloseCase(_ sender: Any) {
+
+    @IBAction func onCloseCase(_: Any) {
         let closeCaseView = Navigation.jumpToView(currentViewController: self, nextViewController: "CloseCaseViewController") as! CloseCaseViewController
         closeCaseView.caseElement = caseElement
         closeCaseView.delegate = self
@@ -136,23 +121,22 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
 }
 
 extension CaseViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let caseElement = self.caseElement {
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        if let caseElement = caseElement {
             return caseElement.history.count
         }
         return 0
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: InformationTableViewCell.identifier) as! InformationTableViewCell
-        if let caseElement = self.caseElement {
+        if let caseElement = caseElement {
             let information = caseElement.history[indexPath.row]
-            
+
             let stateInfo = information.state == false ? "Negative" : "Positive"
-            
+
             cell.informationLabel.text = "\(TextManipulation.dateToText(date: information.date)) - \(information.symptom.text) - \(stateInfo)"
         }
         return cell
     }
 }
-

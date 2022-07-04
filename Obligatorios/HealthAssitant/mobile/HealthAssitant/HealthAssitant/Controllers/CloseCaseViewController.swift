@@ -1,60 +1,53 @@
-//
-//  CloseCaseViewController.swift
-//  HealthAssitant
-//
-//  Created by Juan Francisco Kurucz on 30/6/22.
-//
-
 import UIKit
 
 class CloseCaseViewController: UIViewController, DropDownTableViewControllerDelegate {
-    static let identifier : String = "CloseCaseViewController"
-    
-    @IBOutlet weak var diagnosticLabel: UILabel!
-    @IBOutlet weak var diagnosticDropDown: UIButton!
-    var diagnosisValue : Diagnosis?
-    var caseElement : CaseModel?
-    var delegate : CaseViewControllerDelegate?
+    static let identifier: String = "CloseCaseViewController"
+
+    @IBOutlet var diagnosticLabel: UILabel!
+    @IBOutlet var diagnosticDropDown: UIButton!
+    var diagnosisValue: Diagnosis?
+    var caseElement: CaseModel?
+    var delegate: CaseViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-    override func viewWillAppear(_ animated: Bool) {
+
+    override func viewWillAppear(_: Bool) {
         if let caseElement = caseElement {
-            APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
+            APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
                 self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-            }, onFail: {_ in
+            }, onFail: { _ in
                 Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
             })
         }
     }
-    
-    @IBAction func onCloseCase(_ sender: Any) {
+
+    @IBAction func onCloseCase(_: Any) {
         if let diagnosis = diagnosisValue {
-            caseElement!.endCase(date:Date.now, diagnosis: diagnosis)
+            caseElement!.endCase(date: Date.now, diagnosis: diagnosis)
             delegate?.onTerminateCase()
-            self.navigationController?.popViewController(animated: true)
-            self.dismiss(animated: true, completion: nil)
+            navigationController?.popViewController(animated: true)
+            dismiss(animated: true, completion: nil)
         }
     }
-    
-    @IBAction func onSelectDiagnostic(_ sender: Any) {
-        let dropDown = Navigation.jumpToView(currentViewController: self, nextViewController: "DropDownTableViewController",overCurrntContext: true) as! DropDownTableViewController
+
+    @IBAction func onSelectDiagnostic(_: Any) {
+        let dropDown = Navigation.jumpToView(currentViewController: self, nextViewController: "DropDownTableViewController", overCurrntContext: true) as! DropDownTableViewController
         dropDown.delegate = self
-        dropDown.elements = Diagnosis.allCases.map({ $0.text })
+        dropDown.elements = Diagnosis.allCases.map { $0.text }
         dropDown.titleLabel.text = "Select diagnostic"
-    
     }
-    
+
     func getSelected(element: Int) {
         if element >= Diagnosis.allCases.count {
-            self.diagnosisValue = nil
-            self.diagnosticDropDown.setTitle("Select diagnostic", for:.normal)
+            diagnosisValue = nil
+            diagnosticDropDown.setTitle("Select diagnostic", for: .normal)
         } else {
-            self.diagnosisValue = Diagnosis.allCases[element]
-            self.diagnosticDropDown.setTitle(Diagnosis.allCases[element].text, for:.normal)
+            diagnosisValue = Diagnosis.allCases[element]
+            diagnosticDropDown.setTitle(Diagnosis.allCases[element].text, for: .normal)
         }
     }
 }

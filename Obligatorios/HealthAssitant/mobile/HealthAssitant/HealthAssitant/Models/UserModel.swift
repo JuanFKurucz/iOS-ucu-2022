@@ -4,8 +4,8 @@ import SwiftUI
 class UserModel {
     let email: String
     let token: String
-    
-    init(email:String, token: String){
+
+    init(email: String, token: String) {
         self.email = email
         self.token = token
     }
@@ -13,8 +13,8 @@ class UserModel {
 
 enum Gender: Int {
     case male = 1, female = 2
-    
-    var text : String {
+
+    var text: String {
         switch self {
         case .male: return "Male"
         case .female: return "Female"
@@ -23,11 +23,10 @@ enum Gender: Int {
     }
 }
 
-
 enum Diagnosis: Int, CaseIterable {
     case Unknown = 0, COVID19 = 1, Influenza = 2, CommonCold = 3, Tuberculosis = 4, LungCancer = 5, PneumoniaCOVID19 = 6, Pneumonia = 7, BrainTumor = 8
-    
-    var text : String {
+
+    var text: String {
         switch self {
         case .COVID19: return "COVID-19"
         case .Influenza: return "Influenza"
@@ -42,11 +41,10 @@ enum Diagnosis: Int, CaseIterable {
     }
 }
 
-
 enum Symptom: Int, CaseIterable {
-    case Unknown = 0,Fever = 1, DryCough = 2, Rhinorrhea = 3, Dyspnea = 4, Fatigue = 5, MusclePain = 6, ChestPain = 7, Anosmia = 8, Dysgeusia = 9, KidneyFailure = 10, Myocarditis = 11, Hemoptisis = 12, Headache = 13
-    
-    var text : String {
+    case Unknown = 0, Fever = 1, DryCough = 2, Rhinorrhea = 3, Dyspnea = 4, Fatigue = 5, MusclePain = 6, ChestPain = 7, Anosmia = 8, Dysgeusia = 9, KidneyFailure = 10, Myocarditis = 11, Hemoptisis = 12, Headache = 13
+
+    var text: String {
         switch self {
         case .Fever: return "Fever"
         case .DryCough: return "Dry Cough"
@@ -64,8 +62,8 @@ enum Symptom: Int, CaseIterable {
         default: return "Unknown"
         }
     }
-    
-    var identificator : String {
+
+    var identificator: String {
         switch self {
         case .Fever: return "Fever"
         case .DryCough: return "DryCough"
@@ -85,7 +83,6 @@ enum Symptom: Int, CaseIterable {
     }
 }
 
-
 class PatientModel {
     let patientId: Int
     let identification: String
@@ -94,8 +91,8 @@ class PatientModel {
     let birthDate: Date?
     var cases: [CaseModel]
     let imageBase64: String
-    
-    init(identification:String, patientId: Int, fullName: String, imageBase64:String, gender:Gender, birthDate: Date?, cases: [CaseModel] = []){
+
+    init(identification: String, patientId: Int, fullName: String, imageBase64: String, gender: Gender, birthDate: Date?, cases: [CaseModel] = []) {
         self.patientId = patientId
         self.identification = identification
         self.fullName = fullName
@@ -104,21 +101,21 @@ class PatientModel {
         self.cases = cases
         self.imageBase64 = imageBase64
     }
-    
+
     func getInformation() -> String {
-        return "\(self.identification) - \(self.fullName)"
+        return "\(identification) - \(fullName)"
     }
 }
 
 class CaseModel {
-    let patientId : Int
-    let caseId : Int
+    let patientId: Int
+    let caseId: Int
     let startDate: Date
     var endDate: Date?
     var history: [HistoryModel]
     var diagnosis: Diagnosis?
-    
-    init(patientId: Int, caseId: Int, startDate: Date, endDate: Date?, history: [HistoryModel], diagnosis: Diagnosis?){
+
+    init(patientId: Int, caseId: Int, startDate: Date, endDate: Date?, history: [HistoryModel], diagnosis: Diagnosis?) {
         self.patientId = patientId
         self.caseId = caseId
         self.startDate = startDate
@@ -126,24 +123,23 @@ class CaseModel {
         self.history = history
         self.diagnosis = diagnosis
     }
-    
+
     func getCaseStatus() -> String {
         if let _ = endDate {
             return "Concluded"
         }
         return "Ongoing"
     }
-    
+
     func getName() -> String {
-        if let endDate = self.endDate, let diagnosis = self.diagnosis {
-            
-            return "\(diagnosis.rawValue) - \(TextManipulation.dateToText(date: self.startDate)) - \(TextManipulation.dateToText(date: endDate))"
+        if let endDate = endDate, let diagnosis = diagnosis {
+            return "\(diagnosis.rawValue) - \(TextManipulation.dateToText(date: startDate)) - \(TextManipulation.dateToText(date: endDate))"
         }
-        return"\(self.getCaseStatus()) - \(TextManipulation.dateToText(date: self.startDate))"
+        return"\(getCaseStatus()) - \(TextManipulation.dateToText(date: startDate))"
     }
-    
-    func endCase(date: Date, diagnosis: Diagnosis){
-        self.endDate = date
+
+    func endCase(date: Date, diagnosis: Diagnosis) {
+        endDate = date
         self.diagnosis = diagnosis
     }
 }

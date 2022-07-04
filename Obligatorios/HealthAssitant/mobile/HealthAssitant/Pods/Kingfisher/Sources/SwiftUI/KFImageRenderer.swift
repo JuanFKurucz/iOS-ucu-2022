@@ -25,81 +25,80 @@
 //  THE SOFTWARE.
 
 #if canImport(SwiftUI) && canImport(Combine)
-import SwiftUI
-import Combine
+    import Combine
+    import SwiftUI
 
-/// A Kingfisher compatible SwiftUI `View` to load an image from a `Source`.
-/// Declaring a `KFImage` in a `View`'s body to trigger loading from the given `Source`.
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
-struct KFImageRenderer<HoldingView> : View where HoldingView: KFImageHoldingView {
-    
-    @StateObject var binder: KFImage.ImageBinder = .init()
-    let context: KFImage.Context<HoldingView>
-    
-    var body: some View {
-        ZStack {
-            context.configurations
-                .reduce(HoldingView.created(from: binder.loadedImage, context: context)) {
-                    current, config in config(current)
-                }
-                .opacity(binder.loaded ? 1.0 : 0.0)
-            if binder.loadedImage == nil {
-                Group {
-                    if let placeholder = context.placeholder, let view = placeholder(binder.progress) {
-                        view
-                    } else {
-                        Color.clear
+    /// A Kingfisher compatible SwiftUI `View` to load an image from a `Source`.
+    /// Declaring a `KFImage` in a `View`'s body to trigger loading from the given `Source`.
+    @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+    struct KFImageRenderer<HoldingView>: View where HoldingView: KFImageHoldingView {
+        @StateObject var binder: KFImage.ImageBinder = .init()
+        let context: KFImage.Context<HoldingView>
+
+        var body: some View {
+            ZStack {
+                context.configurations
+                    .reduce(HoldingView.created(from: binder.loadedImage, context: context)) {
+                        current, config in config(current)
                     }
-                }
-                .onAppear { [weak binder = self.binder] in
-                    guard let binder = binder else {
-                        return
+                    .opacity(binder.loaded ? 1.0 : 0.0)
+                if binder.loadedImage == nil {
+                    Group {
+                        if let placeholder = context.placeholder, let view = placeholder(binder.progress) {
+                            view
+                        } else {
+                            Color.clear
+                        }
                     }
-                    if !binder.loadingOrSucceeded {
-                        binder.start(context: context)
+                    .onAppear { [weak binder = self.binder] in
+                        guard let binder = binder else {
+                            return
+                        }
+                        if !binder.loadingOrSucceeded {
+                            binder.start(context: context)
+                        }
                     }
-                }
-                .onDisappear { [weak binder = self.binder] in
-                    guard let binder = binder else {
-                        return
-                    }
-                    if context.cancelOnDisappear {
-                        binder.cancel()
+                    .onDisappear { [weak binder = self.binder] in
+                        guard let binder = binder else {
+                            return
+                        }
+                        if context.cancelOnDisappear {
+                            binder.cancel()
+                        }
                     }
                 }
             }
         }
     }
-}
 
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
-extension Image {
-    // Creates an Image with either UIImage or NSImage.
-    init(crossPlatformImage: KFCrossPlatformImage?) {
-        #if canImport(UIKit)
-        self.init(uiImage: crossPlatformImage ?? KFCrossPlatformImage())
-        #elseif canImport(AppKit)
-        self.init(nsImage: crossPlatformImage ?? KFCrossPlatformImage())
-        #endif
-    }
-}
-
-#if canImport(UIKit)
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
-extension UIImage.Orientation {
-    func toSwiftUI() -> Image.Orientation {
-        switch self {
-        case .down: return .down
-        case .up: return .up
-        case .left: return .left
-        case .right: return .right
-        case .upMirrored: return .upMirrored
-        case .downMirrored: return .downMirrored
-        case .leftMirrored: return .leftMirrored
-        case .rightMirrored: return .rightMirrored
-        @unknown default: return .up
+    @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+    extension Image {
+        // Creates an Image with either UIImage or NSImage.
+        init(crossPlatformImage: KFCrossPlatformImage?) {
+            #if canImport(UIKit)
+                self.init(uiImage: crossPlatformImage ?? KFCrossPlatformImage())
+            #elseif canImport(AppKit)
+                self.init(nsImage: crossPlatformImage ?? KFCrossPlatformImage())
+            #endif
         }
     }
-}
-#endif
+
+    #if canImport(UIKit)
+        @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+        extension UIImage.Orientation {
+            func toSwiftUI() -> Image.Orientation {
+                switch self {
+                case .down: return .down
+                case .up: return .up
+                case .left: return .left
+                case .right: return .right
+                case .upMirrored: return .upMirrored
+                case .downMirrored: return .downMirrored
+                case .leftMirrored: return .leftMirrored
+                case .rightMirrored: return .rightMirrored
+                @unknown default: return .up
+                }
+            }
+        }
+    #endif
 #endif
