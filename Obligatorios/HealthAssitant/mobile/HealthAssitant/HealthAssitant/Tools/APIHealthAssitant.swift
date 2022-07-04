@@ -72,7 +72,7 @@ class APIStatistics : Decodable {
     let symptoms : [Int: Int]
 }
 
-let HOSTNAME = "http://ec2-3-83-151-151.compute-1.amazonaws.com"
+let HOSTNAME = "http://ec2-204-236-203-240.compute-1.amazonaws.com"
 
 enum APIUrls : String {
     case login = "/api/v1/login/access-token"
