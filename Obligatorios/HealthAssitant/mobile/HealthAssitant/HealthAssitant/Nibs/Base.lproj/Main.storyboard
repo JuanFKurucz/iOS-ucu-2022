@@ -618,7 +618,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="LpD-wZ-Dpm">
-                                <rect key="frame" x="25" y="589" width="364" height="100"/>
+                                <rect key="frame" x="25" y="588.5" width="364" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="k7a-Up-Kn3"/>
                                 </constraints>
@@ -807,7 +807,7 @@
                                     <constraint firstAttribute="height" constant="34" id="aJu-wA-qkB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKW-73-7Bo">
                                 <rect key="frame" x="50" y="454.5" width="314" height="31"/>
