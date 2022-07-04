@@ -26,7 +26,7 @@ class PatientProfileViewController: UIViewController {
             genderLabel.text = "Gender: \(patient.gender.text)"
             
             if let birthDate = patient.birthDate {
-                birthDateLabel.text = "Birth date: \(birthDate.ISO8601Format())"
+                birthDateLabel.text = "Birth date: \(TextManipulation.dateToText(date: birthDate))"
             }
             
             self.casesTableView.delegate = self

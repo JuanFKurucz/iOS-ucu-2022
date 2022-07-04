@@ -130,9 +130,10 @@ class CaseModel {
     
     func getName() -> String {
         if let endDate = self.endDate, let diagnosis = self.diagnosis {
-            return "\(diagnosis.rawValue) - \(self.startDate) - \(endDate)"
+            
+            return "\(diagnosis.rawValue) - \(TextManipulation.dateToText(date: self.startDate)) - \(TextManipulation.dateToText(date: endDate))"
         }
-        return"\(self.getCaseStatus()) - \(self.startDate)"
+        return"\(self.getCaseStatus()) - \(TextManipulation.dateToText(date: self.startDate))"
     }
     
     func endCase(date: Date, diagnosis: Diagnosis){

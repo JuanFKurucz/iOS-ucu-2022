@@ -138,7 +138,7 @@ extension CaseViewController: UITableViewDelegate, UITableViewDataSource {
             
             let stateInfo = information.state == false ? "Negative" : "Positive"
             
-            cell.informationLabel.text = "\(information.date.ISO8601Format()) - \(information.symptom.text) - \(stateInfo)"
+            cell.informationLabel.text = "\(TextManipulation.dateToText(date: information.date)) - \(information.symptom.text) - \(stateInfo)"
         }
         return cell
     }
