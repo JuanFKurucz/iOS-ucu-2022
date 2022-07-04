@@ -173,7 +173,6 @@ class APIHealthAssitant {
                }
                onComplete(caseList)
            case .failure(let error):
-               print(error)
                onFail(error)
            }
        })
@@ -196,7 +195,6 @@ class APIHealthAssitant {
                }
                onComplete(CaseModel(patientId:patientId, caseId: data.id, startDate: dateFormatter.date(from: data.startDate)!, endDate: dateFormatter.date(from: data.endDate ?? "") ?? nil, history: historyList, diagnosis: diagnostic))
            case .failure(let error):
-               print(error)
                onFail(error)
            }
        })
@@ -218,7 +216,6 @@ class APIHealthAssitant {
                let symptom : Symptom = Symptom(rawValue: data.symptom)!
                onComplete(HistoryModel(date: dateFormatter.date(from: data.date)!, symptom: symptom, state:data.state))
            case .failure(let error):
-               print(error)
                onFail(error)
            }
        })
@@ -238,7 +235,6 @@ class APIHealthAssitant {
            case .success(_):
                onComplete()
            case .failure(let error):
-               print(error)
                onFail(error)
            }
        })

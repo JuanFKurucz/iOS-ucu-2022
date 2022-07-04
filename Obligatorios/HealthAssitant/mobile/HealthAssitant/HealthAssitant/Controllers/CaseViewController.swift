@@ -41,7 +41,9 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
             self.informationTableView.reloadData()
             APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
                 self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-            }, onFail: {_ in print("error diagnosis")})
+            }, onFail: {_ in
+                Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+            })
         }
     }
     
@@ -50,7 +52,9 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
             APIHealthAssitant.closeCase(patientId: caseElement.patientId, caseId: caseElement.caseId, diagnostic: caseElement.diagnosis!, date: caseElement.endDate!, onComplete: {
                 self.navigationController?.popViewController(animated: true)
                 self.dismiss(animated: true, completion: nil)
-            }, onFail: {_ in print("error")})
+            }, onFail: {_ in
+                Alert.showAlertBox(currentViewController: self, title: "Invalid close case", message: "Could not close case")
+            })
         }
         
     }
@@ -82,14 +86,18 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
                 
                 APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
                     self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-                }, onFail: {_ in print("error diagnosis")})
+                }, onFail: {_ in
+                    Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+                })
                 
                 self.informationValue = nil
                 self.informationDropDown.setTitle("Select information", for:.normal)
                 
                 self.informationTableView.reloadData()
                 
-            }, onFail: {_ in print("error")})
+            }, onFail: {_ in
+                Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
+            })
             
         }
     }
@@ -104,14 +112,18 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
                 
                 APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
                     self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-                }, onFail: {_ in print("error diagnosis")})
+                }, onFail: {_ in
+                    Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+                })
                 
                 self.informationValue = nil
                 self.informationDropDown.setTitle("Select information", for:.normal)
                 
                 self.informationTableView.reloadData()
                 
-            }, onFail: {_ in print("error")})
+            }, onFail: {_ in
+                Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
+            })
             
         }
     }

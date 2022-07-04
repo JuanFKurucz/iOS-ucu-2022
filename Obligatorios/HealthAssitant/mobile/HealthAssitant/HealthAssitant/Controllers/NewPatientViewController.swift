@@ -44,9 +44,9 @@ class NewPatientViewController: UIViewController, DropDownTableViewControllerDel
     @IBAction func onSubmitPatient(_ sender: Any) {
         if let code = identificationField.text, let fullName = fullNameField.text, let gender = Gender(rawValue: genderValue+1) {
             APIHealthAssitant.newPatient(code: code, fullName: fullName, gender: gender, birthDate: birthDatePicker.date, onComplete: { _ in let _ = self.navigationController?.popViewController(animated: true)
-                self.dismiss(animated: true, completion: nil) }, onFail: {_ in print("error")})
+                self.dismiss(animated: true, completion: nil) }, onFail: {_ in Alert.showAlertBox(currentViewController: self, title: "Invalid new patient", message: "Could not create new patient")})
         } else {
-            print("not all fields filled")
+            Alert.showAlertBox(currentViewController: self, title: "Invalid new patient", message: "All fields must be filled")
         }
         
     }

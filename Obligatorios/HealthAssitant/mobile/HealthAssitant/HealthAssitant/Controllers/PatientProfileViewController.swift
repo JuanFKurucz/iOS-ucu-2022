@@ -42,7 +42,9 @@ class PatientProfileViewController: UIViewController {
             APIHealthAssitant.getCases(patientId: patient.patientId, onComplete: { p in
                 patient.cases = p
                 self.casesTableView.reloadData()
-            }, onFail: {_ in print("cases failed")})
+            }, onFail: {_ in
+                Alert.showAlertBox(currentViewController: self, title: "Invalid get cases", message: "Could not retrieve cases")
+            })
         }
     }
     
@@ -51,7 +53,9 @@ class PatientProfileViewController: UIViewController {
         if let patient = patient {
             APIHealthAssitant.getOrCreateCase(patientId: patient.patientId, onComplete: { caseElement in caseView.caseElement = caseElement
                 caseView.onGetCase()
-            }, onFail: {_ in})
+            }, onFail: {_ in
+                Alert.showAlertBox(currentViewController: self, title: "Invalid retrieve or create case", message: "Could not get or retrieve case")
+            })
             
         }
     }

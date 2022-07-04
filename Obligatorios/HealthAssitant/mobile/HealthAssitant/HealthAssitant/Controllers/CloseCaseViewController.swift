@@ -25,7 +25,9 @@ class CloseCaseViewController: UIViewController, DropDownTableViewControllerDele
         if let caseElement = caseElement {
             APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
                 self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-            }, onFail: {_ in print("error diagnosis")})
+            }, onFail: {_ in
+                Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+            })
         }
     }
     

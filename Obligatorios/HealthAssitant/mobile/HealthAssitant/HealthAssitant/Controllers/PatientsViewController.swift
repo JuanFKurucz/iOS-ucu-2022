@@ -28,7 +28,9 @@ class PatientsViewController: UIViewController {
         APIHealthAssitant.getPatients(onComplete: { p in
             self.patients = p
             self.patientsTableView.reloadData()
-        }, onFail: {_ in })
+        }, onFail: {_ in
+            Alert.showAlertBox(currentViewController: self, title: "Invalid retrieve patients", message: "Could not retrieve patients")
+        })
     }
 
     @IBAction func onTapNewPatient(_ sender: Any) {
