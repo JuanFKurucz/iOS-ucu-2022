@@ -7,13 +7,17 @@
 
 import UIKit
 
-class NewPatientViewController: UIViewController, DropDownTableViewControllerDelegate {
+class NewPatientViewController: UIViewController, DropDownTableViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     static let identifier : String = "NewPatientViewController"
     @IBOutlet weak var genderButton: UIButton!
     
     @IBOutlet weak var identificationField: UITextField!
     @IBOutlet weak var fullNameField: UITextField!
     @IBOutlet weak var birthDatePicker: UIDatePicker!
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var newImageButton: UIButton!
+    
+    var imagePicker = UIImagePickerController()
     
     var genderValue : Int = -1
     var genderOptions : [String] = ["Male","Female"]
@@ -43,11 +47,28 @@ class NewPatientViewController: UIViewController, DropDownTableViewControllerDel
     
     @IBAction func onSubmitPatient(_ sender: Any) {
         if let code = identificationField.text, let fullName = fullNameField.text, let gender = Gender(rawValue: genderValue+1) {
-            APIHealthAssitant.newPatient(code: code, fullName: fullName, gender: gender, birthDate: birthDatePicker.date, onComplete: { _ in let _ = self.navigationController?.popViewController(animated: true)
+            let imageData:Data = profileImageView.image!.pngData()!
+            APIHealthAssitant.newPatient(code: code, fullName: fullName, gender: gender, birthDate: birthDatePicker.date, base64Image:imageData.base64EncodedString(), onComplete: { _ in let _ = self.navigationController?.popViewController(animated: true)
                 self.dismiss(animated: true, completion: nil) }, onFail: {_ in Alert.showAlertBox(currentViewController: self, title: "Invalid new patient", message: "Could not create new patient")})
         } else {
             Alert.showAlertBox(currentViewController: self, title: "Invalid new patient", message: "All fields must be filled")
         }
-        
+    }
+    
+    @IBAction func onNewImage(_ sender: Any) {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+           imagePicker.delegate = self
+           imagePicker.sourceType = .savedPhotosAlbum
+           imagePicker.allowsEditing = false
+           present(imagePicker, animated: true, completion: nil)
+       }
+    }
+    
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            profileImageView.contentMode = .scaleAspectFit
+            profileImageView.image = image
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }

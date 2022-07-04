@@ -11,6 +11,7 @@ class PatientTableViewCell: UITableViewCell {
     static let identifier : String = "PatientTableViewCell"
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var currentCaseLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

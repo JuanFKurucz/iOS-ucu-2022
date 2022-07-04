@@ -309,6 +309,7 @@
                         <outlet property="fullNameLabel" destination="94M-I5-qDi" id="9by-HL-MQk"/>
                         <outlet property="genderLabel" destination="j48-d0-0kg" id="4Jb-kN-0FG"/>
                         <outlet property="idLabel" destination="6sK-BV-obr" id="Ebg-Tn-fpx"/>
+                        <outlet property="profileImageView" destination="9bp-Kw-ZBV" id="9mV-oX-O1I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kwu-BJ-L2S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -538,35 +539,35 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Identification" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bH0-Qg-6Yq">
-                                <rect key="frame" x="25" y="320" width="364" height="21"/>
+                                <rect key="frame" x="25" y="341" width="364" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cHh-u8-jET">
-                                <rect key="frame" x="25" y="346" width="364" height="34"/>
+                                <rect key="frame" x="25" y="366.5" width="364" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pV-hS-Kps">
-                                <rect key="frame" x="25" y="395" width="364" height="21"/>
+                                <rect key="frame" x="25" y="415.5" width="364" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0tK-Cp-DRA">
-                                <rect key="frame" x="25" y="421" width="364" height="34"/>
+                                <rect key="frame" x="25" y="441.5" width="364" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyF-2D-VgI">
-                                <rect key="frame" x="25" y="470" width="364" height="21"/>
+                                <rect key="frame" x="25" y="490.5" width="364" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eye-sW-99B">
-                                <rect key="frame" x="25" y="496" width="364" height="31"/>
+                                <rect key="frame" x="25" y="516.5" width="364" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Select gender"/>
                                 <connections>
@@ -574,23 +575,31 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birth date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqi-Cp-adZ">
-                                <rect key="frame" x="25" y="542" width="364" height="21"/>
+                                <rect key="frame" x="25" y="562.5" width="364" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="LpD-wZ-Dpm">
-                                <rect key="frame" x="25" y="568" width="364" height="100"/>
+                                <rect key="frame" x="25" y="588.5" width="364" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="k7a-Up-Kn3"/>
                                 </constraints>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qdo-Fb-HpC">
-                                <rect key="frame" x="25" y="693" width="364" height="31"/>
+                                <rect key="frame" x="25" y="713.5" width="364" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Submit patient"/>
                                 <connections>
                                     <action selector="onSubmitPatient:" destination="sLJ-tk-2Xq" eventType="touchUpInside" id="bcb-iB-FYU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ktQ-9D-3PZ">
+                                <rect key="frame" x="135" y="305" width="144" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Upload new image"/>
+                                <connections>
+                                    <action selector="onNewImage:" destination="sLJ-tk-2Xq" eventType="touchUpInside" id="qZi-XE-gDE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -604,10 +613,10 @@
                             <constraint firstItem="Kem-gm-HUB" firstAttribute="trailing" secondItem="2pV-hS-Kps" secondAttribute="trailing" constant="25" id="9Ej-W9-tEY"/>
                             <constraint firstItem="Kem-gm-HUB" firstAttribute="trailing" secondItem="0tK-Cp-DRA" secondAttribute="trailing" constant="25" id="BH6-3D-jDI"/>
                             <constraint firstItem="cHh-u8-jET" firstAttribute="leading" secondItem="Kem-gm-HUB" secondAttribute="leading" constant="25" id="EPL-re-pmX"/>
+                            <constraint firstItem="bH0-Qg-6Yq" firstAttribute="top" secondItem="ktQ-9D-3PZ" secondAttribute="bottom" constant="5" id="En7-cZ-rsC"/>
                             <constraint firstItem="Eye-sW-99B" firstAttribute="width" secondItem="0tK-Cp-DRA" secondAttribute="width" id="FiI-mk-V7m"/>
                             <constraint firstItem="2pV-hS-Kps" firstAttribute="leading" secondItem="Kem-gm-HUB" secondAttribute="leading" constant="25" id="GQk-uf-MUC"/>
                             <constraint firstItem="LpD-wZ-Dpm" firstAttribute="top" secondItem="Yqi-Cp-adZ" secondAttribute="bottom" constant="5" id="HSJ-c4-AeL"/>
-                            <constraint firstItem="bH0-Qg-6Yq" firstAttribute="top" secondItem="e0D-Wg-wuz" secondAttribute="bottom" constant="15" id="IZj-v9-TH4"/>
                             <constraint firstItem="Yqi-Cp-adZ" firstAttribute="top" secondItem="Eye-sW-99B" secondAttribute="bottom" constant="15" id="Kau-H6-H1B"/>
                             <constraint firstItem="Eye-sW-99B" firstAttribute="leading" secondItem="0tK-Cp-DRA" secondAttribute="leading" id="OfC-wz-t29"/>
                             <constraint firstItem="Yqi-Cp-adZ" firstAttribute="trailing" secondItem="HyF-2D-VgI" secondAttribute="trailing" id="Oyq-At-f9b"/>
@@ -625,8 +634,10 @@
                             <constraint firstItem="Eye-sW-99B" firstAttribute="top" secondItem="HyF-2D-VgI" secondAttribute="bottom" constant="5" id="jO5-dc-sze"/>
                             <constraint firstItem="Qdo-Fb-HpC" firstAttribute="trailing" secondItem="Eye-sW-99B" secondAttribute="trailing" id="kPD-vZ-W32"/>
                             <constraint firstItem="e0D-Wg-wuz" firstAttribute="centerX" secondItem="Kem-gm-HUB" secondAttribute="centerX" id="l4g-Bo-Bs5"/>
+                            <constraint firstItem="ktQ-9D-3PZ" firstAttribute="top" secondItem="e0D-Wg-wuz" secondAttribute="bottom" id="llo-jA-M7x"/>
                             <constraint firstItem="0tK-Cp-DRA" firstAttribute="leading" secondItem="Kem-gm-HUB" secondAttribute="leading" constant="25" id="mzA-j2-NCD"/>
                             <constraint firstItem="cHh-u8-jET" firstAttribute="top" secondItem="bH0-Qg-6Yq" secondAttribute="bottom" constant="5" id="tig-Rv-Hdb"/>
+                            <constraint firstItem="ktQ-9D-3PZ" firstAttribute="centerX" secondItem="Kem-gm-HUB" secondAttribute="centerX" id="uvr-4K-Wtl"/>
                             <constraint firstItem="hdZ-Cz-oP2" firstAttribute="centerX" secondItem="Kem-gm-HUB" secondAttribute="centerX" id="vRM-MZ-lcR"/>
                         </constraints>
                     </view>
@@ -635,6 +646,8 @@
                         <outlet property="fullNameField" destination="0tK-Cp-DRA" id="bdM-b9-G3k"/>
                         <outlet property="genderButton" destination="Eye-sW-99B" id="NBu-NT-7pe"/>
                         <outlet property="identificationField" destination="cHh-u8-jET" id="CZg-Wt-Mq2"/>
+                        <outlet property="newImageButton" destination="ktQ-9D-3PZ" id="6Pj-lt-zFW"/>
+                        <outlet property="profileImageView" destination="e0D-Wg-wuz" id="gm9-0S-iFa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1iA-Qj-0W3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

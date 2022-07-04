@@ -10,6 +10,7 @@ class PatientBase(BaseModel):
     full_name: str
     gender: Gender
     birth_date: datetime
+    image: str
 
 
 # Properties to receive on item creation

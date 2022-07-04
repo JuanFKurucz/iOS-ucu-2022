@@ -15,6 +15,7 @@ class PatientProfileViewController: UIViewController {
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var casesTableView: UITableView!
+    @IBOutlet weak var profileImageView: UIImageView!
     var patient: PatientModel?
     
     override func viewDidLoad() {
@@ -27,6 +28,11 @@ class PatientProfileViewController: UIViewController {
             
             if let birthDate = patient.birthDate {
                 birthDateLabel.text = "Birth date: \(TextManipulation.dateToText(date: birthDate))"
+            }
+            
+            
+            if let decodedImage = ImageUtils.base64ToImage(base64: patient.imageBase64) {
+                profileImageView.image = decodedImage
             }
             
             self.casesTableView.delegate = self

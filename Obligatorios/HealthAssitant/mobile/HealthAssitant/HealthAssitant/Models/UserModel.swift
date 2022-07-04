@@ -93,14 +93,16 @@ class PatientModel {
     let gender: Gender
     let birthDate: Date?
     var cases: [CaseModel]
+    let imageBase64: String
     
-    init(identification:String, patientId: Int, fullName: String, gender:Gender, birthDate: Date?, cases: [CaseModel] = []){
+    init(identification:String, patientId: Int, fullName: String, imageBase64:String, gender:Gender, birthDate: Date?, cases: [CaseModel] = []){
         self.patientId = patientId
         self.identification = identification
         self.fullName = fullName
         self.gender = gender
         self.birthDate = birthDate
         self.cases = cases
+        self.imageBase64 = imageBase64
     }
 }
 

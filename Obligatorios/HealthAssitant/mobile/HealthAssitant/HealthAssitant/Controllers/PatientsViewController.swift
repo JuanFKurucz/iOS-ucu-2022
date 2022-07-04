@@ -47,6 +47,9 @@ extension PatientsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: PatientTableViewCell.identifier) as! PatientTableViewCell
         let patient = self.patients[indexPath.row]
         cell.nameLabel.text = "\(patient.identification) - \(patient.fullName)"
+        if let decodedImage = ImageUtils.base64ToImage(base64: patient.imageBase64) {
+            cell.profileImageView.image = decodedImage
+        }
         return cell
     }
     

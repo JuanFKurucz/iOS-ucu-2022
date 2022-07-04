@@ -21,6 +21,7 @@
 		5636D522286E7F230008B514 /* CaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5636D520286E7F230008B514 /* CaseTableViewCell.xib */; };
 		5636D5242872BD600008B514 /* TextManipulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D5232872BD600008B514 /* TextManipulation.swift */; };
 		5636D5262872BFAC0008B514 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D5252872BFAC0008B514 /* Alert.swift */; };
+		5636D52828736AD10008B514 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636D52728736AD10008B514 /* ImageUtils.swift */; };
 		567EB2D62863EBB50010218E /* PatientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB2D42863EBB50010218E /* PatientTableViewCell.swift */; };
 		567EB2D72863EBB50010218E /* PatientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 567EB2D52863EBB50010218E /* PatientTableViewCell.xib */; };
 		567EB2D92863EE0B0010218E /* PatientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB2D82863EE0B0010218E /* PatientsViewController.swift */; };
@@ -55,6 +56,7 @@
 		5636D520286E7F230008B514 /* CaseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CaseTableViewCell.xib; sourceTree = "<group>"; };
 		5636D5232872BD600008B514 /* TextManipulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextManipulation.swift; sourceTree = "<group>"; };
 		5636D5252872BFAC0008B514 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		5636D52728736AD10008B514 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageUtils.swift; path = HealthAssitant/Tools/ImageUtils.swift; sourceTree = SOURCE_ROOT; };
 		567EB2D42863EBB50010218E /* PatientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTableViewCell.swift; sourceTree = "<group>"; };
 		567EB2D52863EBB50010218E /* PatientTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PatientTableViewCell.xib; sourceTree = "<group>"; };
 		567EB2D82863EE0B0010218E /* PatientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				567EB2DA2863F0690010218E /* Navigation.swift */,
 				5636D51B286E77550008B514 /* APIClient.swift */,
 				5636D51D286E77730008B514 /* APIHealthAssitant.swift */,
+				5636D52728736AD10008B514 /* ImageUtils.swift */,
 				5636D5232872BD600008B514 /* TextManipulation.swift */,
 				5636D5252872BFAC0008B514 /* Alert.swift */,
 			);
@@ -345,6 +348,7 @@
 				5636D50F286E452A0008B514 /* DropDownTableViewCell.swift in Sources */,
 				56A9771A285BEC7800764F11 /* SignUpViewController.swift in Sources */,
 				5636D5242872BD600008B514 /* TextManipulation.swift in Sources */,
+				5636D52828736AD10008B514 /* ImageUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

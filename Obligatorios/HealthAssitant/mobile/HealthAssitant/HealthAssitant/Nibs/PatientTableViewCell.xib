@@ -52,6 +52,7 @@
             <connections>
                 <outlet property="currentCaseLabel" destination="SO5-nY-dK5" id="7kE-qL-GPp"/>
                 <outlet property="nameLabel" destination="9es-us-o5a" id="IgW-Vc-V7x"/>
+                <outlet property="profileImageView" destination="Lqe-nl-YzA" id="JXH-Hi-vhY"/>
             </connections>
             <point key="canvasLocation" x="-671.73913043478262" y="-433.59375"/>
         </tableViewCell>

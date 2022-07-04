@@ -17,6 +17,7 @@ class Patient(Base):
     full_name = Column(String, index=True)
     gender = Column(Enum(Gender))
     birth_date = Column(String)
+    image = Column(String)
     cases = relationship("Case", back_populates="owner")
     owner_id = Column(Integer, ForeignKey("user.id"))
     owner = relationship("User", back_populates="patients")

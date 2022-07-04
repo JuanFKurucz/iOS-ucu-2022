@@ -36,10 +36,11 @@ struct APIPatient : Decodable {
     let gender: Int
     let birthDate: String
     let ownerId: Int
+    let image: String
     
     
     private enum CodingKeys: String, CodingKey {
-        case id = "id", code="code", fullName = "full_name", gender = "gender", birthDate = "birth_date", ownerId = "owner_id"
+        case id = "id", code="code", fullName = "full_name", gender = "gender", birthDate = "birth_date", ownerId = "owner_id", image="image"
     }
 }
 
@@ -121,7 +122,7 @@ class APIHealthAssitant {
                 var patientsList : [PatientModel] = []
                 for ele in data {
                     let gender : Gender = ele.gender == 1 ? Gender.male : Gender.female
-                    patientsList.append(PatientModel(identification: ele.code, patientId:ele.id, fullName: ele.fullName, gender: gender, birthDate: dateFormatter.date(from:ele.birthDate)))
+                    patientsList.append(PatientModel(identification: ele.code, patientId:ele.id, fullName: ele.fullName,imageBase64:ele.image, gender: gender, birthDate: dateFormatter.date(from:ele.birthDate)))
                 }
                 onComplete(patientsList)
             case .failure(let error):
@@ -130,14 +131,15 @@ class APIHealthAssitant {
         })
     }
     
-    static func newPatient(code: String, fullName:String, gender:Gender, birthDate: Date, onComplete : @escaping (PatientModel) -> Void, onFail: @escaping (Error) -> Void){
+    static func newPatient(code: String, fullName:String, gender:Gender, birthDate: Date, base64Image: String, onComplete : @escaping (PatientModel) -> Void, onFail: @escaping (Error) -> Void){
         _ = APIClient.shared.requestItem(urlString: APIUrls.patients.rawValue,
                                      method: APIClient.Method.post,
                                      params: [
                                         "code":code,
                                         "full_name": fullName,
                                         "gender": gender.rawValue,
-                                        "birth_date":birthDate.ISO8601Format()
+                                        "birth_date":birthDate.ISO8601Format(),
+                                        "image":base64Image
                                      ],
                                     sessionPolicy: APIClient.SessionPolicy.privateDomain,
                                     onCompletion: { (result: Result<APIPatient, Error>) in
@@ -145,7 +147,7 @@ class APIHealthAssitant {
            case .success(let data):
                let dateFormatter = ISO8601DateFormatter()
                let gender : Gender = data.gender == 1 ? Gender.male : Gender.female
-               onComplete(PatientModel(identification: data.code, patientId:data.id, fullName: data.fullName, gender: gender, birthDate: dateFormatter.date(from:data.birthDate)))
+               onComplete(PatientModel(identification: data.code, patientId:data.id, fullName: data.fullName, imageBase64: data.image, gender: gender, birthDate: dateFormatter.date(from:data.birthDate)))
            case .failure(let error):
                onFail(error)
            }
