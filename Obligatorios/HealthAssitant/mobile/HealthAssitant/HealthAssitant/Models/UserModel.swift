@@ -44,7 +44,7 @@ enum Diagnosis: Int, CaseIterable {
 
 
 enum Symptom: Int, CaseIterable {
-    case Fever = 1, DryCough = 2, Rhinorrhea = 3, Dyspnea = 4, Fatigue = 5, MusclePain = 6, ChestPain = 7, Anosmia = 8, Dysgeusia = 9, KidneyFailure = 10, Myocarditis = 11, Hemoptisis = 12, Headache = 13
+    case Unknown = 0,Fever = 1, DryCough = 2, Rhinorrhea = 3, Dyspnea = 4, Fatigue = 5, MusclePain = 6, ChestPain = 7, Anosmia = 8, Dysgeusia = 9, KidneyFailure = 10, Myocarditis = 11, Hemoptisis = 12, Headache = 13
     
     var text : String {
         switch self {

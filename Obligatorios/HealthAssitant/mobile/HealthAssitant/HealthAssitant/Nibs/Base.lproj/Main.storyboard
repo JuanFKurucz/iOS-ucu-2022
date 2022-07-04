@@ -129,8 +129,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JGv-VY-JZ3">
+                                <rect key="frame" x="0.0" y="44" width="414" height="75"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WX1-sf-9g0">
+                                        <rect key="frame" x="0.0" y="0.0" width="207" height="75"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Diagnostics"/>
+                                        <connections>
+                                            <action selector="onDiagnosticGraph:" destination="V8S-zh-W8Y" eventType="touchUpInside" id="m7H-X3-CiW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfY-sD-60h">
+                                        <rect key="frame" x="207" y="0.0" width="207" height="75"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Symptoms"/>
+                                        <connections>
+                                            <action selector="onSymptomGraph:" destination="V8S-zh-W8Y" eventType="touchUpInside" id="WgP-jY-v4J"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="vlu-hI-2e0"/>
+                                </constraints>
+                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g7a-rE-Cs5" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="7" y="44" width="400" height="769"/>
+                                <rect key="frame" x="7" y="119" width="400" height="669"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="400" id="2v2-qy-vPY"/>
@@ -140,9 +164,13 @@
                         <viewLayoutGuide key="safeArea" id="f2H-TI-tLx"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="g7a-rE-Cs5" firstAttribute="height" secondItem="f2H-TI-tLx" secondAttribute="height" id="1Np-E0-rdr"/>
+                            <constraint firstItem="g7a-rE-Cs5" firstAttribute="height" secondItem="f2H-TI-tLx" secondAttribute="height" constant="-100" id="1Np-E0-rdr"/>
+                            <constraint firstItem="JGv-VY-JZ3" firstAttribute="leading" secondItem="f2H-TI-tLx" secondAttribute="leading" id="9wr-fJ-iA5"/>
+                            <constraint firstItem="JGv-VY-JZ3" firstAttribute="width" secondItem="f2H-TI-tLx" secondAttribute="width" id="RcU-gA-JuU"/>
                             <constraint firstItem="g7a-rE-Cs5" firstAttribute="centerX" secondItem="f2H-TI-tLx" secondAttribute="centerX" id="U5S-tf-BCn"/>
-                            <constraint firstItem="g7a-rE-Cs5" firstAttribute="top" secondItem="f2H-TI-tLx" secondAttribute="top" id="xHq-LG-aPX"/>
+                            <constraint firstItem="JGv-VY-JZ3" firstAttribute="top" secondItem="f2H-TI-tLx" secondAttribute="top" id="tEJ-FF-tIC"/>
+                            <constraint firstItem="g7a-rE-Cs5" firstAttribute="top" secondItem="JGv-VY-JZ3" secondAttribute="top" constant="75" id="xHq-LG-aPX"/>
+                            <constraint firstItem="f2H-TI-tLx" firstAttribute="trailing" secondItem="JGv-VY-JZ3" secondAttribute="trailing" id="y8i-Rj-E5g"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Charts" image="chart.bar.xaxis" catalog="system" id="Rdi-fj-21o"/>
@@ -152,7 +180,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lpv-N6-Tq6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1810" y="822"/>
+            <point key="canvasLocation" x="1808.6956521739132" y="821.65178571428567"/>
         </scene>
         <!--Patients-->
         <scene sceneID="qrL-4t-RNn">
@@ -581,7 +609,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="LpD-wZ-Dpm">
-                                <rect key="frame" x="25" y="588.5" width="364" height="100"/>
+                                <rect key="frame" x="25" y="589" width="364" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="k7a-Up-Kn3"/>
                                 </constraints>

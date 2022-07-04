@@ -39,21 +39,71 @@ class ChartsViewController: UIViewController, ChartViewDelegate {
     static let identifier : String = "ChartsViewController"
     @IBOutlet weak var chartView: BarChartView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        //chart data
-        let items = [
-            GraphData(index: 0, label: "Australia", value: 1.83),
-            GraphData(index: 1, label: "Belgium", value: 2.54),
-            GraphData(index: 2, label: "Germany", value: 3.32),
-            GraphData(index: 3, label: "Japan", value: 4.23)
-        ]
+    var diagnosticItems : [GraphData] = []
+    var symptomsItems : [GraphData] = []
+    var symptomsRange : [Int] = []
+    var diagnosticRange : [Int] = []
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        APIHealthAssitant.predictStatistics(onComplete: {stats in
+            self.diagnosticItems = []
+            self.symptomsItems = []
+            var minValue = -1
+            var maxValue = -1
+            for diag in stats.diagnostics {
+                if maxValue == -1 || diag.value > maxValue {
+                    maxValue = diag.value
+                }
+                if minValue == -1 || diag.value < minValue {
+                    minValue = diag.value
+                }
+                let diagnostic = Diagnosis(rawValue: diag.key) ?? Diagnosis.Unknown
+                self.diagnosticItems.append(GraphData(index:self.diagnosticItems.count, label: diagnostic.text, value: Double(diag.value)))
+            }
+            self.diagnosticRange = [minValue,maxValue]
+            minValue = -1
+            maxValue = -1
+            for sym in stats.symptoms {
+                if maxValue == -1 || sym.value > maxValue {
+                    maxValue = sym.value
+                }
+                if minValue == -1 || sym.value < minValue {
+                    minValue = sym.value
+                }
+                let symptom = Symptom(rawValue: sym.key) ?? Symptom.Unknown
+                self.symptomsItems.append(GraphData(index:self.symptomsItems.count, label: symptom.text, value: Double(sym.value)))
+            }
+            self.symptomsRange = [minValue,maxValue]
+            self.loadGraph(items: self.diagnosticItems,minValue: self.diagnosticRange[0],maxValue: self.diagnosticRange[1])
+        }, onFail: {_ in
+            Alert.showAlertBox(currentViewController: self, title: "Invalid predict statistics", message: "Could not fetch statistics")
+        })
+    }
+    @IBAction func onDiagnosticGraph(_ sender: Any) {
+        self.loadGraph(items: self.diagnosticItems,minValue: self.diagnosticRange[0],maxValue: self.diagnosticRange[1])
+    }
+    
+    @IBAction func onSymptomGraph(_ sender: Any) {
+        self.loadGraph(items: self.symptomsItems,minValue: self.symptomsRange[0],maxValue: self.symptomsRange[1])
+    }
+    
+    func loadGraph(items: [GraphData], minValue: Int, maxValue: Int) {
         // Do any additional setup after loading the view.
         let dataEntries = items.map{ $0.transformToBarChartDataEntry() }
         
         let set1 = BarChartDataSet(entries: dataEntries)
-        set1.setColor(.green)
+        
+        var colors:[UIColor] = []
+        for _ in 0...items.count {
+            colors.append(UIColor(
+                red:   CGFloat(Float.random(in: 0..<1)),
+                green: CGFloat(Float.random(in: 0..<1)),
+                blue:  CGFloat(Float.random(in: 0..<1)),
+                alpha: CGFloat(Float.random(in: 0.5..<1))
+            ))
+        }
+        set1.colors = colors
         set1.highlightColor = .blue
         set1.highlightAlpha = 1
         
@@ -62,12 +112,11 @@ class ChartsViewController: UIViewController, ChartViewDelegate {
         data.setValueTextColor(.black)
         
         let barValueFormatter = BarValueFormatter()
-        data.setValueFormatter(barValueFormatter as! ValueFormatter)
+        data.setValueFormatter(barValueFormatter as ValueFormatter)
         
         chartView.data = data
         
         // chart style
-        
         chartView.delegate = self
         
         // Hightlight
@@ -118,11 +167,15 @@ class ChartsViewController: UIViewController, ChartViewDelegate {
         leftAxis.labelTextColor = .black
 
         leftAxis.setLabelCount(6, force: true)
-        leftAxis.axisMinimum = 0.0
-        leftAxis.axisMaximum = 2.5
+        leftAxis.axisMinimum = Double(minValue)
+        leftAxis.axisMaximum = Double(maxValue)
 
         // Remove right axis
         let rightAxis = chartView.rightAxis
         rightAxis.enabled = false
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
 }

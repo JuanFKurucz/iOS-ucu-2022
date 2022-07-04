@@ -7,6 +7,8 @@ from fastapi import APIRouter
 from app import schemas
 from app.schemas import Prediction
 from app.models.case import Diagnostic
+from app.models.history import Symptom
+import random
 
 router = APIRouter()
 
@@ -25,32 +27,19 @@ targets=[
     "BrainTumor"
 ]
 
-@router.get("/statistics", response_model=schemas.Prediction)
-def predict(evidence: Dict[str,str], target: List[str] = None) -> Any:
-    net = pysmile.Network()
-    net.read_file(NETWORK_FILE)
+@router.get("/statistics")
+def statistics() -> Any:
+    stats = {
+        "diagnostics":{},
+        "symptoms":{}
+    }
 
-    for name, value in evidence.items():
-        try:
-            net.set_evidence(name, value)
-        except:
-            return {"error":f"Evidence with id {name} does not exist"}
+    for diag in Diagnostic:
+        stats["diagnostics"][diag.value] = random.randint(0,100)
+    for sym in Symptom:
+        stats["symptoms"][sym.value] = random.randint(0,100)
 
-    net.update_beliefs()
-
-    if target is None:
-        target=targets
-    
-    higher_diagnosis = None
-    max_prob = 0
-    for t in target:
-        prob = net.get_node_value(t)
-        if prob[0] > max_prob:
-            higher_diagnosis = Prediction(diagnostic=Diagnostic[t])
-            max_prob = prob[0]
-
-    return higher_diagnosis
-
+    return stats
 
 @router.post("/", response_model=schemas.Prediction)
 def predict(evidence: Dict[str,str], target: List[str] = None) -> Any:

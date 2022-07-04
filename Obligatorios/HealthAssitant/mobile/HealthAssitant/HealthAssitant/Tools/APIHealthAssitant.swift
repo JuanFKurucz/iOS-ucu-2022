@@ -67,6 +67,11 @@ class APIDiagnosis : Decodable {
     let diagnostic: Int
 }
 
+class APIStatistics : Decodable {
+    let diagnostics : [Int: Int]
+    let symptoms : [Int: Int]
+}
+
 enum APIUrls : String {
     case login = "http://localhost/api/v1/login/access-token"
     case signup = "http://localhost/api/v1/users/open"
@@ -260,4 +265,20 @@ class APIHealthAssitant {
            }
        })
     }
+    
+    
+    static func predictStatistics(onComplete : @escaping (APIStatistics) -> Void, onFail: @escaping (Error) -> Void){
+        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.predict.rawValue)statistics",
+                                         method: APIClient.Method.get,
+                                         sessionPolicy: APIClient.SessionPolicy.privateDomain,
+                                         onCompletion: { (result: Result<APIStatistics, Error>) in
+           switch result {
+           case .success(let data):
+               onComplete(data)
+           case .failure(let error):
+               onFail(error)
+           }
+       })
+    }
+    
 }
