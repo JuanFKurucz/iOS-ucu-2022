@@ -72,18 +72,20 @@ class APIStatistics : Decodable {
     let symptoms : [Int: Int]
 }
 
+let HOSTNAME = "http://ec2-3-83-151-151.compute-1.amazonaws.com"
+
 enum APIUrls : String {
-    case login = "http://localhost/api/v1/login/access-token"
-    case signup = "http://localhost/api/v1/users/open"
-    case patients = "http://localhost/api/v1/patients/"
-    case predict = "http://localhost/api/v1/predict/"
+    case login = "/api/v1/login/access-token"
+    case signup = "/api/v1/users/open"
+    case patients = "/api/v1/patients/"
+    case predict = "/api/v1/predict/"
 }
 
 
 
 class APIHealthAssitant {
     static func login(email:String, password:String, onComplete : @escaping (UserModel) -> Void, onFail: @escaping (Error) -> Void){
-        _ = APIClient.shared.requestItem(urlString: APIUrls.login.rawValue,
+        _ = APIClient.shared.requestItem(urlString: "\(HOSTNAME)\(APIUrls.login.rawValue)",
                                     method: APIClient.Method.post,
                                          params: ["username": email,"password": password,"grant_type":"","scope":"","client_id":"","client_secret":""],
                                     sessionPolicy: APIClient.SessionPolicy.publicDomain,
@@ -101,7 +103,7 @@ class APIHealthAssitant {
     }
     
     static func signup(email:String, password:String, onComplete : @escaping (UserModel) -> Void, onFail: @escaping (Error) -> Void){
-        _ = APIClient.shared.requestItem(urlString: APIUrls.signup.rawValue,
+        _ = APIClient.shared.requestItem(urlString: "\(HOSTNAME)\(APIUrls.signup.rawValue)",
                                     method: APIClient.Method.post,
                                          params: ["email": email,"password": password,"full_name":""],
                                     sessionPolicy: APIClient.SessionPolicy.publicDomain,
@@ -116,7 +118,7 @@ class APIHealthAssitant {
     }
     
     static func getPatients(onComplete : @escaping ([PatientModel]) -> Void, onFail: @escaping (Error) -> Void){
-        _ = APIClient.shared.requestItem(urlString: APIUrls.patients.rawValue,
+        _ = APIClient.shared.requestItem(urlString: "\(HOSTNAME)\(APIUrls.patients.rawValue)",
                                          method: APIClient.Method.get,
                                          params: [:],
                                          sessionPolicy: APIClient.SessionPolicy.privateDomain,
@@ -137,7 +139,7 @@ class APIHealthAssitant {
     }
     
     static func newPatient(code: String, fullName:String, gender:Gender, birthDate: Date, base64Image: String, onComplete : @escaping (PatientModel) -> Void, onFail: @escaping (Error) -> Void){
-        _ = APIClient.shared.requestItem(urlString: APIUrls.patients.rawValue,
+        _ = APIClient.shared.requestItem(urlString: "\(HOSTNAME)\(APIUrls.patients.rawValue)",
                                      method: APIClient.Method.post,
                                      params: [
                                         "code":code,
@@ -160,7 +162,7 @@ class APIHealthAssitant {
     }
     
     static func getCases(patientId: Int, onComplete : @escaping ([CaseModel]) -> Void, onFail: @escaping (Error) -> Void) {
-        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.patients.rawValue)\(patientId)/cases",
+        _ = APIClient.shared.requestItem(urlString: "\(HOSTNAME)\(APIUrls.patients.rawValue)\(patientId)/cases",
                                     method: APIClient.Method.get,
                                     sessionPolicy: APIClient.SessionPolicy.privateDomain,
                                     onCompletion: { (result: Result<[APICase], Error>) in
@@ -186,7 +188,7 @@ class APIHealthAssitant {
     }
     
     static func getOrCreateCase(patientId: Int, onComplete : @escaping (CaseModel) -> Void, onFail: @escaping (Error) -> Void) {
-        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.patients.rawValue)\(patientId)/cases",
+        _ = APIClient.shared.requestItem(urlString: "\(HOSTNAME)\(APIUrls.patients.rawValue)\(patientId)/cases",
                                     method: APIClient.Method.post,
                                     sessionPolicy: APIClient.SessionPolicy.privateDomain,
                                     onCompletion: { (result: Result<APICase, Error>) in
@@ -208,7 +210,7 @@ class APIHealthAssitant {
     }
     
     static func addInformation(patientId: Int, caseId: Int, information: HistoryModel, onComplete : @escaping (HistoryModel) -> Void, onFail: @escaping (Error) -> Void) {
-        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.patients.rawValue)\(patientId)/cases/\(caseId)/history",
+        _ = APIClient.shared.requestItem(urlString: "\(HOSTNAME)\(APIUrls.patients.rawValue)\(patientId)/cases/\(caseId)/history",
                                          method: APIClient.Method.post,
                                          params:[
                                             "date":information.date.ISO8601Format(),
@@ -230,7 +232,7 @@ class APIHealthAssitant {
     
     
     static func closeCase(patientId: Int, caseId: Int, diagnostic: Diagnosis, date: Date, onComplete : @escaping () -> Void, onFail: @escaping (Error) -> Void) {
-        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.patients.rawValue)\(patientId)/cases/\(caseId)",
+        _ = APIClient.shared.requestItem(urlString: "\(HOSTNAME)\(APIUrls.patients.rawValue)\(patientId)/cases/\(caseId)",
                                          method: APIClient.Method.put,
                                          params:[
                                             "end_date":date.ISO8601Format(),
@@ -252,7 +254,7 @@ class APIHealthAssitant {
         caseElem.history.forEach({ history in
             params[history.symptom.identificator] = history.state == true ? "Yes" : "No"
         })
-        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.predict.rawValue)",
+        _ = APIClient.shared.requestItem(urlString: "\(HOSTNAME)\(APIUrls.predict.rawValue)",
                                          method: APIClient.Method.post,
                                          params: ["evidence":params],
                                          sessionPolicy: APIClient.SessionPolicy.privateDomain,
@@ -268,7 +270,7 @@ class APIHealthAssitant {
     
     
     static func predictStatistics(onComplete : @escaping (APIStatistics) -> Void, onFail: @escaping (Error) -> Void){
-        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.predict.rawValue)statistics",
+        _ = APIClient.shared.requestItem(urlString: "\(HOSTNAME)\(APIUrls.predict.rawValue)statistics",
                                          method: APIClient.Method.get,
                                          sessionPolicy: APIClient.SessionPolicy.privateDomain,
                                          onCompletion: { (result: Result<APIStatistics, Error>) in
