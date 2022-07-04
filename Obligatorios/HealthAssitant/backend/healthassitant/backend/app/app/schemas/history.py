@@ -7,6 +7,7 @@ from app.models.history import Symptom
 class HistoryBase(BaseModel):
     date: datetime
     symptom: Symptom
+    state: bool
 
 
 # Properties to receive on item creation

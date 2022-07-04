@@ -47,6 +47,7 @@ struct APIHistory : Decodable {
     let id: Int
     let symptom: Int
     let date: String
+    let state: Bool
 }
 
 struct APICase : Decodable {
@@ -61,11 +62,17 @@ struct APICase : Decodable {
     }
 }
 
+class APIDiagnosis : Decodable {
+    let diagnostic: Int
+}
+
 enum APIUrls : String {
     case login = "http://localhost/api/v1/login/access-token"
     case signup = "http://localhost/api/v1/users/open"
     case patients = "http://localhost/api/v1/patients/"
+    case predict = "http://localhost/api/v1/predict/"
 }
+
 
 
 class APIHealthAssitant {
@@ -160,7 +167,7 @@ class APIHealthAssitant {
                    var historyList : [HistoryModel] = []
                    for h in ele.history {
                        let symptom : Symptom = Symptom(rawValue: h.symptom)!
-                       historyList.append(HistoryModel(date: dateFormatter.date(from: h.date)!, symptom: symptom))
+                       historyList.append(HistoryModel(date: dateFormatter.date(from: h.date)!, symptom: symptom, state: h.state))
                    }
                    caseList.append(CaseModel(patientId:patientId, caseId: ele.id, startDate: dateFormatter.date(from: ele.startDate)!, endDate: dateFormatter.date(from: ele.endDate ?? "") ?? nil, history: historyList, diagnosis: diagnostic))
                }
@@ -185,7 +192,7 @@ class APIHealthAssitant {
                var historyList : [HistoryModel] = []
                for h in data.history {
                    let symptom : Symptom = Symptom(rawValue: h.symptom)!
-                   historyList.append(HistoryModel(date: dateFormatter.date(from: h.date)!, symptom: symptom))
+                   historyList.append(HistoryModel(date: dateFormatter.date(from: h.date)!, symptom: symptom, state:h.state))
                }
                onComplete(CaseModel(patientId:patientId, caseId: data.id, startDate: dateFormatter.date(from: data.startDate)!, endDate: dateFormatter.date(from: data.endDate ?? "") ?? nil, history: historyList, diagnosis: diagnostic))
            case .failure(let error):
@@ -200,7 +207,8 @@ class APIHealthAssitant {
                                          method: APIClient.Method.post,
                                          params:[
                                             "date":information.date.ISO8601Format(),
-                                            "symptom":information.symptom.rawValue
+                                            "symptom":information.symptom.rawValue,
+                                            "state":information.state
                                          ],
                                          sessionPolicy: APIClient.SessionPolicy.privateDomain,
                                          onCompletion: { (result: Result<APIHistory, Error>) in
@@ -208,7 +216,7 @@ class APIHealthAssitant {
            case .success(let data):
                let dateFormatter = ISO8601DateFormatter()
                let symptom : Symptom = Symptom(rawValue: data.symptom)!
-               onComplete(HistoryModel(date: dateFormatter.date(from: data.date)!, symptom: symptom))
+               onComplete(HistoryModel(date: dateFormatter.date(from: data.date)!, symptom: symptom, state:data.state))
            case .failure(let error):
                print(error)
                onFail(error)
@@ -236,11 +244,22 @@ class APIHealthAssitant {
        })
     }
     
-    static func predictDiagnostic(caseId: Int, onComplete : @escaping (Diagnosis) -> Void, onFail: @escaping (Error) -> Void){
-//        if CaseModel.cases.count < caseId {
-//            CaseModel.cases[caseId].count < caseId {
-//                onComplete(Diagnosis.allCases.randomElement()!)
-//        }
-        onFail(NSError(domain:"", code:404))
+    static func predictDiagnostic(caseElem: CaseModel, onComplete : @escaping (Diagnosis) -> Void, onFail: @escaping (Error) -> Void){
+        var params : [String:String] = [:]
+        caseElem.history.forEach({ history in
+            params[history.symptom.identificator] = history.state == true ? "Yes" : "No"
+        })
+        _ = APIClient.shared.requestItem(urlString: "\(APIUrls.predict.rawValue)",
+                                         method: APIClient.Method.post,
+                                         params: ["evidence":params],
+                                         sessionPolicy: APIClient.SessionPolicy.privateDomain,
+                                         onCompletion: { (result: Result<APIDiagnosis, Error>) in
+           switch result {
+           case .success(let data):
+               onComplete(Diagnosis(rawValue: data.diagnostic) ?? Diagnosis.Unknown)
+           case .failure(let error):
+               onFail(error)
+           }
+       })
     }
 }

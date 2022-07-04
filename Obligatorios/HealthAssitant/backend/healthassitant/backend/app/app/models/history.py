@@ -1,6 +1,7 @@
+from email.policy import default
 import enum
 
-from sqlalchemy import Column, Integer, Enum, String, ForeignKey
+from sqlalchemy import Column, Integer, Enum, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
@@ -26,5 +27,6 @@ class History(Base):
     id = Column(Integer, primary_key=True, index=True)
     date = Column(String)
     symptom = Column(Enum(Symptom))
+    state = Column(Boolean,default=True)
     owner_id = Column(Integer, ForeignKey("case.id"))
     owner = relationship("Case", back_populates="history")

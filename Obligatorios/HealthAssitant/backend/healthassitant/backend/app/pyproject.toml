@@ -44,3 +44,6 @@ line_length = 88
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
+[[tool.poetry.source]]
+name = "pysmile"
+url = "https://support.bayesfusion.com/pysmile-A/"

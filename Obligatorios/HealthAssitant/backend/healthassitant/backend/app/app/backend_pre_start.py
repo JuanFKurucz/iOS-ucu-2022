@@ -1,4 +1,10 @@
 import logging
+import os
+
+# try:
+#     os.makedirs("/app/.venv/bin/python")
+# except:
+#     pass
 
 from tenacity import after_log, before_log, retry, stop_after_attempt, wait_fixed
 

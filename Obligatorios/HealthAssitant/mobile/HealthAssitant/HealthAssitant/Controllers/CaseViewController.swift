@@ -39,6 +39,9 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
         if let caseElement = self.caseElement {
             caseNameLabel.text = caseElement.getName()
             self.informationTableView.reloadData()
+            APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
+                self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
+            }, onFail: {_ in print("error diagnosis")})
         }
     }
     
@@ -50,10 +53,6 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
             }, onFail: {_ in print("error")})
         }
         
-    }
-    
-    func predictDiagnosis() -> Diagnosis {
-        return Diagnosis.COVID19
     }
     
     func getSelected(element: Int) {
@@ -73,22 +72,44 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
         dropDown.titleLabel.text = "Select information"
     }
     
-    @IBAction func onSubmitInformation(_ sender: Any) {
+    @IBAction func onSubmitNegativeInformation(_ sender: Any) {
         if let symptom = self.informationValue, let caseElement = self.caseElement {
         
-            let historyElement : HistoryModel = HistoryModel(date: Date.now, symptom: symptom)
+            let historyElement : HistoryModel = HistoryModel(date: Date.now, symptom: symptom, state: false)
             
             APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { history in
-                print("Info submitted")
                 caseElement.history.append(historyElement)
                 
-                self.diagnosticLabel.text = "Possible diagnostic: \(self.predictDiagnosis().rawValue)"
+                APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
+                    self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
+                }, onFail: {_ in print("error diagnosis")})
                 
                 self.informationValue = nil
                 self.informationDropDown.setTitle("Select information", for:.normal)
                 
                 self.informationTableView.reloadData()
-                print(caseElement.history)
+                
+            }, onFail: {_ in print("error")})
+            
+        }
+    }
+    
+    @IBAction func onSubmitPositiveInformation(_ sender: Any) {
+        if let symptom = self.informationValue, let caseElement = self.caseElement {
+        
+            let historyElement : HistoryModel = HistoryModel(date: Date.now, symptom: symptom, state: true)
+            
+            APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { history in
+                caseElement.history.append(historyElement)
+                
+                APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
+                    self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
+                }, onFail: {_ in print("error diagnosis")})
+                
+                self.informationValue = nil
+                self.informationDropDown.setTitle("Select information", for:.normal)
+                
+                self.informationTableView.reloadData()
                 
             }, onFail: {_ in print("error")})
             
@@ -114,8 +135,10 @@ extension CaseViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: InformationTableViewCell.identifier) as! InformationTableViewCell
         if let caseElement = self.caseElement {
             let information = caseElement.history[indexPath.row]
-            print(information)
-            cell.informationLabel.text = "\(information.date.ISO8601Format()) - \(information.symptom.text)"
+            
+            let stateInfo = information.state == false ? "Negative" : "Positive"
+            
+            cell.informationLabel.text = "\(information.date.ISO8601Format()) - \(information.symptom.text) - \(stateInfo)"
         }
         return cell
     }

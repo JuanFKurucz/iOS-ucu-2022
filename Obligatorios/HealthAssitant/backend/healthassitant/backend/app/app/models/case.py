@@ -12,8 +12,8 @@ class Diagnostic(int, enum.Enum):
     CommonCold = 3
     Tuberculosis = 4
     LungCancer = 5
-    PneumoniaCOVID19 = 6
-    Pneumonia = 7
+    COVIDPneumonia = 6
+    PneumoniaOther = 7
     BrainTumor = 8
 
 

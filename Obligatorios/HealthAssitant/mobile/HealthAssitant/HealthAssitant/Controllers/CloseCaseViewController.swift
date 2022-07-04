@@ -21,6 +21,13 @@ class CloseCaseViewController: UIViewController, DropDownTableViewControllerDele
 
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        if let caseElement = caseElement {
+            APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: {diagnosis in
+                self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
+            }, onFail: {_ in print("error diagnosis")})
+        }
+    }
     
     @IBAction func onCloseCase(_ sender: Any) {
         if let diagnosis = diagnosisValue {

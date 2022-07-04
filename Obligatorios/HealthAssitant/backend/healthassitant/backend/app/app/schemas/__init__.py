@@ -4,3 +4,4 @@ from .history import History, HistoryCreate, HistoryInDB, HistoryUpdate
 from .msg import Msg
 from .token import Token, TokenPayload
 from .user import User, UserCreate, UserInDB, UserUpdate
+from .prediction import Prediction

@@ -64,6 +64,25 @@ enum Symptom: Int, CaseIterable {
         default: return "Unknown"
         }
     }
+    
+    var identificator : String {
+        switch self {
+        case .Fever: return "Fever"
+        case .DryCough: return "DryCough"
+        case .Rhinorrhea: return "Rhinorrhea"
+        case .Dyspnea: return "Dyspnea"
+        case .Fatigue: return "Fatigue"
+        case .MusclePain: return "Myalgia"
+        case .ChestPain: return "ChestPain"
+        case .Anosmia: return "Anosmia"
+        case .Dysgeusia: return "Dysgeusia"
+        case .KidneyFailure: return "RenalFailure"
+        case .Myocarditis: return "Myocarditis"
+        case .Hemoptisis: return "Hemoptysis"
+        case .Headache: return "Cephalea"
+        default: return "Unknown"
+        }
+    }
 }
 
 
@@ -125,4 +144,5 @@ class CaseModel {
 struct HistoryModel {
     let date: Date
     let symptom: Symptom
+    let state: Bool
 }

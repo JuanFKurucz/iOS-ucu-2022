@@ -38,11 +38,8 @@ class PatientProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("patient profile: view will Appear")
         if let patient = patient {
-            print("patient exist do call")
             APIHealthAssitant.getCases(patientId: patient.patientId, onComplete: { p in
-                print("Cases: \(p)")
                 patient.cases = p
                 self.casesTableView.reloadData()
             }, onFail: {_ in print("cases failed")})
