@@ -95,8 +95,11 @@ extension PatientsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: PatientTableViewCell.identifier) as! PatientTableViewCell
         let patient = filterPatients[indexPath.row]
         cell.nameLabel.text = "\(patient.identification) - \(patient.fullName)"
+        cell.genderLabel.text = "Gender: \(patient.gender.text)"
         if let decodedImage = ImageUtils.base64ToImage(base64: patient.imageBase64) {
             cell.profileImageView.image = decodedImage
+            cell.profileImageView.layer.cornerRadius = cell.profileImageView.frame.size.width / 4
+            cell.profileImageView.clipsToBounds = true
         }
         return cell
     }
