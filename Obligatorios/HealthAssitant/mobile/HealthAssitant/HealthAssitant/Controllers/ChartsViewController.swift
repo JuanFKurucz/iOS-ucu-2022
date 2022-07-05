@@ -36,38 +36,45 @@ class ChartsViewController: UIViewController, ChartViewDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        APIHealthAssitant.predictStatistics(onComplete: { stats in
-            self.diagnosticItems = []
-            self.symptomsItems = []
-            var minValue = -1
-            var maxValue = -1
-            for diag in stats.diagnostics {
-                if maxValue == -1 || diag.value > maxValue {
-                    maxValue = diag.value
-                }
-                if minValue == -1 || diag.value < minValue {
-                    minValue = diag.value
-                }
-                let diagnostic = Diagnosis(rawValue: diag.key) ?? Diagnosis.Unknown
-                self.diagnosticItems.append(GraphData(index: self.diagnosticItems.count, label: diagnostic.text, value: Double(diag.value)))
-            }
-            self.diagnosticRange = [minValue, maxValue]
-            minValue = -1
-            maxValue = -1
-            for sym in stats.symptoms {
-                if maxValue == -1 || sym.value > maxValue {
-                    maxValue = sym.value
-                }
-                if minValue == -1 || sym.value < minValue {
-                    minValue = sym.value
-                }
-                let symptom = Symptom(rawValue: sym.key) ?? Symptom.Unknown
-                self.symptomsItems.append(GraphData(index: self.symptomsItems.count, label: symptom.text, value: Double(sym.value)))
-            }
-            self.symptomsRange = [minValue, maxValue]
-            self.loadGraph(items: self.diagnosticItems, minValue: self.diagnosticRange[0], maxValue: self.diagnosticRange[1])
-        }, onFail: { _ in
-            Alert.showAlertBox(currentViewController: self, title: "Invalid predict statistics", message: "Could not fetch statistics")
+        Alert.showLoader(currentViewController: self, completion: {
+            APIHealthAssitant.predictStatistics(onComplete: { stats in
+                Alert.hideLoader(currentViewController: self, completion: {
+                    self.diagnosticItems = []
+                    self.symptomsItems = []
+                    var minValue = -1
+                    var maxValue = -1
+                    for diag in stats.diagnostics {
+                        if maxValue == -1 || diag.value > maxValue {
+                            maxValue = diag.value
+                        }
+                        if minValue == -1 || diag.value < minValue {
+                            minValue = diag.value
+                        }
+                        let diagnostic = Diagnosis(rawValue: diag.key) ?? Diagnosis.Unknown
+                        self.diagnosticItems.append(GraphData(index: self.diagnosticItems.count, label: diagnostic.text, value: Double(diag.value)))
+                    }
+                    self.diagnosticRange = [minValue, maxValue]
+                    minValue = -1
+                    maxValue = -1
+                    for sym in stats.symptoms {
+                        if maxValue == -1 || sym.value > maxValue {
+                            maxValue = sym.value
+                        }
+                        if minValue == -1 || sym.value < minValue {
+                            minValue = sym.value
+                        }
+                        let symptom = Symptom(rawValue: sym.key) ?? Symptom.Unknown
+                        self.symptomsItems.append(GraphData(index: self.symptomsItems.count, label: symptom.text, value: Double(sym.value)))
+                    }
+                    self.symptomsRange = [minValue, maxValue]
+                    self.loadGraph(items: self.diagnosticItems, minValue: self.diagnosticRange[0], maxValue: self.diagnosticRange[1])
+                })
+            }, onFail: { _ in
+                
+                Alert.hideLoader(currentViewController: self, completion: {
+                Alert.showAlertBox(currentViewController: self, title: "Invalid predict statistics", message: "Could not fetch statistics")
+                })
+            })
         })
     }
 

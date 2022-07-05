@@ -77,13 +77,18 @@ class PatientsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        APIHealthAssitant.getPatients(onComplete: { p in
-            self.patients = p
-            self.filterPatients = p
-            self.patientsTableView.reloadData()
-        }, onFail: { _ in
-            Alert.showAlertBox(currentViewController: self, title: "Invalid retrieve patients", message: "Could not retrieve patients")
+        Alert.showLoader(currentViewController: self, completion: {
+            APIHealthAssitant.getPatients(onComplete: { p in
+                Alert.hideLoader(currentViewController: self,completion: {
+                    self.patients = p
+                    self.filterPatients = p
+                    self.patientsTableView.reloadData()
+                })
+            }, onFail: { _ in
+                Alert.hideLoader(currentViewController: self, completion: {
+                    Alert.showAlertBox(currentViewController: self, title: "Invalid retrieve patients", message: "Could not retrieve patients")
+                })
+            })
         })
     }
 

@@ -11,7 +11,17 @@ class SignUpViewController: UIViewController {
 
     @IBAction func onSignUp(_: Any) {
         if let email = emailField.text, let password = passwordField.text {
-            APIHealthAssitant.signup(email: email, password: password, onComplete: { _ in _ = Navigation.jumpToView(currentViewController: self, nextViewController: "TabBarController") }, onFail: { _ in Alert.showAlertBox(currentViewController: self, title: "Invalid singup", message: "Invalid signup information") })
+            Alert.showLoader(currentViewController: self,completion: {
+                APIHealthAssitant.signup(email: email, password: password,
+                 onComplete: { _ in
+                    Alert.hideLoader(currentViewController: self,completion: {
+                        _ = Navigation.jumpToView(currentViewController: self, nextViewController: "TabBarController")
+                    })
+                }, onFail: { _ in
+                    Alert.hideLoader(currentViewController: self, completion: {
+                    Alert.showAlertBox(currentViewController: self, title: "Invalid singup", message: "Invalid signup information") })
+                })
+            })
         }
     }
 

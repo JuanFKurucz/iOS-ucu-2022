@@ -29,21 +29,33 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
         if let caseElement = caseElement {
             caseNameLabel.text = caseElement.getName()
             informationTableView.reloadData()
-            APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
-                self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-            }, onFail: { _ in
-                Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+            Alert.showLoader(currentViewController: self,completion: {
+                APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
+                    Alert.hideLoader(currentViewController: self,completion: {
+                        self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
+                    })
+                }, onFail: { _ in
+                    Alert.hideLoader(currentViewController: self, completion: {
+                        Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+                    })
+                })
             })
         }
     }
 
     func onTerminateCase() {
         if let caseElement = caseElement {
-            APIHealthAssitant.closeCase(patientId: caseElement.patientId, caseId: caseElement.caseId, diagnostic: caseElement.diagnosis!, date: caseElement.endDate!, onComplete: {
-                self.navigationController?.popViewController(animated: true)
-                self.dismiss(animated: true, completion: nil)
-            }, onFail: { _ in
-                Alert.showAlertBox(currentViewController: self, title: "Invalid close case", message: "Could not close case")
+            Alert.showLoader(currentViewController: self,completion: {
+                APIHealthAssitant.closeCase(patientId: caseElement.patientId, caseId: caseElement.caseId, diagnostic: caseElement.diagnosis!, date: caseElement.endDate!, onComplete: {
+                    Alert.hideLoader(currentViewController: self,completion: {
+                        self.navigationController?.popViewController(animated: true)
+                        self.dismiss(animated: true, completion: nil)
+                    })
+                }, onFail: { _ in
+                    Alert.hideLoader(currentViewController: self, completion: {
+                        Alert.showAlertBox(currentViewController: self, title: "Invalid close case", message: "Could not close case")
+                    })
+                })
             })
         }
     }
@@ -67,22 +79,26 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
     
     private func submitInformation(historyElement: HistoryModel){
         if let caseElement = caseElement {
-            APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { _ in
-                caseElement.history.append(historyElement)
+            Alert.showLoader(currentViewController: self,completion: {
+                APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { _ in
+                    Alert.hideLoader(currentViewController: self,completion: {
+                        caseElement.history.append(historyElement)
+                        APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
+                            self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
+                        }, onFail: { _ in
+                            Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+                        })
 
-                APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
-                    self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
+                        self.informationValue = nil
+                        self.informationDropDown.setTitle("Select information", for: .normal)
+
+                        self.informationTableView.reloadData()
+                    })
                 }, onFail: { _ in
-                    Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+                    Alert.hideLoader(currentViewController: self, completion: {
+                    Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
+                    })
                 })
-
-                self.informationValue = nil
-                self.informationDropDown.setTitle("Select information", for: .normal)
-
-                self.informationTableView.reloadData()
-
-            }, onFail: { _ in
-                Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
             })
         } else {
             Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not obtain case element")

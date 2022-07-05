@@ -39,9 +39,17 @@ class NewPatientViewController: UIViewController, DropDownTableViewControllerDel
     @IBAction func onSubmitPatient(_: Any) {
         if let code = identificationField.text, let fullName = fullNameField.text, let gender = Gender(rawValue: genderValue + 1), let image = profileImageView.image {
             let imageData: Data = image.pngData()!
-            APIHealthAssitant.newPatient(code: code, fullName: fullName, gender: gender, birthDate: birthDatePicker.date, base64Image: imageData.base64EncodedString(), onComplete: { _ in _ = self.navigationController?.popViewController(animated: true)
-                self.dismiss(animated: true, completion: nil)
-            }, onFail: { _ in Alert.showAlertBox(currentViewController: self, title: "Invalid new patient", message: "Could not create new patient") })
+            Alert.showLoader(currentViewController: self, completion: {
+                APIHealthAssitant.newPatient(code: code, fullName: fullName, gender: gender, birthDate: self.birthDatePicker.date, base64Image: imageData.base64EncodedString(), onComplete: { _ in
+                    Alert.hideLoader(currentViewController: self,completion: {
+                        _ = self.navigationController?.popViewController(animated: true)
+                        self.dismiss(animated: true, completion: nil)
+                    })
+                }, onFail: { _ in
+                    Alert.hideLoader(currentViewController: self, completion: {
+                    Alert.showAlertBox(currentViewController: self, title: "Invalid new patient", message: "Could not create new patient") })
+                })
+            })
         } else {
             Alert.showAlertBox(currentViewController: self, title: "Invalid new patient", message: "All fields must be filled")
         }

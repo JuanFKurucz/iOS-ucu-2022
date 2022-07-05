@@ -17,10 +17,16 @@ class CloseCaseViewController: UIViewController, DropDownTableViewControllerDele
 
     override func viewWillAppear(_: Bool) {
         if let caseElement = caseElement {
-            APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
-                self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-            }, onFail: { _ in
-                Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+            Alert.showLoader(currentViewController: self,completion: {
+                APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
+                    Alert.hideLoader(currentViewController: self,completion: {
+                        self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
+                    })
+                }, onFail: { _ in
+                    Alert.hideLoader(currentViewController: self, completion: {
+                    Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+                    })
+                })
             })
         }
     }
