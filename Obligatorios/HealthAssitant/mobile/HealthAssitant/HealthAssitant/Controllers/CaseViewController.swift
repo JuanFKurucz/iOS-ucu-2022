@@ -45,16 +45,12 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
 
     func onTerminateCase() {
         if let caseElement = caseElement {
-            Alert.showLoader(currentViewController: self,completion: {
-                APIHealthAssitant.closeCase(patientId: caseElement.patientId, caseId: caseElement.caseId, diagnostic: caseElement.diagnosis!, date: caseElement.endDate!, onComplete: {
-                    Alert.hideLoader(currentViewController: self,completion: {
-                        self.navigationController?.popViewController(animated: true)
-                        self.dismiss(animated: true, completion: nil)
-                    })
-                }, onFail: { _ in
-                    Alert.hideLoader(currentViewController: self, completion: {
-                        Alert.showAlertBox(currentViewController: self, title: "Invalid close case", message: "Could not close case")
-                    })
+            APIHealthAssitant.closeCase(patientId: caseElement.patientId, caseId: caseElement.caseId, diagnostic: caseElement.diagnosis!, date: caseElement.endDate!, onComplete: {
+                self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
+            }, onFail: { _ in
+                Alert.hideLoader(currentViewController: self, completion: {
+                    Alert.showAlertBox(currentViewController: self, title: "Invalid close case", message: "Could not close case")
                 })
             })
         }
