@@ -34,7 +34,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Gender: Unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SO5-nY-dK5">
-                        <rect key="frame" x="110" y="56" width="322" height="15"/>
+                        <rect key="frame" x="110" y="71" width="322" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID: Unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jg2-92-jS1">
+                        <rect key="frame" x="110" y="51" width="72" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -48,12 +54,15 @@
                     <constraint firstItem="KHO-Te-gMQ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="A3z-Dd-EWo"/>
                     <constraint firstItem="KHO-Te-gMQ" firstAttribute="top" secondItem="Lqe-nl-YzA" secondAttribute="top" id="ANW-RQ-eNy"/>
                     <constraint firstItem="KHO-Te-gMQ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="CqN-WF-hP9"/>
-                    <constraint firstItem="SO5-nY-dK5" firstAttribute="top" secondItem="9es-us-o5a" secondAttribute="bottom" constant="10" id="FGO-cc-bqI"/>
+                    <constraint firstItem="SO5-nY-dK5" firstAttribute="top" secondItem="Jg2-92-jS1" secondAttribute="bottom" constant="5" id="FGO-cc-bqI"/>
                     <constraint firstAttribute="bottom" secondItem="Lqe-nl-YzA" secondAttribute="bottom" constant="5" id="Hhs-23-yNM"/>
+                    <constraint firstItem="Jg2-92-jS1" firstAttribute="bottom" secondItem="9es-us-o5a" secondAttribute="bottom" constant="20" id="Ner-Bd-Jc5"/>
                     <constraint firstItem="SO5-nY-dK5" firstAttribute="leading" secondItem="Lqe-nl-YzA" secondAttribute="trailing" constant="5" id="R8s-2A-ecX"/>
                     <constraint firstItem="KHO-Te-gMQ" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.895105" id="Yh2-dt-IaA"/>
                     <constraint firstAttribute="trailing" secondItem="9es-us-o5a" secondAttribute="trailing" constant="5" id="ZAP-DM-am0"/>
+                    <constraint firstAttribute="bottom" secondItem="KHO-Te-gMQ" secondAttribute="bottom" constant="10" id="dZU-1x-KNf"/>
                     <constraint firstItem="9es-us-o5a" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="pqf-Ov-bAV"/>
+                    <constraint firstItem="Jg2-92-jS1" firstAttribute="leading" secondItem="Lqe-nl-YzA" secondAttribute="trailing" constant="5" id="t3u-U6-3kP"/>
                     <constraint firstItem="9es-us-o5a" firstAttribute="leading" secondItem="Lqe-nl-YzA" secondAttribute="trailing" constant="5" id="xQv-SZ-DkY"/>
                 </constraints>
             </tableViewCellContentView>
@@ -61,6 +70,7 @@
             <connections>
                 <outlet property="backgroundRectView" destination="KHO-Te-gMQ" id="sbB-4e-Lex"/>
                 <outlet property="genderLabel" destination="SO5-nY-dK5" id="cxi-n7-nTl"/>
+                <outlet property="identificationLabel" destination="Jg2-92-jS1" id="NZg-34-mdG"/>
                 <outlet property="nameLabel" destination="9es-us-o5a" id="IgW-Vc-V7x"/>
                 <outlet property="profileImageView" destination="Lqe-nl-YzA" id="JXH-Hi-vhY"/>
             </connections>

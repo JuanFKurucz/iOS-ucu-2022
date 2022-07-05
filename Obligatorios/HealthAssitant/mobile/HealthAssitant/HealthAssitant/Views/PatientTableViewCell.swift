@@ -3,6 +3,7 @@ import UIKit
 class PatientTableViewCell: UITableViewCell {
     static let identifier: String = "PatientTableViewCell"
     @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var identificationLabel: UILabel!
     @IBOutlet var genderLabel: UILabel!
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var backgroundRectView: UIView!

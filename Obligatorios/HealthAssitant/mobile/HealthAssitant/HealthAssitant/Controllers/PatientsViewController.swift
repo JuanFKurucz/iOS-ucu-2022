@@ -105,7 +105,8 @@ extension PatientsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PatientTableViewCell.identifier) as! PatientTableViewCell
         let patient = filterPatients[indexPath.row]
-        cell.nameLabel.text = "\(patient.identification) - \(patient.fullName)"
+        cell.nameLabel.text = patient.fullName
+        cell.identificationLabel.text = "ID: \(patient.identification)"
         cell.genderLabel.text = "Gender: \(patient.gender.text)"
         if let decodedImage = ImageUtils.base64ToImage(base64: patient.imageBase64) {
             cell.profileImageView.image = decodedImage
