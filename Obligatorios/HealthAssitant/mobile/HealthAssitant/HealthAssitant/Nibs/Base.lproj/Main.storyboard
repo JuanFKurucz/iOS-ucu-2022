@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="469-tn-GhU">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -56,8 +55,11 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUa-dr-Fvo">
                                 <rect key="frame" x="50" y="498.5" width="314" height="31"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Sign in"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Sign in">
+                                    <color key="baseBackgroundColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="onSignIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cg6-qF-l9G"/>
                                 </connections>
@@ -73,6 +75,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UUh-bX-M6b">
                                         <rect key="frame" x="223" y="0.0" width="91" height="31"/>
+                                        <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Sign up"/>
                                         <connections>
@@ -135,6 +138,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WX1-sf-9g0">
                                         <rect key="frame" x="0.0" y="0.0" width="207" height="75"/>
+                                        <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Diagnostics"/>
                                         <connections>
@@ -143,6 +147,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfY-sD-60h">
                                         <rect key="frame" x="207" y="0.0" width="207" height="75"/>
+                                        <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Symptoms"/>
                                         <connections>
@@ -197,6 +202,7 @@
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HmS-UW-JMf">
                                 <rect key="frame" x="337" y="112" width="57" height="31"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Filter"/>
                                 <connections>
@@ -210,8 +216,11 @@
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N1I-dn-3Fo">
                                 <rect key="frame" x="20" y="777" width="374" height="31"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="New patient"/>
+                                <buttonConfiguration key="configuration" style="filled" title="New patient">
+                                    <color key="baseBackgroundColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="onTapNewPatient:" destination="rIV-xX-YUG" eventType="touchUpInside" id="QWk-V4-bng"/>
                                 </connections>
@@ -300,8 +309,11 @@
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zaH-aQ-uiR">
                                 <rect key="frame" x="20" y="781" width="374" height="31"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="New/Resume case"/>
+                                <buttonConfiguration key="configuration" style="filled" title="New/Resume case">
+                                    <color key="baseBackgroundColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="onTapNewCase:" destination="oZF-Y8-8uT" eventType="touchUpInside" id="dCc-7k-PKs"/>
                                 </connections>
@@ -405,22 +417,23 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-pf-GGT">
                                 <rect key="frame" x="50" y="801" width="314" height="31"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Close case"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Close case">
+                                    <color key="baseBackgroundColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="onCloseCase:" destination="HSn-3e-Uec" eventType="touchUpInside" id="3TV-8A-MEN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1iS-yP-Sfd">
                                 <rect key="frame" x="50" y="218" width="125" height="30"/>
-                                <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="f6i-FC-EPg"/>
                                 </constraints>
-                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="It is not present">
-                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                    <color key="baseBackgroundColor" red="0.74342399543815563" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="onSubmitNegativeInformation:" destination="HSn-3e-Uec" eventType="touchUpInside" id="Auj-bO-ibs"/>
@@ -431,8 +444,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="psH-e1-thU"/>
                                 </constraints>
+                                <color key="tintColor" red="0.10980392156862745" green="0.41960784313725491" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="It is present"/>
+                                <buttonConfiguration key="configuration" style="filled" title="It is present">
+                                    <color key="baseBackgroundColor" red="0.10980392156862745" green="0.41960784313725491" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="onSubmitPositiveInformation:" destination="HSn-3e-Uec" eventType="touchUpInside" id="n2t-du-kNO"/>
                                 </connections>
@@ -511,6 +527,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gn-bx-yZh">
                                 <rect key="frame" x="179" y="176" width="205" height="31"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Select diagnostic"/>
                                 <connections>
@@ -519,8 +536,11 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5AG-t1-OL9">
                                 <rect key="frame" x="30" y="257" width="354" height="31"/>
+                                <color key="tintColor" red="0.10980392156862745" green="0.41960784313725491" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Close case"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Close case">
+                                    <color key="baseBackgroundColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="onCloseCase:" destination="bNW-uV-5GN" eventType="touchUpInside" id="ydE-sl-V1G"/>
                                 </connections>
@@ -605,6 +625,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eye-sW-99B">
                                 <rect key="frame" x="25" y="516.5" width="364" height="31"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Select gender"/>
                                 <connections>
@@ -625,14 +646,18 @@
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qdo-Fb-HpC">
                                 <rect key="frame" x="25" y="713.5" width="364" height="31"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Submit patient"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Submit patient">
+                                    <color key="baseBackgroundColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="onSubmitPatient:" destination="sLJ-tk-2Xq" eventType="touchUpInside" id="bcb-iB-FYU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ktQ-9D-3PZ">
                                 <rect key="frame" x="135" y="305" width="144" height="31"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Upload new image"/>
                                 <connections>
@@ -754,6 +779,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="rIV-xX-YUG" kind="relationship" relationship="viewControllers" id="4Oo-aw-33u"/>
@@ -811,8 +838,11 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKW-73-7Bo">
                                 <rect key="frame" x="50" y="454.5" width="314" height="31"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Sign up"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Sign up">
+                                    <color key="baseBackgroundColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="onSignUp:" destination="SBK-MJ-Fo4" eventType="touchUpInside" id="IUu-dg-Wx8"/>
                                 </connections>
@@ -828,6 +858,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwv-IO-oMF">
                                         <rect key="frame" x="233" y="0.0" width="81" height="31"/>
+                                        <color key="tintColor" red="0.10980392160000001" green="0.41960784309999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Sign in"/>
                                         <connections>
@@ -884,9 +915,6 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
