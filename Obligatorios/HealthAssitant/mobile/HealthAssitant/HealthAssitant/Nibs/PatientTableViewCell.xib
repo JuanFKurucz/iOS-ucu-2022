@@ -16,6 +16,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="437" height="143"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KHO-Te-gMQ">
+                        <rect key="frame" x="0.0" y="5" width="437" height="128"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.94117647058823528" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lqe-nl-YzA">
                         <rect key="frame" x="5" y="5" width="100" height="100"/>
                         <constraints>
@@ -37,12 +41,17 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="KHO-Te-gMQ" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="27f-Wv-aeN"/>
                     <constraint firstAttribute="trailing" secondItem="SO5-nY-dK5" secondAttribute="trailing" constant="5" id="6qY-8W-syD"/>
                     <constraint firstItem="Lqe-nl-YzA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="7Gz-0F-NM4"/>
                     <constraint firstItem="Lqe-nl-YzA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="9Vl-4D-BAG"/>
+                    <constraint firstItem="KHO-Te-gMQ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="A3z-Dd-EWo"/>
+                    <constraint firstItem="KHO-Te-gMQ" firstAttribute="top" secondItem="Lqe-nl-YzA" secondAttribute="top" id="ANW-RQ-eNy"/>
+                    <constraint firstItem="KHO-Te-gMQ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="CqN-WF-hP9"/>
                     <constraint firstItem="SO5-nY-dK5" firstAttribute="top" secondItem="9es-us-o5a" secondAttribute="bottom" constant="10" id="FGO-cc-bqI"/>
                     <constraint firstAttribute="bottom" secondItem="Lqe-nl-YzA" secondAttribute="bottom" constant="5" id="Hhs-23-yNM"/>
                     <constraint firstItem="SO5-nY-dK5" firstAttribute="leading" secondItem="Lqe-nl-YzA" secondAttribute="trailing" constant="5" id="R8s-2A-ecX"/>
+                    <constraint firstItem="KHO-Te-gMQ" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.895105" id="Yh2-dt-IaA"/>
                     <constraint firstAttribute="trailing" secondItem="9es-us-o5a" secondAttribute="trailing" constant="5" id="ZAP-DM-am0"/>
                     <constraint firstItem="9es-us-o5a" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="pqf-Ov-bAV"/>
                     <constraint firstItem="9es-us-o5a" firstAttribute="leading" secondItem="Lqe-nl-YzA" secondAttribute="trailing" constant="5" id="xQv-SZ-DkY"/>
@@ -50,6 +59,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="backgroundRectView" destination="KHO-Te-gMQ" id="sbB-4e-Lex"/>
                 <outlet property="genderLabel" destination="SO5-nY-dK5" id="cxi-n7-nTl"/>
                 <outlet property="nameLabel" destination="9es-us-o5a" id="IgW-Vc-V7x"/>
                 <outlet property="profileImageView" destination="Lqe-nl-YzA" id="JXH-Hi-vhY"/>

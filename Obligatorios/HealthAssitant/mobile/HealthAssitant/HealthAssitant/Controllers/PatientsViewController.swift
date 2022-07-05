@@ -6,6 +6,12 @@ class PatientsViewController: UIViewController {
     @IBOutlet var patientsTableView: UITableView!
     @IBOutlet var searchBarField: UISearchBar!
     @IBOutlet var filterButton: UIButton!
+    
+    let patientBackgrounds: [CGColor] = [
+        CGColor(red: 220/255, green: 237/255, blue: 249/255, alpha: 1.0),
+        CGColor(red: 241/255, green: 230/255, blue: 234/255, alpha: 1.0),
+        CGColor(red: 250/255, green: 240/255, blue: 219/255, alpha: 1.0)
+    ]
 
     var patients: [PatientModel] = []
     var filterPatients: [PatientModel] = []
@@ -100,6 +106,7 @@ extension PatientsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.profileImageView.image = decodedImage
             cell.profileImageView.layer.cornerRadius = cell.profileImageView.frame.size.width / 4
             cell.profileImageView.clipsToBounds = true
+            cell.backgroundRectView.layer.backgroundColor = self.patientBackgrounds[indexPath.row % self.patientBackgrounds.count]
         }
         return cell
     }
