@@ -14,7 +14,8 @@ class LoginViewController: UIViewController {
             Alert.showLoader(currentViewController: self, completion: {
                 APIHealthAssitant.login(email: email, password: password, onComplete: { _ in
                     Alert.hideLoader(currentViewController: self)
-                    _ = Navigation.jumpToView(currentViewController: self, nextViewController: "TabBarController") }, onFail: { _ in
+                    _ = Navigation.jumpToView(currentViewController: self, nextViewController: "TabBarController")
+                }, onFail: { _ in
                     Alert.hideLoader(currentViewController: self, completion: {
                         Alert.showAlertBox(currentViewController: self, title: "Invalid login", message: "Invalid login information")
                     })

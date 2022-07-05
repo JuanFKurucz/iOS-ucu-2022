@@ -29,9 +29,9 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
         if let caseElement = caseElement {
             caseNameLabel.text = caseElement.getName()
             informationTableView.reloadData()
-            Alert.showLoader(currentViewController: self,completion: {
+            Alert.showLoader(currentViewController: self, completion: {
                 APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
-                    Alert.hideLoader(currentViewController: self,completion: {
+                    Alert.hideLoader(currentViewController: self, completion: {
                         self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
                     })
                 }, onFail: { _ in
@@ -72,12 +72,12 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
         dropDown.elements = Symptom.allCases.map { $0.text }
         dropDown.titleLabel.text = "Select information"
     }
-    
-    private func submitInformation(historyElement: HistoryModel){
+
+    private func submitInformation(historyElement: HistoryModel) {
         if let caseElement = caseElement {
-            Alert.showLoader(currentViewController: self,completion: {
+            Alert.showLoader(currentViewController: self, completion: {
                 APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { _ in
-                    Alert.hideLoader(currentViewController: self,completion: {
+                    Alert.hideLoader(currentViewController: self, completion: {
                         caseElement.history.append(historyElement)
                         APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
                             self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
@@ -92,7 +92,7 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
                     })
                 }, onFail: { _ in
                     Alert.hideLoader(currentViewController: self, completion: {
-                    Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
+                        Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
                     })
                 })
             })
@@ -104,14 +104,14 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
     @IBAction func onSubmitNegativeInformation(_: Any) {
         if let symptom = informationValue {
             let historyElement = HistoryModel(date: Date.now, symptom: symptom, state: false)
-            self.submitInformation(historyElement: historyElement)
+            submitInformation(historyElement: historyElement)
         }
     }
 
     @IBAction func onSubmitPositiveInformation(_: Any) {
         if let symptom = informationValue {
             let historyElement = HistoryModel(date: Date.now, symptom: symptom, state: true)
-            self.submitInformation(historyElement: historyElement)
+            submitInformation(historyElement: historyElement)
         }
     }
 

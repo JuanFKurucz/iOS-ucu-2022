@@ -70,9 +70,9 @@ class ChartsViewController: UIViewController, ChartViewDelegate {
                     self.loadGraph(items: self.diagnosticItems, minValue: self.diagnosticRange[0], maxValue: self.diagnosticRange[1])
                 })
             }, onFail: { _ in
-                
+
                 Alert.hideLoader(currentViewController: self, completion: {
-                Alert.showAlertBox(currentViewController: self, title: "Invalid predict statistics", message: "Could not fetch statistics")
+                    Alert.showAlertBox(currentViewController: self, title: "Invalid predict statistics", message: "Could not fetch statistics")
                 })
             })
         })

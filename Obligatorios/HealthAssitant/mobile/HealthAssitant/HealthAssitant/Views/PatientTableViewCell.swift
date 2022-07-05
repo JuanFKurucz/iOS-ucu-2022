@@ -7,7 +7,7 @@ class PatientTableViewCell: UITableViewCell {
     @IBOutlet var genderLabel: UILabel!
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var backgroundRectView: UIView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundRectView.layer.cornerRadius = 16

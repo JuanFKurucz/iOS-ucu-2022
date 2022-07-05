@@ -9,21 +9,16 @@
 //  https://github.com/danielgindi/Charts
 //
 
-import Foundation
 import CoreGraphics
+import Foundation
 
 @objc(ChartTransformerHorizontalBarChart)
-open class TransformerHorizontalBarChart: Transformer
-{
+open class TransformerHorizontalBarChart: Transformer {
     /// Prepares the matrix that contains all offsets.
-    open override func prepareMatrixOffset(inverted: Bool)
-    {
-        if !inverted
-        {
+    override open func prepareMatrixOffset(inverted: Bool) {
+        if !inverted {
             matrixOffset = CGAffineTransform(translationX: viewPortHandler.offsetLeft, y: viewPortHandler.chartHeight - viewPortHandler.offsetBottom)
-        }
-        else
-        {
+        } else {
             matrixOffset = CGAffineTransform(scaleX: -1.0, y: 1.0)
                 .translatedBy(x: -(viewPortHandler.chartWidth - viewPortHandler.offsetRight),
                               y: viewPortHandler.chartHeight - viewPortHandler.offsetBottom)

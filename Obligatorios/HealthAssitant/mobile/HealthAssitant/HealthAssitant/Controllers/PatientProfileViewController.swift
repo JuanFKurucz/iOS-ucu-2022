@@ -37,9 +37,9 @@ class PatientProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let patient = patient {
-            Alert.showLoader(currentViewController: self,completion: {
+            Alert.showLoader(currentViewController: self, completion: {
                 APIHealthAssitant.getCases(patientId: patient.patientId, onComplete: { p in
-                    Alert.hideLoader(currentViewController: self,completion: {
+                    Alert.hideLoader(currentViewController: self, completion: {
                         patient.cases = p
                         self.casesTableView.reloadData()
                     })
@@ -55,9 +55,9 @@ class PatientProfileViewController: UIViewController {
     @IBAction func onTapNewCase(_: Any) {
         let caseView = Navigation.jumpToView(currentViewController: self, nextViewController: "CaseViewController") as! CaseViewController
         if let patient = patient {
-            Alert.showLoader(currentViewController: self,completion: {
+            Alert.showLoader(currentViewController: self, completion: {
                 APIHealthAssitant.getOrCreateCase(patientId: patient.patientId, onComplete: { caseElement in
-                    Alert.hideLoader(currentViewController: self,completion: {
+                    Alert.hideLoader(currentViewController: self, completion: {
                         caseView.caseElement = caseElement
                         caseView.onGetCase()
                     })

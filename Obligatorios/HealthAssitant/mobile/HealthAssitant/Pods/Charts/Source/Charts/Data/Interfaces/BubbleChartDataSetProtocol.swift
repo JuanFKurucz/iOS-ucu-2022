@@ -9,19 +9,18 @@
 //  https://github.com/danielgindi/Charts
 //
 
-import Foundation
 import CoreGraphics
+import Foundation
 
 @objc
-public protocol BubbleChartDataSetProtocol: BarLineScatterCandleBubbleChartDataSetProtocol
-{
+public protocol BubbleChartDataSetProtocol: BarLineScatterCandleBubbleChartDataSetProtocol {
     // MARK: - Data functions and accessors
-    
+
     var maxSize: CGFloat { get }
     var isNormalizeSizeEnabled: Bool { get }
-    
+
     // MARK: - Styling functions and accessors
-    
+
     /// Sets/gets the width of the circle that surrounds the bubble when highlighted
     var highlightCircleWidth: CGFloat { get set }
 }

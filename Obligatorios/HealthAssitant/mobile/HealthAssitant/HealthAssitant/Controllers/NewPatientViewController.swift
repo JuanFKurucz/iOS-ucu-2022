@@ -41,13 +41,14 @@ class NewPatientViewController: UIViewController, DropDownTableViewControllerDel
             let imageData: Data = image.pngData()!
             Alert.showLoader(currentViewController: self, completion: {
                 APIHealthAssitant.newPatient(code: code, fullName: fullName, gender: gender, birthDate: self.birthDatePicker.date, base64Image: imageData.base64EncodedString(), onComplete: { _ in
-                    Alert.hideLoader(currentViewController: self,completion: {
+                    Alert.hideLoader(currentViewController: self, completion: {
                         _ = self.navigationController?.popViewController(animated: true)
                         self.dismiss(animated: true, completion: nil)
                     })
                 }, onFail: { _ in
                     Alert.hideLoader(currentViewController: self, completion: {
-                    Alert.showAlertBox(currentViewController: self, title: "Invalid new patient", message: "Could not create new patient") })
+                        Alert.showAlertBox(currentViewController: self, title: "Invalid new patient", message: "Could not create new patient")
+                    })
                 })
             })
         } else {
