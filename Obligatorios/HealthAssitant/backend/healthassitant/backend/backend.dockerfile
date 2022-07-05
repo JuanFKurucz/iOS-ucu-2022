@@ -21,8 +21,7 @@ RUN bash -c "if [ $INSTALL_DEV == 'true' ] ; then poetry install --no-root ; els
 ARG INSTALL_JUPYTER=false
 RUN bash -c "if [ $INSTALL_JUPYTER == 'true' ] ; then pip install jupyterlab ; fi"
 
-RUN python -m pip install --index-url https://support.bayesfusion.com/pysmile-A/ pysmile
-
+RUN python -m pip install --index-url https://support.bayesfusion.com/pysmile-A/ pysmile && python -m pip install Pillow
 
 COPY ./app /app
 ENV PYTHONPATH=/app
