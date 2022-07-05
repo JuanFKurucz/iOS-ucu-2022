@@ -38,7 +38,15 @@ class NewPatientViewController: UIViewController, DropDownTableViewControllerDel
 
     @IBAction func onSubmitPatient(_: Any) {
         if let code = identificationField.text, let fullName = fullNameField.text, let gender = Gender(rawValue: genderValue + 1), let image = profileImageView.image {
-            let imageData: Data = image.pngData()!
+            
+            let desiredSize = CGSize(width: 100, height: 100)
+            UIGraphicsBeginImageContextWithOptions(desiredSize, false, 1.0)
+            image.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width:
+            desiredSize.width, height: desiredSize.height)))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            let imageData: Data = resizedImage!.pngData()!
+            
             Alert.showLoader(currentViewController: self, completion: {
                 APIHealthAssitant.newPatient(code: code, fullName: fullName, gender: gender, birthDate: self.birthDatePicker.date, base64Image: imageData.base64EncodedString(), onComplete: { _ in
                     Alert.hideLoader(currentViewController: self, completion: {
