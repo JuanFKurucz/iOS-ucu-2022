@@ -1,5 +1,8 @@
 from typing import Any, List
 import datetime
+import io
+import base64
+from PIL import Image
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -36,6 +39,16 @@ def create_patient(
     """
     Create new patient.
     """
+
+    base64_str = patient_in.image
+    buffer = io.BytesIO()
+    imgdata = base64.b64decode(base64_str)
+    img = Image.open(io.BytesIO(imgdata))
+    new_img = img.resize((100, 100))
+    new_img.save(buffer, format="PNG")
+    img_b64 = base64.b64encode(buffer.getvalue())
+    patient_in.image=str(img_b64)[2:-1]
+
     patient = crud.patient.create_with_owner(
         db=db, obj_in=patient_in, owner_id=current_user.id
     )
