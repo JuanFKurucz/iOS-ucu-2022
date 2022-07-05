@@ -26,7 +26,7 @@ class CaseModel {
 
     func getName() -> String {
         if let endDate = endDate, let diagnosis = diagnosis {
-            return "\(diagnosis.rawValue) - \(TextManipulation.dateToText(date: startDate)) - \(TextManipulation.dateToText(date: endDate))"
+            return "\(diagnosis.text) - \(TextManipulation.dateToText(date: startDate)) - \(TextManipulation.dateToText(date: endDate))"
         }
         return"\(getCaseStatus()) - \(TextManipulation.dateToText(date: startDate))"
     }
