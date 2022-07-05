@@ -33,10 +33,17 @@ class CloseCaseViewController: UIViewController, DropDownTableViewControllerDele
 
     @IBAction func onCloseCase(_: Any) {
         if let diagnosis = diagnosisValue {
-            caseElement!.endCase(date: Date.now, diagnosis: diagnosis)
-            delegate?.onTerminateCase()
-            navigationController?.popViewController(animated: true)
-            dismiss(animated: true, completion: nil)
+            if diagnosis == Diagnosis.Unknown {
+                Alert.showAlertBox(currentViewController: self, title: "Invalid add diagnotic", message: "Please select a valid diagnostic")
+            } else {
+                caseElement!.endCase(date: Date.now, diagnosis: diagnosis)
+                
+                delegate?.onTerminateCase()
+                navigationController?.popViewController(animated: true)
+                dismiss(animated: true, completion: nil)
+            }
+        } else {
+            Alert.showAlertBox(currentViewController: self, title: "Invalid add diagnotic", message: "Please select a valid diagnostic")
         }
     }
 
@@ -48,7 +55,7 @@ class CloseCaseViewController: UIViewController, DropDownTableViewControllerDele
     }
 
     func getSelected(element: Int) {
-        if element >= Diagnosis.allCases.count {
+        if element == 0 {
             diagnosisValue = nil
             diagnosticDropDown.setTitle("Select diagnostic", for: .normal)
         } else {

@@ -25,12 +25,12 @@ class DropDownTableViewController: UITableViewController {
     }
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return elements.count + 1
+        return elements.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DropDownTableViewCell.identifier) as! DropDownTableViewCell
-        if indexPath.row >= elements.count {
+        if indexPath.row == 0 {
             cell.dropDownTextLabel.text = "Remove selection"
         } else {
             cell.dropDownTextLabel.text = elements[indexPath.row]

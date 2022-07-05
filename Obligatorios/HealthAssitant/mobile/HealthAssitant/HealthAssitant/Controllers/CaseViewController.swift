@@ -57,7 +57,7 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
     }
 
     func getSelected(element: Int) {
-        if element >= Symptom.allCases.count {
+        if element == 0 {
             informationValue = nil
             informationDropDown.setTitle("Select information", for: .normal)
         } else {
@@ -75,27 +75,31 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
 
     private func submitInformation(historyElement: HistoryModel) {
         if let caseElement = caseElement {
-            Alert.showLoader(currentViewController: self, completion: {
-                APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { _ in
-                    Alert.hideLoader(currentViewController: self, completion: {
-                        caseElement.history.append(historyElement)
-                        APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
-                            self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
-                        }, onFail: { _ in
-                            Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+            if historyElement.symptom == Symptom.Unknown {
+                Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Please select a valid symptom")
+            } else {
+                Alert.showLoader(currentViewController: self, completion: {
+                    APIHealthAssitant.addInformation(patientId: caseElement.patientId, caseId: caseElement.caseId, information: historyElement, onComplete: { _ in
+                        Alert.hideLoader(currentViewController: self, completion: {
+                            caseElement.history.append(historyElement)
+                            APIHealthAssitant.predictDiagnostic(caseElem: caseElement, onComplete: { diagnosis in
+                                self.diagnosticLabel.text = "Possible diagnostic: \(diagnosis.text)"
+                            }, onFail: { _ in
+                                Alert.showAlertBox(currentViewController: self, title: "Invalid predict diagnostic", message: "Could not predict diagnostic")
+                            })
+
+                            self.informationValue = nil
+                            self.informationDropDown.setTitle("Select information", for: .normal)
+
+                            self.informationTableView.reloadData()
                         })
-
-                        self.informationValue = nil
-                        self.informationDropDown.setTitle("Select information", for: .normal)
-
-                        self.informationTableView.reloadData()
-                    })
-                }, onFail: { _ in
-                    Alert.hideLoader(currentViewController: self, completion: {
-                        Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
+                    }, onFail: { _ in
+                        Alert.hideLoader(currentViewController: self, completion: {
+                            Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not add information")
+                        })
                     })
                 })
-            })
+            }
         } else {
             Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Could not obtain case element")
         }
@@ -105,6 +109,8 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
         if let symptom = informationValue {
             let historyElement = HistoryModel(date: Date.now, symptom: symptom, state: false)
             submitInformation(historyElement: historyElement)
+        } else {
+            Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Please select a valid symptom")
         }
     }
 
@@ -112,6 +118,8 @@ class CaseViewController: UIViewController, DropDownTableViewControllerDelegate,
         if let symptom = informationValue {
             let historyElement = HistoryModel(date: Date.now, symptom: symptom, state: true)
             submitInformation(historyElement: historyElement)
+        } else {
+            Alert.showAlertBox(currentViewController: self, title: "Invalid add information", message: "Please select a valid symptom")
         }
     }
 
