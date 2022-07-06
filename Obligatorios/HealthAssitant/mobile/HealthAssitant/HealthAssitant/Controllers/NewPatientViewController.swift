@@ -12,8 +12,7 @@ class NewPatientViewController: UIViewController, DropDownTableViewControllerDel
 
     var imagePicker = UIImagePickerController()
 
-    var genderValue: Int = -1
-    var genderOptions: [String] = ["Male", "Female"]
+    var genderValue: Int? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,22 +21,22 @@ class NewPatientViewController: UIViewController, DropDownTableViewControllerDel
     @IBAction func onSelectGender(_: Any) {
         let dropDown = Navigation.jumpToView(currentViewController: self, nextViewController: "DropDownTableViewController", overCurrntContext: true) as! DropDownTableViewController
         dropDown.delegate = self
-        dropDown.elements = genderOptions
+        dropDown.elements = Gender.allCases.map { $0.text }
         dropDown.titleLabel.text = "Select gender"
     }
 
     func getSelected(element: Int) {
-        if element >= genderOptions.count {
-            genderValue = -1
+        if element == 0 {
+            genderValue = nil
             genderButton.setTitle("Select gender", for: .normal)
         } else {
             genderValue = element
-            genderButton.setTitle(genderOptions[element], for: .normal)
+            genderButton.setTitle(Gender.allCases[element].text, for: .normal)
         }
     }
 
     @IBAction func onSubmitPatient(_: Any) {
-        if let code = identificationField.text, let fullName = fullNameField.text, let gender = Gender(rawValue: genderValue + 1), let image = profileImageView.image {
+        if let code = identificationField.text, let fullName = fullNameField.text, let genderValue = self.genderValue, let gender = Gender(rawValue: genderValue), let image = profileImageView.image {
             
             let desiredSize = CGSize(width: 100, height: 100)
             UIGraphicsBeginImageContextWithOptions(desiredSize, false, 1.0)
